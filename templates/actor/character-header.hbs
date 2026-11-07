@@ -1,0 +1,75 @@
+<header class="sheet-header">
+  <img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="{{actor.name}}">
+  <div class="header-main">
+    <div class="name-row">
+      <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PENTRA.Name'}}">
+      <span class="ancestry-tag">{{#if ancestry}}{{ancestry.name}}{{else}}<em>{{localize "PENTRA.Ancestry.None"}}</em>{{/if}}</span>
+    </div>
+
+    <div class="resource-strip">
+      <div class="resource health">
+        <label>{{localize "PENTRA.Trait.health"}}</label>
+        <div class="resource-value">
+          <input type="number" name="system.health.value" value="{{system.health.value}}" min="0">
+          <span class="sep">/</span><span class="max">{{system.health.max}}</span>
+        </div>
+      </div>
+
+      <div class="resource edge">
+        <label>{{localize "PENTRA.Trait.edge"}}</label>
+        <div class="resource-value">
+          <input type="number" name="system.edge.value" value="{{system.edge.value}}" min="0" max="6">
+          <span class="sep">/</span><span class="max">6</span>
+        </div>
+        <div class="resource-actions">
+          <button type="button" class="icon-btn" data-action="newSession" data-tooltip="{{localize 'PENTRA.Edge.NewSessionHint'}}"><i class="fa-solid fa-rotate"></i></button>
+          <button type="button" class="icon-btn" data-action="support" data-tooltip="{{localize 'PENTRA.Edge.SupportHint'}}"><i class="fa-solid fa-handshake-angle"></i></button>
+        </div>
+        <span class="hint">{{localize "PENTRA.Edge.Start"}} {{system.edge.start}}</span>
+      </div>
+
+      <div class="resource karma">
+        <label>{{localize "PENTRA.Trait.karma"}}</label>
+        <div class="resource-value">
+          <input type="number" name="system.karma.value" value="{{system.karma.value}}" min="0">
+        </div>
+        <span class="hint">{{localize "PENTRA.Karma.Earned"}} <input class="inline-num" type="number" name="system.karma.earned" value="{{system.karma.earned}}" min="0"></span>
+      </div>
+
+      <div class="resource die">
+        <label>{{localize "PENTRA.Trait.deathDie"}}</label>
+        <select name="system.deathDie.value">{{selectOptions dice.deathDie selected=system.deathDie.value}}</select>
+        <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.deathDie.max}}</span>
+      </div>
+
+      <div class="resource die">
+        <label>{{localize "PENTRA.Trait.resourceDie"}}</label>
+        <select name="system.resourceDie.value">{{selectOptions dice.resourceDie selected=system.resourceDie.value}}</select>
+        <span class="hint">{{localize "PENTRA.Start"}} {{pentraDie system.resourceDie.start}}</span>
+      </div>
+
+      {{#if showDrain}}
+      <div class="resource die">
+        <label>{{localize "PENTRA.Trait.drainDie"}}</label>
+        <select name="system.drainDie.value">{{selectOptions dice.drainDie selected=system.drainDie.value}}</select>
+        <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.drainDie.max}}</span>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="derived-strip">
+      {{#each traitBlock}}
+      <div class="derived" {{#if hint}}data-tooltip="{{hint}}"{{/if}}>
+        <span class="label">{{label}}</span>
+        <span class="value">{{value}}</span>
+      </div>
+      {{/each}}
+      <div class="derived">
+        <span class="label">{{localize "PENTRA.Armor.ARShort"}}</span>
+        <span class="value armor-locs">
+          {{#each armorByLocation}}<span data-tooltip="{{label}}">{{value}}</span>{{/each}}
+        </span>
+      </div>
+    </div>
+  </div>
+</header>

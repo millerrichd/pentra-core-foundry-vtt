@@ -1,0 +1,25 @@
+{
+  "_id": "isSvp5oVhl2yEdls",
+  "_key": "!items!isSvp5oVhl2yEdls",
+  "name": "Grim",
+  "type": "hindrance",
+  "img": "icons/svg/skull.svg",
+  "system": {
+    "description": "<p>Your maximum Death Die is reduced from d12 to d10.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
+    "trait": "deathDie",
+    "delta": -1,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

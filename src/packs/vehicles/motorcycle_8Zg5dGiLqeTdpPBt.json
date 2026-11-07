@@ -1,0 +1,43 @@
+{
+  "_id": "8Zg5dGiLqeTdpPBt",
+  "_key": "!items!8Zg5dGiLqeTdpPBt",
+  "name": "Motorcycle",
+  "type": "vehicle",
+  "img": "icons/svg/wingfoot.svg",
+  "system": {
+    "description": "<p>Off-road or street-legal bike that comfortably seats 1, but can accommodate a second.</p>",
+    "category": "land",
+    "speedClass": 3,
+    "evasion": 10,
+    "armor": 1,
+    "handling": 1,
+    "mounts": 0,
+    "mountNotes": "",
+    "cost": {
+      "die": 6,
+      "multiplier": 2
+    },
+    "legal": true,
+    "health": {
+      "value": 3,
+      "max": 3
+    },
+    "durability": {
+      "value": 6,
+      "max": 6
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "LzwTBEwykPyuvIsX",
+  "_key": "!items!LzwTBEwykPyuvIsX",
+  "name": "Environmental Kit",
+  "type": "fieldkit",
+  "img": "icons/svg/biohazard.svg",
+  "system": {
+    "description": "<p>Sampling, contamination detection, specimen handling.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "environmental",
+    "legal": true,
+    "size": "large",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

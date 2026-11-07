@@ -1,0 +1,188 @@
+{
+  "_id": "EgMsMNCcBxuWv9dB",
+  "_key": "!actors!EgMsMNCcBxuWv9dB",
+  "name": "Security Guard",
+  "type": "npc",
+  "img": "icons/svg/mystery-man-black.svg",
+  "system": {
+    "attributes": {
+      "charm": {
+        "rank": 1
+      },
+      "finesse": {
+        "rank": 1
+      },
+      "intellect": {
+        "rank": 1
+      },
+      "knowledge": {
+        "rank": 1
+      },
+      "might": {
+        "rank": 1
+      }
+    },
+    "resistances": {
+      "fortitude": {
+        "rank": 0
+      },
+      "mind": {
+        "rank": 0
+      },
+      "reflex": {
+        "rank": 0
+      }
+    },
+    "skills": {
+      "martial_arts": 1,
+      "medicine": 1,
+      "shooting": 1
+    },
+    "languages": [],
+    "size": "medium",
+    "notes": "<p>Your traditional security guard: someone who monitors a shopping center or small corporate building, not military. Carries a Reloading or Trauma Kit one die size above the default.</p>",
+    "health": {
+      "value": 3,
+      "max": 3
+    },
+    "evasion": {
+      "base": 7
+    },
+    "initiativeDie": {
+      "value": 6
+    }
+  },
+  "items": [
+    {
+      "_id": "TsLa1m8O7kGGHH6Q",
+      "name": "Bulletproof Vest",
+      "type": "armor",
+      "img": "icons/equipment/chest/bullet-proof-vest-kevlar.webp",
+      "system": {
+        "description": "<p>An armored vest that protects the vitals in the torso. Is wearable under a Leather Jacket or Leather Long Coat.</p>",
+        "legal": true,
+        "ar": 1,
+        "coverage": {
+          "torso": true,
+          "arms": false,
+          "legs": false,
+          "head": false
+        },
+        "evasion": 0,
+        "size": "normal",
+        "cost": {
+          "die": 4,
+          "multiplier": 1
+        },
+        "layerable": true,
+        "heavy": false,
+        "durability": 8,
+        "equipped": true
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!EgMsMNCcBxuWv9dB.TsLa1m8O7kGGHH6Q"
+    },
+    {
+      "_id": "xPyOkIEf2giv8o2B",
+      "name": "Pistol, Light",
+      "type": "weapon",
+      "img": "icons/weapons/guns/gun-pistol-brown.webp",
+      "system": {
+        "description": "<p>This pistol is designed for one-handed use. The light model does acceptable damage to unarmored people.</p>",
+        "heavy": false,
+        "reloadActions": 0,
+        "equipped": true,
+        "category": "ranged",
+        "skill": "shooting",
+        "wounds": 1,
+        "increment": "odd",
+        "range": "close",
+        "hands": 1,
+        "size": "normal",
+        "legal": true,
+        "cost": {
+          "die": 4,
+          "multiplier": 1
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!EgMsMNCcBxuWv9dB.xPyOkIEf2giv8o2B"
+    },
+    {
+      "_id": "mUkbe9oP1U9Zceoo",
+      "name": "Reloading Kit",
+      "type": "fieldkit",
+      "img": "icons/weapons/ammunition/ammo-magazine-clip.webp",
+      "system": {
+        "description": "<p>Routine ammunition and weapon maintenance. After combat, make a usage check with range 1–2, plus 1 for every 5 rounds of combat fired.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+        "kitType": "reloading",
+        "legal": true,
+        "size": "normal",
+        "cost": {
+          "die": 6,
+          "multiplier": 1
+        },
+        "usage": 10,
+        "quantity": 1
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!EgMsMNCcBxuWv9dB.mUkbe9oP1U9Zceoo"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  },
+  "prototypeToken": {
+    "name": "Security Guard",
+    "actorLink": false,
+    "disposition": -1,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "icons/svg/mystery-man-black.svg"
+    }
+  }
+}

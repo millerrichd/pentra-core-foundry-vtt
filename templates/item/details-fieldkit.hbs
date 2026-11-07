@@ -1,0 +1,19 @@
+<section class="item-details">
+  <div class="form-group">
+    <label>{{localize "PENTRA.Kit.Type"}}</label>
+    <select name="system.kitType">{{selectOptions options.kitTypes selected=system.kitType localize=true}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Kit.Usage"}}</label>
+    <select name="system.usage">
+      <option value="" {{#unless (ne system.usage null)}}selected{{/unless}}>{{localize "PENTRA.Armor.DurabilityUnset"}}</option>
+      {{selectOptions options.usageDice selected=system.usage}}
+    </select>
+    <p class="hint">{{localize "PENTRA.Kit.UsageHint"}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Quantity"}}</label>
+    <input type="number" name="system.quantity" value="{{system.quantity}}" min="0">
+  </div>
+  {{> "systems/pentra-core-foundry-vtt/templates/item/physical.hbs"}}
+</section>

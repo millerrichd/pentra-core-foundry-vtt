@@ -1,0 +1,31 @@
+{
+  "_id": "VxP93Wor8tqDh7LP",
+  "_key": "!items!VxP93Wor8tqDh7LP",
+  "name": "Technical Kit",
+  "type": "fieldkit",
+  "img": "icons/svg/clockwork.svg",
+  "system": {
+    "description": "<p>Electronics/mechanical repair and diagnostics. Needed to repair armor with a Crafting check.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "technical",
+    "legal": true,
+    "size": "large",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

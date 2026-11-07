@@ -1,0 +1,25 @@
+{
+  "_id": "pOSc5o4Ex7V5h85p",
+  "_key": "!items!pOSc5o4Ex7V5h85p",
+  "name": "Rich",
+  "type": "talent",
+  "img": "icons/svg/coins.svg",
+  "system": {
+    "description": "<p>Your starting Resource Die is increased from d6 to d8, or your current die increases one level.</p>",
+    "trait": "resourceDie",
+    "delta": 1,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "uoRgt9wA7U1SkVQG",
+  "_key": "!items!uoRgt9wA7U1SkVQG",
+  "name": "SCUBA Kit",
+  "type": "fieldkit",
+  "img": "icons/svg/whale.svg",
+  "system": {
+    "description": "<p>Equipment to handle underwater trips, from air to fins.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "scuba",
+    "legal": true,
+    "size": "large",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

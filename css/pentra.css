@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Pentra: Five-Dice Engine — sheet & chat styles
+   Built on Foundry's theme variables so light and dark themes both work.
+   ========================================================================== */
+
+.pentra {
+  --pentra-accent: #c9792b;
+  --pentra-accent-soft: rgba(201, 121, 43, 0.15);
+  --pentra-success: #3f8f4f;
+  --pentra-failure: #b03a3a;
+  --pentra-border: var(--color-border, rgba(127, 127, 127, 0.35));
+  --pentra-muted: var(--color-text-secondary, #7a7a7a);
+  --pentra-panel: rgba(127, 127, 127, 0.08);
+}
+
+/* ---------- Sheet frame ---------- */
+
+.pentra.sheet .window-content {
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.pentra.sheet .sheet-tabs {
+  flex: 0 0 auto;
+  margin: 0;
+  border-bottom: 1px solid var(--pentra-border);
+}
+
+.pentra.sheet .sheet-tabs > a.active {
+  text-shadow: none;
+  border-bottom: 2px solid var(--pentra-accent);
+}
+
+.pentra.sheet .tab:not(.active) { display: none; }
+
+.pentra .hint {
+  color: var(--pentra-muted);
+  font-size: var(--font-size-12, 12px);
+}
+
+.pentra .warning { color: var(--pentra-failure); }
+
+.pentra h3 {
+  margin: 0;
+  font-size: var(--font-size-14, 14px);
+  border: none;
+}
+
+.pentra .rollable { cursor: pointer; }
+.pentra .rollable:hover { color: var(--pentra-accent); text-shadow: none; }
+
+.pentra input.inline-num {
+  width: 3.5em;
+  height: 1.5em;
+  text-align: center;
+}
+
+.pentra .icon-btn,
+.pentra .karma-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 1.75rem;
+  height: 1.5rem;
+  padding: 0 0.35rem;
+  line-height: 1;
+  font-size: var(--font-size-12, 12px);
+}
+
+.pentra .karma-btn {
+  color: var(--pentra-accent);
+  border-color: var(--pentra-accent);
+  gap: 0.15rem;
+}
+.pentra .karma-btn i { font-size: 0.7em; }
+
+.pentra .toggle.active {
+  background: var(--pentra-accent-soft);
+  border-color: var(--pentra-accent);
+}
+
+.pentra .panel {
+  background: var(--pentra-panel);
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pentra .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.pentra .button-row button { flex: 0 0 auto; width: auto; }
+
+/* ---------- Header ---------- */
+
+.pentra .sheet-header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  flex: 0 0 auto;
+}
+
+.pentra .profile-img {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pentra .header-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.pentra .name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pentra input.actor-name,
+.pentra input.item-name {
+  font-family: var(--font-h1, inherit);
+  font-size: 1.6rem;
+  height: auto;
+  border: none;
+  border-bottom: 1px solid var(--pentra-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.pentra .ancestry-tag,
+.pentra .item-type {
+  color: var(--pentra-muted);
+  white-space: nowrap;
+}
+
+.pentra .resource-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pentra .resource {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  background: var(--pentra-panel);
+  min-width: 5.5rem;
+}
+
+.pentra .resource > label {
+  font-size: var(--font-size-11, 11px);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pentra-muted);
+}
+
+.pentra .resource-value {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.pentra .resource-value input {
+  width: 2.75em;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.pentra .resource .max { font-weight: bold; }
+.pentra .resource select { width: auto; }
+.pentra .resource-actions { display: flex; gap: 0.2rem; }
+.pentra .resource.health { border-color: var(--pentra-failure); }
+.pentra .resource.edge { border-color: var(--pentra-accent); }
+
+.pentra .derived-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pentra .derived {
+  display: flex;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+
+.pentra .derived .label {
+  color: var(--pentra-muted);
+  font-size: var(--font-size-12, 12px);
+}
+
+.pentra .derived .value { font-weight: bold; }
+
+.pentra .armor-locs {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.pentra .armor-locs > span {
+  min-width: 1.4em;
+  text-align: center;
+  border: 1px solid var(--pentra-border);
+  border-radius: 3px;
+  padding: 0 0.15rem;
+}
+
+/* ---------- Skills tab ---------- */
+
+.pentra .tab-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.pentra .tab-toolbar button { flex: 0 0 auto; width: auto; }
+
+.pentra .attribute-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.6rem;
+}
+
+.pentra .attribute-block {
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pentra .attribute-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  background: var(--pentra-accent-soft);
+  font-weight: bold;
+}
+
+.pentra .attribute-header > a,
+.pentra .attribute-header > span { flex: 1; }
+
+.pentra .rank-select {
+  flex: 0 0 auto;
+  width: auto;
+  font-weight: bold;
+}
+
+.pentra .skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+}
+
+.pentra .skill {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0;
+}
+
+.pentra .skill .skill-name { flex: 1; }
+.pentra .skill:not(.trained) .skill-name { color: var(--pentra-muted); }
+.pentra .skill input[type="number"] {
+  flex: 0 0 2.5em;
+  width: 2.5em;
+  text-align: center;
+}
+.pentra .skill .lang-name { flex: 1; }
+
+.pentra .languages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.35rem;
+  padding-top: 0.25rem;
+  border-top: 1px dashed var(--pentra-border);
+  font-weight: bold;
+}
+
+.pentra .attribute-block.resistances .hint { padding: 0 0.5rem 0.4rem; margin: 0; }
+
+/* ---------- Item lists ---------- */
+
+.pentra .item-section { margin-bottom: 0.75rem; }
+
+.pentra .item-header,
+.pentra .item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.pentra .item-header {
+  background: var(--pentra-accent-soft);
+  border-radius: 4px;
+  font-size: var(--font-size-12, 12px);
+  font-weight: bold;
+}
+
+.pentra .item-header h3 { flex: 1; }
+
+.pentra .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pentra .item-row { border-bottom: 1px solid var(--pentra-border); }
+.pentra .item-row:last-child { border-bottom: none; }
+.pentra .item-row.unequipped { opacity: 0.6; }
+.pentra .item-row.broken .item-name { text-decoration: line-through; }
+
+.pentra .item-name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.pentra .item-name img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  flex: 0 0 24px;
+}
+
+.pentra .col { flex: 0 0 7.5rem; text-align: center; }
+.pentra .col.narrow { flex: 0 0 3.5rem; }
+.pentra .col.wide { flex: 0 0 14rem; text-align: left; }
+.pentra .col input[type="number"] { width: 3em; text-align: center; }
+.pentra .col select { width: 100%; }
+
+.pentra .controls {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+  min-width: 2rem;
+}
+.pentra .controls a { color: var(--pentra-muted); }
+.pentra .controls a:hover,
+.pentra .controls a.active { color: var(--pentra-accent); }
+
+.pentra .empty { padding: 0.4rem; font-style: italic; }
+
+.pentra .combat-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.pentra .combat-summary .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  background: var(--pentra-panel);
+}
+
+.pentra .stat .label {
+  font-size: var(--font-size-11, 11px);
+  color: var(--pentra-muted);
+}
+.pentra .stat .value { font-size: 1.2rem; font-weight: bold; }
+
+.pentra .resource-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.pentra .resource-line button,
+.pentra .resource-line select { flex: 0 0 auto; width: auto; }
+.pentra .resource-line .spacer { flex: 1; }
+
+.pentra .reference { margin: 0; padding-left: 1.2rem; }
+
+.pentra .biography-tab prose-mirror,
+.pentra .notes prose-mirror,
+.pentra .item-description prose-mirror {
+  min-height: 200px;
+}
+
+/* ---------- NPC ---------- */
+
+.pentra.npc .npc-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pentra .npc-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pentra .stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.pentra .npc-attr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 5rem;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  padding: 0.2rem;
+}
+
+.pentra .npc-attr select { width: auto; }
+
+.pentra .npc-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0 0.75rem;
+  padding: 0.25rem 0.4rem;
+}
+
+/* ---------- Item sheet ---------- */
+
+.pentra.item .item-sheet-header .profile-img {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+}
+
+.pentra .item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pentra .form-fields.checkboxes { flex-wrap: wrap; gap: 0.6rem; }
+.pentra label.checkbox { display: flex; align-items: center; gap: 0.2rem; }
+
+/* ---------- Combat tracker ---------- */
+
+.combat-tracker .pentra-init {
+  font-size: var(--font-size-11, 11px);
+  color: var(--color-text-secondary, #999);
+}
+
+/* ---------- Chat cards ---------- */
+
+.pentra.chat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pentra.chat-card .card-header {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--pentra-border);
+  padding-bottom: 0.2rem;
+}
+
+.pentra.chat-card .card-header:has(img) {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pentra.chat-card .subtitle {
+  font-size: var(--font-size-12, 12px);
+  color: var(--pentra-muted);
+}
+
+.pentra.chat-card .modifier-list {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: var(--font-size-12, 12px);
+}
+
+.pentra.chat-card .result {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+}
+.pentra.chat-card .result.success { color: var(--pentra-success); background: rgba(63, 143, 79, 0.12); }
+.pentra.chat-card .result.failure { color: var(--pentra-failure); background: rgba(176, 58, 58, 0.12); }
+.pentra.chat-card .result .vs { font-size: var(--font-size-12, 12px); font-weight: normal; opacity: 0.8; }
+
+.pentra.chat-card .tag {
+  align-self: flex-start;
+  font-size: var(--font-size-12, 12px);
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--pentra-accent);
+  color: var(--pentra-accent);
+}
+
+.pentra.chat-card .damage-block {
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pentra.chat-card .wounds { font-size: 1.1rem; text-align: center; }
+.pentra.chat-card .card-buttons { display: flex; gap: 0.25rem; }
+.pentra.chat-card .notes { margin: 0; padding-left: 1rem; font-size: var(--font-size-12, 12px); }
+.pentra.chat-card .dice-total.static {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* ---------- Roll dialog ---------- */
+
+.pentra.roll-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}

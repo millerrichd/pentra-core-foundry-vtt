@@ -1,0 +1,37 @@
+{
+  "_id": "e8nJrZMkuDFNgf4R",
+  "_key": "!items!e8nJrZMkuDFNgf4R",
+  "name": "Shotgun, Medium",
+  "type": "weapon",
+  "img": "icons/weapons/guns/gun-blunderbuss-gold.webp",
+  "system": {
+    "description": "<p>This shotgun is designed for two-handed use. The medium model is designed for crowd control.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "ranged",
+    "skill": "shooting",
+    "wounds": 2,
+    "increment": "even",
+    "range": "veryClose",
+    "hands": 2,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 6,
+      "multiplier": 2
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

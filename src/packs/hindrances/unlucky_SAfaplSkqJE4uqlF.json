@@ -1,0 +1,25 @@
+{
+  "_id": "SAfaplSkqJE4uqlF",
+  "_key": "!items!SAfaplSkqJE4uqlF",
+  "name": "Unlucky",
+  "type": "hindrance",
+  "img": "icons/svg/cancel.svg",
+  "system": {
+    "description": "<p>Your starting Edge for each session is reduced from 2 to 0.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
+    "trait": "edge",
+    "delta": -2,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

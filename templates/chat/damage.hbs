@@ -1,0 +1,8 @@
+<div class="pentra chat-card damage-card">
+  <header class="card-header"><h3>{{localize "PENTRA.Damage.Title"}}: {{name}}</h3></header>
+  <div class="damage-math">
+    {{wounds}} {{localize "PENTRA.Wounds"}} − {{ar}} {{localize "PENTRA.Armor.ARShort"}} ({{location}}) = <strong>{{taken}}</strong>
+  </div>
+  <div class="health-line">{{localize "PENTRA.Trait.health"}}: <strong>{{health}}</strong> / {{max}}{{#if taken}} · {{localize "PENTRA.Status.shaken"}}{{/if}}</div>
+  {{#if lines.length}}<ul class="notes">{{#each lines}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+</div>

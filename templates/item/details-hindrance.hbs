@@ -1,0 +1,16 @@
+<section class="item-details">
+  <div class="form-group">
+    <label>{{localize "PENTRA.Modifies"}}</label>
+    <select name="system.trait">{{selectOptions options.traits selected=system.trait localize=true}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Change"}}</label>
+    <input type="number" name="system.delta" value="{{system.delta}}">
+    <p class="hint">{{localize "PENTRA.ChangeHint"}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Requires"}}</label>
+    <input type="text" name="system.requires" value="{{system.requires}}">
+  </div>
+  <p class="hint">{{localize "PENTRA.TraitItemHint"}}</p>
+</section>

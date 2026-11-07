@@ -1,0 +1,23 @@
+{
+  "_id": "JNvkqalLugbvbGHe",
+  "_key": "!items!JNvkqalLugbvbGHe",
+  "name": "Human",
+  "type": "ancestry",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "description": "<p>We are different from one another, but the same. As a people, we are curious and adaptable, and inherently social creatures.</p><p><strong>Features:</strong> Attribute Boost: Charm.</p>",
+    "attributeBoost": "charm"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

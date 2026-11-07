@@ -1,0 +1,101 @@
+<section class="tab gear-tab {{tab.cssClass}}" data-group="primary" data-tab="gear">
+  <section class="panel resource-panel">
+    <div class="resource-line">
+      <span><strong>{{localize "PENTRA.Trait.resourceDie"}}</strong> {{pentraDie system.resourceDie.value}}</span>
+      <button type="button" data-action="resourceUsage"><i class="fa-solid fa-dice"></i> {{localize "PENTRA.Usage.Check"}}</button>
+      <span class="spacer"></span>
+      <select class="lifestyle-select">{{selectOptions lifestyles selected="middle"}}</select>
+      <button type="button" data-action="lifestyle"><i class="fa-solid fa-hotel"></i> {{localize "PENTRA.Lifestyle.Pay"}}</button>
+    </div>
+    <div class="resource-line">
+      <span class="{{#if system.carry.over}}warning{{/if}}"><strong>{{localize "PENTRA.Carry.Slots"}}</strong> {{system.carry.used}} / {{system.carry.max}}</span>
+      <span class="hint">{{localize "PENTRA.Carry.Hint"}}</span>
+    </div>
+  </section>
+
+  {{! Field kits }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.fieldkit"}}</h3>
+      <span class="col">{{localize "PENTRA.Kit.Usage"}}</span>
+      <span class="col">{{localize "PENTRA.Cost"}}</span>
+      <span class="controls">
+        <a data-action="refreshKits" data-tooltip="{{localize 'PENTRA.Kit.Refresh'}}"><i class="fa-solid fa-arrows-rotate"></i></a>
+        {{#if editable}}<a data-action="itemCreate" data-type="fieldkit"><i class="fa-solid fa-plus"></i></a>{{/if}}
+      </span>
+    </header>
+    <ol class="item-list">
+      {{#each items.fieldkit}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col">
+          <select data-item-field="system.usage" data-dtype="Number">{{selectOptions @root.dice.usage selected=system.usage}}</select>
+        </span>
+        <span class="col">{{cost}}</span>
+        <span class="controls">
+          <a data-action="itemUsage" data-tooltip="{{#if isReloading}}{{localize 'PENTRA.Kit.Restock'}}{{else}}{{localize 'PENTRA.Kit.Use'}}{{/if}}"><i class="fa-solid fa-dice"></i></a>
+          <a data-action="itemBuy" data-tooltip="{{localize 'PENTRA.Purchase.Buy'}}"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a data-action="itemSell" data-tooltip="{{localize 'PENTRA.Sell.Title'}}"><i class="fa-solid fa-coins"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{/each}}
+    </ol>
+  </section>
+
+  {{! Misc gear }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.gear"}}</h3>
+      <span class="col narrow">{{localize "PENTRA.Quantity"}}</span>
+      <span class="col">{{localize "PENTRA.Size.label"}}</span>
+      <span class="col">{{localize "PENTRA.Cost"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="gear"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.gear}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col narrow"><input type="number" data-item-field="system.quantity" value="{{system.quantity}}" min="0"></span>
+        <span class="col">{{localize (lookup (lookup @root.config.sizes system.size) "label")}}</span>
+        <span class="col">{{cost}}</span>
+        <span class="controls">
+          <a data-action="itemBuy" data-tooltip="{{localize 'PENTRA.Purchase.Buy'}}"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a data-action="itemSell" data-tooltip="{{localize 'PENTRA.Sell.Title'}}"><i class="fa-solid fa-coins"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{/each}}
+    </ol>
+  </section>
+
+  {{! Vehicles }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.vehicle"}}</h3>
+      <span class="col narrow">{{localize "PENTRA.Vehicle.SpeedShort"}}</span>
+      <span class="col">{{localize "PENTRA.Trait.health"}}</span>
+      <span class="col narrow">{{localize "PENTRA.Trait.evasion"}}</span>
+      <span class="col narrow">{{localize "PENTRA.Armor.ARShort"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="vehicle"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.vehicle}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col narrow">{{system.speedClass}}</span>
+        <span class="col"><input type="number" data-item-field="system.health.value" value="{{system.health.value}}" min="0"> / {{system.health.max}}</span>
+        <span class="col narrow">{{system.evasion}}</span>
+        <span class="col narrow">{{system.armor}}{{#if system.heavyArmor}}×2{{/if}}</span>
+        <span class="controls">
+          <a data-action="itemBuy" data-tooltip="{{localize 'PENTRA.Purchase.Buy'}}"><i class="fa-solid fa-cart-shopping"></i></a>
+          <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{/each}}
+    </ol>
+  </section>
+
+  <p class="hint">{{localize "PENTRA.Purchase.Hint"}}</p>
+</section>

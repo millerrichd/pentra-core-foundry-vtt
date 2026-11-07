@@ -1,0 +1,18 @@
+<div class="form-group">
+  <label>{{localize "PENTRA.Cost"}}</label>
+  <div class="form-fields">
+    <select name="system.cost.die">{{selectOptions options.dice selected=system.cost.die}}</select>
+    <select name="system.cost.multiplier">{{selectOptions options.multipliers selected=system.cost.multiplier}}</select>
+    <span class="hint">R.D.</span>
+  </div>
+</div>
+{{#if system.size}}
+<div class="form-group">
+  <label>{{localize "PENTRA.Size.label"}}</label>
+  <select name="system.size">{{selectOptions options.sizes selected=system.size localize=true}}</select>
+</div>
+{{/if}}
+<div class="form-group">
+  <label>{{localize "PENTRA.Legal"}}</label>
+  <input type="checkbox" name="system.legal" {{checked system.legal}}>
+</div>

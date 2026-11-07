@@ -1,0 +1,37 @@
+{
+  "_id": "mWPjjcqBGuwyONGL",
+  "_key": "!items!mWPjjcqBGuwyONGL",
+  "name": "Short Sword",
+  "type": "weapon",
+  "img": "icons/weapons/swords/shortsword-broad-blue.webp",
+  "system": {
+    "description": "<p>A sword whose blade is about forearm length; it sits between a knife and a long sword.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "melee",
+    "skill": "melee_weapons",
+    "wounds": 1,
+    "increment": "even",
+    "range": "melee",
+    "hands": 1,
+    "size": "normal",
+    "legal": false,
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

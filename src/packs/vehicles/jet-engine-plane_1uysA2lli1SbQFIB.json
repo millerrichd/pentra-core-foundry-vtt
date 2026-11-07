@@ -1,0 +1,43 @@
+{
+  "_id": "1uysA2lli1SbQFIB",
+  "_key": "!items!1uysA2lli1SbQFIB",
+  "name": "Jet Engine Plane",
+  "type": "vehicle",
+  "img": "icons/svg/wing.svg",
+  "system": {
+    "description": "<p>A fighter jet that seats 1 or 2 pilots and is used primarily for combat; it can be hard to land and disguise.</p>",
+    "category": "air",
+    "speedClass": 5,
+    "evasion": 11,
+    "armor": 2,
+    "handling": 1,
+    "mounts": 3,
+    "mountNotes": "3 forward",
+    "cost": {
+      "die": 10,
+      "multiplier": 2
+    },
+    "legal": true,
+    "health": {
+      "value": 6,
+      "max": 6
+    },
+    "durability": {
+      "value": 6,
+      "max": 6
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

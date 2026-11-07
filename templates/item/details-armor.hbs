@@ -1,0 +1,38 @@
+<section class="item-details">
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.AR"}}</label>
+    <input type="number" name="system.ar" value="{{system.ar}}" min="0" max="4">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.Coverage"}}</label>
+    <div class="form-fields checkboxes">
+      {{#each locations}}
+      <label class="checkbox"><input type="checkbox" name="system.coverage.{{key}}" {{checked checked}}> {{label}}</label>
+      {{/each}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.EvasionPenalty"}}</label>
+    <input type="number" name="system.evasion" value="{{system.evasion}}" max="0">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.Durability"}}</label>
+    <select name="system.durability">
+      <option value="" {{#unless (ne system.durability null)}}selected{{/unless}}>{{localize "PENTRA.Armor.DurabilityUnset"}}</option>
+      {{selectOptions options.usageDice selected=system.durability}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.Layerable"}}</label>
+    <input type="checkbox" name="system.layerable" {{checked system.layerable}}>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.Heavy"}}</label>
+    <input type="checkbox" name="system.heavy" {{checked system.heavy}}>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Worn"}}</label>
+    <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+  </div>
+  {{> "systems/pentra-core-foundry-vtt/templates/item/physical.hbs"}}
+</section>

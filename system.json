@@ -1,26 +1,125 @@
 {
   "id": "pentra-core-foundry-vtt",
   "title": "Pentra: Five-Dice Engine Core",
-  "description": "The core system for the Pentra: Five-Dice Engine.",
-  "version": "1.0.0",
+  "description": "The core system for Pentra: Five-Dice Engine — a universal, classless, levelless roleplaying system built on d4 through d12.",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
   },
-  "esmodules": ["module/main.js"],
-  "styles": ["css/style.css"],
-  "initiative": "@traits.initiative_die.current",
-  "actors": [
-    {"type": "character", "label": "Character"},
-    {"type": "npc", "label": "NPC"}
+  "authors": [
+    {
+      "name": "Richard Miller",
+      "discord": "turtletopgames"
+    }
   ],
-  "items": [
-    {"type": "ancestry", "label": "Ancestry"},
-    {"type": "hindrance", "label": "Hindrance"},
-    {"type": "talent", "label": "Talent"},
-    {"type": "armor", "label": "Armor"},
-    {"type": "weapon", "label": "Weapon"},
-    {"type": "fieldkit", "label": "Field Kit"},
-    {"type": "vehicle", "label": "Vehicle"}
-  ]
+  "esmodules": ["modules/main.js"],
+  "styles": ["css/pentra.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": ["biography"]
+      },
+      "npc": {
+        "htmlFields": ["notes"]
+      }
+    },
+    "Item": {
+      "ancestry": { "htmlFields": ["description"] },
+      "hindrance": { "htmlFields": ["description"] },
+      "talent": { "htmlFields": ["description"] },
+      "armor": { "htmlFields": ["description"] },
+      "weapon": { "htmlFields": ["description"] },
+      "fieldkit": { "htmlFields": ["description"] },
+      "gear": { "htmlFields": ["description"] },
+      "vehicle": { "htmlFields": ["description"] }
+    }
+  },
+  "packs": [
+    {
+      "name": "ancestries",
+      "label": "Ancestries",
+      "path": "packs/ancestries",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "hindrances",
+      "label": "Hindrances",
+      "path": "packs/hindrances",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "talents",
+      "label": "Talents",
+      "path": "packs/talents",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "armor",
+      "label": "Armor",
+      "path": "packs/armor",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "weapons",
+      "label": "Weapons",
+      "path": "packs/weapons",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "field-kits",
+      "label": "Field Kits",
+      "path": "packs/field-kits",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "vehicles",
+      "label": "Vehicles",
+      "path": "packs/vehicles",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    },
+    {
+      "name": "npcs",
+      "label": "Example NPCs",
+      "path": "packs/npcs",
+      "type": "Actor",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Pentra Core",
+      "sorting": "m",
+      "packs": ["ancestries", "hindrances", "talents", "armor", "weapons", "field-kits", "vehicles", "npcs"]
+    }
+  ],
+  "grid": {
+    "type": 1,
+    "distance": 1,
+    "units": "yd"
+  },
+  "primaryTokenAttribute": "health",
+  "initiative": "1d6"
 }

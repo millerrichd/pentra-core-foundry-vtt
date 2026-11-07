@@ -1,0 +1,40 @@
+{
+  "_id": "UffUQn0DYEhGaMgr",
+  "_key": "!items!UffUQn0DYEhGaMgr",
+  "name": "Body Armor",
+  "type": "armor",
+  "img": "icons/equipment/chest/breastplate-layered-steel-black.webp",
+  "system": {
+    "description": "<p>This is a full suit of body armor, designed for mobility over damage reduction.</p>",
+    "legal": false,
+    "ar": 2,
+    "coverage": {
+      "torso": true,
+      "arms": true,
+      "legs": true,
+      "head": true
+    },
+    "evasion": -2,
+    "size": "large",
+    "cost": {
+      "die": 8,
+      "multiplier": 2
+    },
+    "layerable": false,
+    "heavy": false,
+    "durability": null,
+    "equipped": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

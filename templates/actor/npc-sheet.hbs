@@ -1,0 +1,145 @@
+<div class="npc-sheet">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="{{actor.name}}">
+    <div class="header-main">
+      <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PENTRA.Name'}}">
+      <div class="resource-strip">
+        <div class="resource health">
+          <label>{{localize "PENTRA.Trait.health"}}</label>
+          <div class="resource-value">
+            <input type="number" name="system.health.value" value="{{system.health.value}}" min="0">
+            <span class="sep">/</span>
+            <input type="number" name="system.health.max" value="{{system.health.max}}" min="0">
+          </div>
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Trait.evasion"}}</label>
+          <div class="resource-value">
+            <input type="number" name="system.evasion.base" value="{{system.evasion.base}}">
+            {{#if system.armorEvasion}}<span class="hint">→ {{system.evasion.value}}</span>{{/if}}
+          </div>
+        </div>
+        <div class="resource die">
+          <label>{{localize "PENTRA.Trait.initiativeDie"}}</label>
+          <select name="system.initiativeDie.value">{{selectOptions initDice selected=system.initiativeDie.value}}</select>
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Size.label"}}</label>
+          <select name="system.size">{{selectOptions sizeOptions selected=system.size localize=true}}</select>
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Armor.ARShort"}}</label>
+          <span class="armor-locs">{{#each armorByLocation}}<span data-tooltip="{{label}}">{{value}}</span>{{/each}}</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="npc-body">
+    <section class="npc-stats">
+      <div class="stat-row">
+        {{#each attributes as |attr|}}
+        <div class="npc-attr">
+          <a class="rollable" data-action="roll" data-type="attribute" data-key="{{attr.key}}">{{attr.label}}</a>
+          <select name="system.attributes.{{attr.key}}.rank">{{selectOptions @root.rankOptions selected=attr.rank}}</select>
+        </div>
+        {{/each}}
+      </div>
+      <div class="stat-row">
+        {{#each resistances as |res|}}
+        <div class="npc-attr">
+          <a class="rollable" data-action="roll" data-type="resistance" data-key="{{res.key}}">{{res.label}}</a>
+          <select name="system.resistances.{{res.key}}.rank">{{selectOptions @root.rankOptions selected=res.rank}}</select>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+
+    <section class="item-section">
+      <header class="item-header">
+        <h3>{{localize "PENTRA.Skills"}}</h3>
+        <span class="controls">
+          <a data-action="toggleEdit" class="{{#if editMode}}active{{/if}}" data-tooltip="{{localize 'PENTRA.ShowAllSkills'}}"><i class="fa-solid fa-list"></i></a>
+        </span>
+      </header>
+      <div class="npc-skills">
+        {{#each attributes as |attr|}}
+          {{#each attr.skills as |skill|}}
+          <div class="skill {{#if skill.trained}}trained{{/if}}">
+            <a class="rollable skill-name" data-action="roll" data-type="skill" data-key="{{skill.key}}">{{skill.label}}</a>
+            <input type="number" name="system.skills.{{skill.key}}" value="{{skill.value}}" min="0" max="6">
+          </div>
+          {{/each}}
+        {{/each}}
+      </div>
+    </section>
+
+    <section class="item-section">
+      <header class="item-header">
+        <h3>{{localize "TYPES.Item.weapon"}}</h3>
+        <span class="col">{{localize "PENTRA.Weapon.Damage"}}</span>
+        <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="weapon"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+      </header>
+      <ol class="item-list">
+        <li class="item-row unarmed">
+          <a class="item-name rollable" data-action="attack" data-unarmed="true"><i class="fa-solid fa-hand-fist"></i> {{localize "PENTRA.Unarmed"}}</a>
+          <span class="col">{{martialArts.wounds}} ({{localize (lookup config.increments martialArts.increment)}})</span>
+          <span class="controls"></span>
+        </li>
+        {{#each items.weapon}}
+        <li class="item-row" data-item-id="{{id}}" data-drag="true">
+          <a class="item-name rollable" data-action="attack"><img src="{{img}}" alt=""> {{name}}</a>
+          <span class="col">{{damage}}</span>
+          <span class="controls">
+            <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </span>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+
+    <section class="item-section">
+      <header class="item-header">
+        <h3>{{localize "TYPES.Item.armor"}}</h3>
+        <span class="col">{{localize "PENTRA.Armor.Durability"}}</span>
+        <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="armor"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+      </header>
+      <ol class="item-list">
+        {{#each items.armor}}
+        <li class="item-row {{#unless system.equipped}}unequipped{{/unless}}" data-item-id="{{id}}" data-drag="true">
+          <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}} <span class="hint">AR {{system.ar}} ({{coverage}})</span></a>
+          <span class="col"><select data-item-field="system.durability" data-dtype="Number">{{selectOptions @root.dice.usage selected=system.durability}}</select></span>
+          <span class="controls">
+            <a data-action="itemToggle" class="{{#if system.equipped}}active{{/if}}"><i class="fa-solid fa-shirt"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </span>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+
+    {{#if items.fieldkit.length}}
+    <section class="item-section">
+      <header class="item-header"><h3>{{localize "TYPES.Item.fieldkit"}}</h3></header>
+      <ol class="item-list">
+        {{#each items.fieldkit}}
+        <li class="item-row" data-item-id="{{id}}">
+          <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+          <span class="col"><select data-item-field="system.usage" data-dtype="Number">{{selectOptions @root.dice.usage selected=system.usage}}</select></span>
+          <span class="controls">
+            <a data-action="itemUsage"><i class="fa-solid fa-dice"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </span>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+    {{/if}}
+
+    <section class="notes">
+      <h3>{{localize "PENTRA.Notes"}}</h3>
+      <prose-mirror name="system.notes" value="{{system.notes}}" toggled>{{{enrichedNotes}}}</prose-mirror>
+    </section>
+  </div>
+</div>

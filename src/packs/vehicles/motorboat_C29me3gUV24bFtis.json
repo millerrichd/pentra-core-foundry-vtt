@@ -1,0 +1,43 @@
+{
+  "_id": "C29me3gUV24bFtis",
+  "_key": "!items!C29me3gUV24bFtis",
+  "name": "Motorboat",
+  "type": "vehicle",
+  "img": "icons/svg/anchor.svg",
+  "system": {
+    "description": "<p>A medium boat with a high-speed propeller motor that drives the boat through the water. Seats 4 comfortably.</p>",
+    "category": "sea",
+    "speedClass": 3,
+    "evasion": 8,
+    "armor": 2,
+    "handling": 1,
+    "mounts": 1,
+    "mountNotes": "omnidirectional",
+    "cost": {
+      "die": 8,
+      "multiplier": 3
+    },
+    "legal": true,
+    "health": {
+      "value": 4,
+      "max": 4
+    },
+    "durability": {
+      "value": 8,
+      "max": 8
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

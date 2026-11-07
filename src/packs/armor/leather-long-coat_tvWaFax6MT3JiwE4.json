@@ -1,0 +1,40 @@
+{
+  "_id": "tvWaFax6MT3JiwE4",
+  "_key": "!items!tvWaFax6MT3JiwE4",
+  "name": "Leather Long Coat",
+  "type": "armor",
+  "img": "icons/equipment/chest/coat-leather-blue.webp",
+  "system": {
+    "description": "<p>A long coat that covers the legs and is thus more expensive than the jacket.</p>",
+    "legal": true,
+    "ar": 1,
+    "coverage": {
+      "torso": true,
+      "arms": true,
+      "legs": true,
+      "head": false
+    },
+    "evasion": -2,
+    "size": "normal",
+    "cost": {
+      "die": 6,
+      "multiplier": 2
+    },
+    "layerable": false,
+    "heavy": false,
+    "durability": null,
+    "equipped": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

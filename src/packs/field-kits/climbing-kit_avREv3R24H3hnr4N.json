@@ -1,0 +1,31 @@
+{
+  "_id": "avREv3R24H3hnr4N",
+  "_key": "!items!avREv3R24H3hnr4N",
+  "name": "Climbing Kit",
+  "type": "fieldkit",
+  "img": "icons/tools/nautical/rope-line-blue.webp",
+  "system": {
+    "description": "<p>Ropes, anchors, harnesses, and ascent/descent assistance.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "climbing",
+    "legal": true,
+    "size": "normal",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

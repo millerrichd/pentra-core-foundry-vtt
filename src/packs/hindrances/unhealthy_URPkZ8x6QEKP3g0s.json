@@ -1,0 +1,25 @@
+{
+  "_id": "URPkZ8x6QEKP3g0s",
+  "_key": "!items!URPkZ8x6QEKP3g0s",
+  "name": "Unhealthy",
+  "type": "hindrance",
+  "img": "icons/svg/degen.svg",
+  "system": {
+    "description": "<p>Your maximum Health is reduced from 6 to 4.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
+    "trait": "health",
+    "delta": -2,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "ancestry": "Ancestry",
+      "hindrance": "Hindrance",
+      "talent": "Talent",
+      "armor": "Armor",
+      "weapon": "Weapon",
+      "fieldkit": "Field Kit",
+      "gear": "Gear",
+      "vehicle": "Vehicle"
+    }
+  },
+  "PENTRA": {
+    "Name": "Name",
+    "None": "None",
+    "Max": "Max",
+    "Start": "Start",
+    "Broken": "Broken",
+    "Depleted": "0 (empty)",
+    "Description": "Description",
+    "Notes": "Notes",
+    "Cost": "Cost",
+    "Legal": "Legal",
+    "Quantity": "Qty",
+    "Effect": "Effect",
+    "Requires": "Requires",
+    "Modifies": "Modifies Trait",
+    "Change": "Change",
+    "ChangeHint": "Die traits change by die steps (−1 = one die size smaller). Number traits change by points.",
+    "TraitItemHint": "When added to a character, the trait's maximum/starting value updates automatically and pooled values (Health, Edge, Death/Resource Die) shift with it.",
+    "DieSteps": "die step(s)",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "AddItem": "Add",
+    "PostToChat": "Post to chat",
+    "Equipped": "Equipped",
+    "Worn": "Worn",
+    "Unarmed": "Unarmed (Martial Arts)",
+    "Wound": "Wound",
+    "Wounds": "Wounds",
+    "Skills": "Skills",
+    "ShowAllSkills": "Show all skills",
+    "Resistances": "Resistances",
+    "ResistanceHint": "Resistances never add a skill. Meet or beat the TN to completely negate the effect.",
+    "Languages": "Languages",
+    "LanguageName": "Language",
+    "AddLanguage": "Add language",
+    "NativeLanguage": "Native",
+    "SkillPoints": "Skill ranks",
+    "SkillPointsHint": "30 at creation, max 3 per skill",
+
+    "Sheet": {
+      "Character": "Pentra Character Sheet",
+      "NPC": "Pentra NPC Sheet",
+      "Item": "Pentra Item Sheet"
+    },
+    "Tab": {
+      "skills": "Skills",
+      "combat": "Combat",
+      "gear": "Gear",
+      "traits": "Traits",
+      "biography": "Biography"
+    },
+
+    "Attribute": {
+      "charm": "Charm",
+      "finesse": "Finesse",
+      "intellect": "Intellect",
+      "knowledge": "Knowledge",
+      "might": "Might"
+    },
+    "Resistance": {
+      "fortitude": "Fortitude",
+      "mind": "Mind",
+      "reflex": "Reflex"
+    },
+    "Skill": {
+      "label": "Skill",
+      "animal_handling": "Animal Handling",
+      "deception": "Deception",
+      "insight": "Insight",
+      "intimidation": "Intimidation",
+      "leadership": "Leadership",
+      "performance": "Performance",
+      "persuasion": "Persuasion",
+      "acrobatics": "Acrobatics",
+      "boating": "Boating",
+      "driving": "Driving",
+      "heavy_weapons": "Heavy Weapons",
+      "locks_traps": "Locks & Traps",
+      "piloting": "Piloting",
+      "riding": "Riding",
+      "shooting": "Shooting",
+      "sleight_of_hand": "Sleight of Hand",
+      "sneaking": "Sneaking",
+      "assess_enemy": "Assess Enemy",
+      "awareness": "Awareness",
+      "crafting": "Crafting",
+      "disguise": "Disguise",
+      "electronics": "Electronics",
+      "etiquette": "Etiquette",
+      "evaluate": "Evaluate",
+      "hacking": "Hacking",
+      "mechanics": "Mechanics",
+      "medicine": "Medicine",
+      "survival": "Survival",
+      "academics": "Academics",
+      "general_knowledge": "General Knowledge",
+      "research": "Research",
+      "science": "Science",
+      "streetwise": "Streetwise",
+      "athletics": "Athletics",
+      "martial_arts": "Martial Arts",
+      "melee_weapons": "Melee Weapons",
+      "thrown": "Thrown"
+    },
+    "Trait": {
+      "deathDie": "Death Die",
+      "durabilityDie": "Durability Die",
+      "edge": "Edge",
+      "evasion": "Evasion",
+      "health": "Health",
+      "initiativeDie": "Initiative Die",
+      "karma": "Karma",
+      "resourceDie": "Resource Die",
+      "drainDie": "Drain Die"
+    },
+
+    "Increment": {
+      "odd": "odd",
+      "even": "even",
+      "every": "every"
+    },
+    "Range": {
+      "melee": "Melee",
+      "veryClose": "Very Close",
+      "close": "Close",
+      "far": "Far",
+      "veryFar": "Very Far",
+      "outOfRange": "Out of Range"
+    },
+    "WeaponCategory": {
+      "melee": "Melee",
+      "ranged": "Ranged",
+      "vehicle": "Vehicle"
+    },
+    "VehicleCategory": {
+      "air": "Air",
+      "land": "Land",
+      "sea": "Sea"
+    },
+    "Size": {
+      "label": "Size",
+      "tiny": "Tiny",
+      "small": "Small",
+      "normal": "Normal",
+      "large": "Large"
+    },
+    "CreatureSize": {
+      "tiny": "Tiny",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "huge": "Huge",
+      "massive": "Massive"
+    },
+    "Location": {
+      "torso": "Torso",
+      "arms": "Arms",
+      "legs": "Legs",
+      "head": "Head"
+    },
+    "Hands": {
+      "mounted": "Mounted",
+      "one": "One-handed",
+      "two": "Two-handed"
+    },
+    "Modifier": {
+      "none": "None",
+      "cover": "Cover",
+      "partialSoft": "Partial soft cover",
+      "partialHard": "Partial hard cover",
+      "fullSoft": "Full soft cover",
+      "fullHard": "Full hard cover",
+      "light": "Lighting / Vision",
+      "dim": "Dim light",
+      "darkness": "Darkness",
+      "blind": "Blindness"
+    },
+    "Status": {
+      "shaken": "Shaken",
+      "burning": "Burning",
+      "poisoned": "Poisoned",
+      "diseased": "Diseased",
+      "restrained": "Restrained",
+      "headWound": "Head Wound",
+      "unconscious": "Unconscious",
+      "prone": "Prone",
+      "dead": "Dead"
+    },
+    "Lifestyle": {
+      "Pay": "Pay lifestyle",
+      "street": "Street",
+      "low": "Low",
+      "middle": "Middle",
+      "high": "High",
+      "luxury": "Luxury",
+      "extremeLuxury": "Extreme Luxury",
+      "streetNote": "Living on the street: on 1–2, lose an item or one Resource Die size (player's choice)."
+    },
+    "KitType": {
+      "climbing": "Climbing",
+      "communication": "Communication",
+      "disguise": "Disguise",
+      "environmental": "Environmental",
+      "infiltration": "Infiltration",
+      "reloading": "Reloading",
+      "performance": "Performance",
+      "scuba": "SCUBA",
+      "survival": "Survival",
+      "technical": "Technical",
+      "trauma": "Trauma",
+      "other": "Other"
+    },
+
+    "Roll": {
+      "Roll": "Roll",
+      "Hint": "Click to roll (Shift-click to skip the dialog)",
+      "DialogTitle": "Roll: {label}",
+      "DialogHint": "Advantage and disadvantage never stack and cancel one-for-one. Spending 2 Edge counts as one source of advantage.",
+      "TargetNumber": "Target Number",
+      "TargetEvasion": "Target's Evasion",
+      "Modifier": "Modifier",
+      "AdvantageLabel": "Advantage",
+      "Normal": "Normal",
+      "Advantage": "Advantage",
+      "Disadvantage": "Disadvantage",
+      "SpendEdge": "Spend 2 Edge for advantage",
+      "Location": "Hit location",
+      "Aim": "Aimed",
+      "Push": "Moved past Close / pushing",
+      "AutoPenalties": "Applied automatically",
+      "Attack": "Attack",
+      "Success": "Success",
+      "Failure": "Failure",
+      "Hit": "Hit",
+      "Miss": "Miss",
+      "VsTN": "vs TN",
+      "VsEvasion": "vs Evasion",
+      "EdgeGained": "Edge gained",
+      "EdgeSpent": "2 Edge spent"
+    },
+    "Damage": {
+      "Title": "Damage",
+      "Apply": "Apply",
+      "ApplyHalf": "Apply half",
+      "NoTarget": "Select or target a token to apply damage to.",
+      "NotOwner": "You do not have permission to modify {name}.",
+      "ArmorDegraded": "{name}: rolled {roll} (≤ {range}) — durability drops to {die}.",
+      "ArmorHeld": "{name}: rolled {roll} (> {range}) — durability holds at {die}.",
+      "DeathMove": "Down! Choose a death move: Blaze of Glory or Collapse & Risk a Scar. Count the rounds until stabilized.",
+      "Defeated": "{name} is out of the fight."
+    },
+    "Usage": {
+      "Check": "Usage check",
+      "Range": "Range",
+      "Holds": "Holds",
+      "Depleted": "{label} is depleted."
+    },
+    "Purchase": {
+      "Buy": "Buy with Resource Die",
+      "Label": "Purchase: {label}",
+      "TooExpensive": "Can't buy {label}: {cost} is more than your Resource Die ({die}).",
+      "Hint": "Buying: if the cost die is higher than your Resource Die you can't buy it; equal rolls 1–2, lower rolls 1, each times the multiplier. Rolling in range drops the Resource Die a size."
+    },
+    "Sell": {
+      "Title": "Sell",
+      "Label": "Sell: {label}",
+      "Value": "Sale value",
+      "Confirm": "Sell {name}? It will be removed from your inventory.",
+      "Raised": "Rolled {roll} on {die} (needed {threshold}+) — Resource Die rises to {next}.",
+      "NoChange": "Rolled {roll} on {die} (needed {threshold}+) — no change."
+    },
+    "Edge": {
+      "Start": "Start",
+      "NewSessionHint": "New session: reset Edge to its starting value",
+      "SessionReset": "{name}'s Edge reset to {edge}.",
+      "Support": "Support an ally",
+      "SupportHint": "Spend 1 Edge: roll a d6 and add it to an ally's check. Declare before they roll; the same narrative support doesn't work twice.",
+      "NotEnough": "Not enough Edge."
+    },
+    "Karma": {
+      "Title": "Spending Karma",
+      "Spend": "Spend Karma",
+      "Earned": "Earned",
+      "AdvanceMode": "Advance",
+      "Improve": "Improve with Karma",
+      "Confirm": "Spend <strong>{cost}</strong> Karma on {description}? (You have {karma}.)",
+      "Spent": "{name} spent {cost} Karma: {description}",
+      "NotEnough": "That costs {cost} Karma; you have {karma}.",
+      "AtMax": "Already at maximum.",
+      "LearnNote": "requires a successful Research check or a teacher with 3+",
+      "BuyOff": "buying off {name}",
+      "BuyOffHint": "Buy off for 25 Karma",
+      "NextTalent": "Next talent costs",
+      "RefAttribute": "Attribute or Resistance: 2 × the next rank's bonus (d10+2 → d8+4 costs 8). Max d4+8.",
+      "RefSkill": "Skill: the next rank (4 → 5 costs 5). Max 6.",
+      "RefLearn": "Learn a new skill: 1 Karma, plus a Research check or a teacher with the skill at 3+.",
+      "RefTalent": "New talent: 10 × talents owned + 10.",
+      "RefHindrance": "Buy off a hindrance: 25 Karma.",
+      "Earning": "Earn: 2 per session, +2 minor arc, +8 major arc, +1–6 GM's discretion. Spend during downtime."
+    },
+    "Ancestry": {
+      "None": "No ancestry",
+      "Boost": "Attribute Boost",
+      "BoostHint": "Adding this ancestry to a character raises this attribute one rank (d12+0 → d10+2).",
+      "DropHint": "Drag an ancestry here from the Ancestries compendium.",
+      "OnlyOne": "A character can only have one ancestry."
+    },
+    "Hindrance": {
+      "Hint": "Up to two at creation. Hindrances are permanent unless bought off with Karma."
+    },
+    "Talent": {
+      "Hint": "One talent per hindrance at creation; a talent can't cancel a hindrance."
+    },
+    "Armor": {
+      "AR": "Armor Rating",
+      "ARShort": "AR",
+      "Coverage": "Coverage",
+      "EvasionPenalty": "Evasion penalty",
+      "Durability": "Durability",
+      "DurabilityUnset": "Set from owner's Durability Die",
+      "Layerable": "Can be worn under other armor",
+      "Heavy": "Heavy armor (×2 AR)",
+      "Repair": "Repair (Crafting check, needs a Technical Kit)",
+      "Repaired": "{name} repaired to {die}."
+    },
+    "Weapon": {
+      "Category": "Category",
+      "Skill": "Skill",
+      "Damage": "Damage",
+      "Range": "Preferred range",
+      "Hands": "Hands",
+      "Heavy": "Heavy weapon",
+      "HeavyHint": "Heavy weapons deal double wounds.",
+      "Reload": "Extra actions to reload"
+    },
+    "Kit": {
+      "Type": "Kit type",
+      "Usage": "Usage die",
+      "UsageHint": "Kits start at the owner's Durability Die and refresh to it during downtime.",
+      "Use": "Usage check (1–2)",
+      "Restock": "Restock ammunition (1–2, +1 per 5 rounds fired)",
+      "Refresh": "Refresh all kits to your Durability Die (a day of downtime)",
+      "Refreshed": "Kits refreshed to {die}.",
+      "ReloadNote": "{rounds} rounds of combat fired since last restock.",
+      "TraumaNote": "Make a Medicine check first; success heals {wounds} wound(s)."
+    },
+    "Vehicle": {
+      "Category": "Type",
+      "Speed": "Speed Class",
+      "SpeedShort": "Spd",
+      "Handling": "Handling",
+      "Mounts": "Weapon mounts",
+      "MountNotes": "e.g. 1 forward"
+    },
+    "Carry": {
+      "Slots": "Gear slots",
+      "Hint": "6 normal items. 2 small = 1 normal, 4 tiny = 1 normal, 1 large = 2 normal."
+    },
+    "Combat": {
+      "AttackHint": "Attacks roll against the targeted token's Evasion. Each round re-rolls initiative: every 6 points is one action.",
+      "RoundsFired": "Rounds fired"
+    },
+    "Death": {
+      "Title": "Death Moves",
+      "Hint": "At 0 Health choose: Blaze of Glory (an automatic 12 + skill attack for double wounds, then you die) or Collapse & Risk a Scar.",
+      "Collapse": "Stabilized: roll Death Die",
+      "CheckTitle": "Collapse & Risk a Scar",
+      "Rounds": "Rounds spent unconscious",
+      "ScarNote": "At or under the rounds spent down: take a scar (lower one attribute a die) and the Death Die shrinks.",
+      "Scar": "Scarred! Lower one attribute by a die value (restorable with Karma).",
+      "Died": "{name} has died.",
+      "Blaze": "Blaze of Glory",
+      "BlazeUnarmed": "Blaze of Glory (unarmed)",
+      "BlazeProfile": "Automatic 12 + skill, double wounds"
+    },
+    "Rest": {
+      "Title": "Recovery",
+      "Camp": "Camp rest (+1 wound)",
+      "Day": "Day of rest (+2 wounds)",
+      "Healed": "{name} recovers {amount} wound(s) — Health {value}."
+    },
+    "Initiative": {
+      "Flavor": "{name} rolls initiative: {actions} action(s)",
+      "Crash": "Rolled a 1 — adrenaline crashes: {from} → {to}",
+      "Spike": "Rolled max — adrenaline spikes: {from} → {to}",
+      "Actions": "{n} act."
+    },
+    "Settings": {
+      "TargetNumber": {
+        "Name": "Default Target Number",
+        "Hint": "The standard target number for non-combat checks (rulebook default 9)."
+      },
+      "Reroll": {
+        "Name": "Re-roll initiative each round",
+        "Hint": "Everyone re-rolls their (shifting) initiative die at the start of each new round, per the core rules."
+      },
+      "Drain": {
+        "Name": "Show Drain Die",
+        "Hint": "Show the Drain Die trait used by genre books with powers or magic."
+      }
+    }
+  }
+}

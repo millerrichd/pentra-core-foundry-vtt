@@ -1,0 +1,77 @@
+{
+  "_id": "q9iKgv8B2juKMblJ",
+  "_key": "!actors!q9iKgv8B2juKMblJ",
+  "name": "Wild Dog",
+  "type": "npc",
+  "img": "icons/svg/pawprint.svg",
+  "system": {
+    "attributes": {
+      "charm": {
+        "rank": 1
+      },
+      "finesse": {
+        "rank": 1
+      },
+      "intellect": {
+        "rank": 1
+      },
+      "knowledge": {
+        "rank": 1
+      },
+      "might": {
+        "rank": 1
+      }
+    },
+    "resistances": {
+      "fortitude": {
+        "rank": 0
+      },
+      "mind": {
+        "rank": 0
+      },
+      "reflex": {
+        "rank": 0
+      }
+    },
+    "skills": {
+      "martial_arts": 1
+    },
+    "languages": [],
+    "size": "small",
+    "notes": "<p>Your traditional medium- or large-sized dog. Bites with Martial Arts 1 (1 Wound, odd).</p>",
+    "health": {
+      "value": 3,
+      "max": 3
+    },
+    "evasion": {
+      "base": 8
+    },
+    "initiativeDie": {
+      "value": 6
+    }
+  },
+  "items": [],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  },
+  "prototypeToken": {
+    "name": "Wild Dog",
+    "actorLink": false,
+    "disposition": -1,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "icons/svg/pawprint.svg"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "_id": "uetFUeUzQN5xZ5fX",
+  "_key": "!items!uetFUeUzQN5xZ5fX",
+  "name": "Rifle, Medium",
+  "type": "weapon",
+  "img": "icons/weapons/guns/rifle-assault-bayonet.webp",
+  "system": {
+    "description": "<p>This rifle is designed for two-handed use. The medium model is designed to punch through light armor.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "ranged",
+    "skill": "shooting",
+    "wounds": 2,
+    "increment": "even",
+    "range": "far",
+    "hands": 2,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 8,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

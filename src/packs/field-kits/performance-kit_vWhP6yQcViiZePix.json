@@ -1,0 +1,31 @@
+{
+  "_id": "vWhP6yQcViiZePix",
+  "_key": "!items!vWhP6yQcViiZePix",
+  "name": "Performance Kit",
+  "type": "fieldkit",
+  "img": "icons/tools/instruments/drum-brown-red.webp",
+  "system": {
+    "description": "<p>This is musical equipment to enable a performance, whether that be a guitar, a portable keyboard, or a drum.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "performance",
+    "legal": true,
+    "size": "large",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "DfoHWmTUrQqB9RW1",
+  "_key": "!items!DfoHWmTUrQqB9RW1",
+  "name": "Reloading Kit",
+  "type": "fieldkit",
+  "img": "icons/weapons/ammunition/ammo-magazine-clip.webp",
+  "system": {
+    "description": "<p>Routine ammunition and weapon maintenance. After combat, make a usage check with range 1–2, plus 1 for every 5 rounds of combat fired.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "reloading",
+    "legal": true,
+    "size": "normal",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

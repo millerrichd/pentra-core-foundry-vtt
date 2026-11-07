@@ -1,0 +1,43 @@
+{
+  "_id": "B2VXpaHEDItycG2O",
+  "_key": "!items!B2VXpaHEDItycG2O",
+  "name": "Sports Car",
+  "type": "vehicle",
+  "img": "icons/svg/lightning.svg",
+  "system": {
+    "description": "<p>A 2-door car that seats 2; it only works on finished roads, but it is super fast and flashy.</p>",
+    "category": "land",
+    "speedClass": 3,
+    "evasion": 9,
+    "armor": 2,
+    "handling": 1,
+    "mounts": 0,
+    "mountNotes": "",
+    "cost": {
+      "die": 8,
+      "multiplier": 3
+    },
+    "legal": true,
+    "health": {
+      "value": 5,
+      "max": 5
+    },
+    "durability": {
+      "value": 6,
+      "max": 6
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

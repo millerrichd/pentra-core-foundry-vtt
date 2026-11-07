@@ -1,0 +1,37 @@
+{
+  "_id": "1YmF4gcvmytS4SA3",
+  "_key": "!items!1YmF4gcvmytS4SA3",
+  "name": "Pistol, Light",
+  "type": "weapon",
+  "img": "icons/weapons/guns/gun-pistol-brown.webp",
+  "system": {
+    "description": "<p>This pistol is designed for one-handed use. The light model does acceptable damage to unarmored people.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "ranged",
+    "skill": "shooting",
+    "wounds": 1,
+    "increment": "odd",
+    "range": "close",
+    "hands": 1,
+    "size": "normal",
+    "legal": true,
+    "cost": {
+      "die": 4,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

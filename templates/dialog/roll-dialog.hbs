@@ -1,0 +1,52 @@
+<div class="pentra roll-dialog">
+  <div class="form-group">
+    <label>{{#if isAttack}}{{localize "PENTRA.Roll.TargetEvasion"}}{{else}}{{localize "PENTRA.Roll.TargetNumber"}}{{/if}}</label>
+    <input type="number" name="tn" value="{{tn}}">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Modifier"}}</label>
+    <input type="number" name="modifier" value="0" autofocus>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.AdvantageLabel"}}</label>
+    <select name="advantage">
+      <option value="0" selected>{{localize "PENTRA.Roll.Normal"}}</option>
+      <option value="1">{{localize "PENTRA.Roll.Advantage"}} (+d6)</option>
+      <option value="-1">{{localize "PENTRA.Roll.Disadvantage"}} (−d6)</option>
+    </select>
+  </div>
+  {{#if canSpendEdge}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.SpendEdge"}} ({{edge}})</label>
+    <input type="checkbox" name="spendEdge">
+  </div>
+  {{/if}}
+  {{#if isAttack}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Location"}}</label>
+    <select name="location">{{selectOptions locations selected="torso"}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Modifier.cover"}}</label>
+    <select name="cover">{{selectOptions cover selected="0" localize=true}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Modifier.light"}}</label>
+    <select name="light">{{selectOptions light selected="0" localize=true}}</select>
+  </div>
+  {{#if isRanged}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Aim"}} (+2)</label>
+    <input type="checkbox" name="aim">
+  </div>
+  {{/if}}
+  {{/if}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Push"}} (−2)</label>
+    <input type="checkbox" name="push">
+  </div>
+  {{#if penalty.notes.length}}
+  <p class="hint"><i class="fa-solid fa-triangle-exclamation"></i> {{localize "PENTRA.Roll.AutoPenalties"}}: {{#each penalty.notes}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
+  {{/if}}
+  <p class="hint">{{localize "PENTRA.Roll.DialogHint"}}</p>
+</div>

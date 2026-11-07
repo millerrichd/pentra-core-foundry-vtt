@@ -1,0 +1,31 @@
+<div class="pentra chat-card check-card">
+  <header class="card-header">
+    <h3>{{label}}</h3>
+    {{#if subtitle}}<span class="subtitle">{{subtitle}}</span>{{/if}}
+  </header>
+  {{#if modifiers.length}}
+  <ul class="modifier-list">{{#each modifiers}}<li>{{this}}</li>{{/each}}</ul>
+  {{/if}}
+  {{#if advantage}}<div class="tag advantage">{{advantage}}{{#if spentEdge}} · {{localize "PENTRA.Roll.EdgeSpent"}}{{/if}}</div>{{/if}}
+  {{#if rollHTML}}{{{rollHTML}}}{{else}}<div class="dice-total static">{{total}}</div>{{/if}}
+  <div class="result {{#if success}}success{{else}}failure{{/if}}">
+    {{#if isAttack}}
+      {{#if success}}{{localize "PENTRA.Roll.Hit"}}{{else}}{{localize "PENTRA.Roll.Miss"}}{{/if}}
+      <span class="vs">{{localize "PENTRA.Roll.VsEvasion"}} {{tn}}{{#if targetName}} ({{targetName}}){{/if}}</span>
+    {{else}}
+      {{#if success}}{{localize "PENTRA.Roll.Success"}}{{else}}{{localize "PENTRA.Roll.Failure"}}{{/if}}
+      <span class="vs">{{localize "PENTRA.Roll.VsTN"}} {{tn}}</span>
+    {{/if}}
+  </div>
+  {{#if edgeGained}}<div class="tag edge"><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Roll.EdgeGained"}} +{{edgeGained}}</div>{{/if}}
+  {{#if damage}}{{#if success}}
+  <div class="damage-block">
+    <div class="wounds"><strong>{{damage.wounds}}</strong> {{localize "PENTRA.Wounds"}} · {{damage.locationLabel}}</div>
+    <div class="hint">{{localize "PENTRA.Weapon.Damage"}}: {{damage.profile}}</div>
+    <div class="card-buttons">
+      <button type="button" data-pentra-action="apply-damage"><i class="fa-solid fa-heart-crack"></i> {{localize "PENTRA.Damage.Apply"}}</button>
+      <button type="button" data-pentra-action="apply-damage" data-half="true"><i class="fa-solid fa-car-burst"></i> {{localize "PENTRA.Damage.ApplyHalf"}}</button>
+    </div>
+  </div>
+  {{/if}}{{/if}}
+</div>

@@ -1,0 +1,43 @@
+{
+  "_id": "EPSGycZIJDubepid",
+  "_key": "!items!EPSGycZIJDubepid",
+  "name": "Off-road Vehicle",
+  "type": "vehicle",
+  "img": "icons/svg/mountain.svg",
+  "system": {
+    "description": "<p>Your standard high-wheel car designed to travel dirt or worse trails in the wilderness. It seats 4 comfortably and isn't the fastest, but it will go where others cannot.</p>",
+    "category": "land",
+    "speedClass": 2,
+    "evasion": 7,
+    "armor": 2,
+    "handling": 1,
+    "mounts": 1,
+    "mountNotes": "1 omnidirectional",
+    "cost": {
+      "die": 8,
+      "multiplier": 3
+    },
+    "legal": true,
+    "health": {
+      "value": 6,
+      "max": 6
+    },
+    "durability": {
+      "value": 8,
+      "max": 8
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

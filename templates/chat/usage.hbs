@@ -1,0 +1,11 @@
+<div class="pentra chat-card usage-card">
+  <header class="card-header">
+    <h3>{{label}}</h3>
+    <span class="subtitle">{{localize "PENTRA.Usage.Range"}} 1–{{range}}</span>
+  </header>
+  {{#if note}}<p class="hint">{{note}}</p>{{/if}}
+  {{{rollHTML}}}
+  <div class="result {{#if reduced}}failure{{else}}success{{/if}}">
+    {{#if reduced}}{{from}} → {{to}}{{else}}{{localize "PENTRA.Usage.Holds"}} ({{from}}){{/if}}
+  </div>
+</div>

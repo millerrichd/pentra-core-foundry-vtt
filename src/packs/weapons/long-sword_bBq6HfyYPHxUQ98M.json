@@ -1,0 +1,37 @@
+{
+  "_id": "bBq6HfyYPHxUQ98M",
+  "_key": "!items!bBq6HfyYPHxUQ98M",
+  "name": "Long Sword",
+  "type": "weapon",
+  "img": "icons/weapons/swords/greatsword-guard-gold-worn.webp",
+  "system": {
+    "description": "<p>A long sword that has only one real purpose: to slash people.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "melee",
+    "skill": "melee_weapons",
+    "wounds": 1,
+    "increment": "every",
+    "range": "melee",
+    "hands": 1,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 8,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

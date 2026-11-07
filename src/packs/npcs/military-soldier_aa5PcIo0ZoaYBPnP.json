@@ -1,0 +1,225 @@
+{
+  "_id": "aa5PcIo0ZoaYBPnP",
+  "_key": "!actors!aa5PcIo0ZoaYBPnP",
+  "name": "Military Soldier",
+  "type": "npc",
+  "img": "icons/svg/mystery-man-black.svg",
+  "system": {
+    "attributes": {
+      "charm": {
+        "rank": 1
+      },
+      "finesse": {
+        "rank": 1
+      },
+      "intellect": {
+        "rank": 1
+      },
+      "knowledge": {
+        "rank": 1
+      },
+      "might": {
+        "rank": 1
+      }
+    },
+    "resistances": {
+      "fortitude": {
+        "rank": 1
+      },
+      "mind": {
+        "rank": 1
+      },
+      "reflex": {
+        "rank": 1
+      }
+    },
+    "skills": {
+      "martial_arts": 3,
+      "medicine": 2,
+      "shooting": 3
+    },
+    "languages": [],
+    "size": "medium",
+    "notes": "<p>A low-ranking military soldier who is trained better with weapons. Carries a Reloading or Trauma Kit one die size above the default.</p>",
+    "health": {
+      "value": 3,
+      "max": 3
+    },
+    "evasion": {
+      "base": 9
+    },
+    "initiativeDie": {
+      "value": 6
+    }
+  },
+  "items": [
+    {
+      "_id": "TsLa1m8O7kGGHH6Q",
+      "name": "Bulletproof Vest",
+      "type": "armor",
+      "img": "icons/equipment/chest/bullet-proof-vest-kevlar.webp",
+      "system": {
+        "description": "<p>An armored vest that protects the vitals in the torso. Is wearable under a Leather Jacket or Leather Long Coat.</p>",
+        "legal": true,
+        "ar": 1,
+        "coverage": {
+          "torso": true,
+          "arms": false,
+          "legs": false,
+          "head": false
+        },
+        "evasion": 0,
+        "size": "normal",
+        "cost": {
+          "die": 4,
+          "multiplier": 1
+        },
+        "layerable": true,
+        "heavy": false,
+        "durability": 8,
+        "equipped": true
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!aa5PcIo0ZoaYBPnP.TsLa1m8O7kGGHH6Q"
+    },
+    {
+      "_id": "xPyOkIEf2giv8o2B",
+      "name": "Pistol, Light",
+      "type": "weapon",
+      "img": "icons/weapons/guns/gun-pistol-brown.webp",
+      "system": {
+        "description": "<p>This pistol is designed for one-handed use. The light model does acceptable damage to unarmored people.</p>",
+        "heavy": false,
+        "reloadActions": 0,
+        "equipped": true,
+        "category": "ranged",
+        "skill": "shooting",
+        "wounds": 1,
+        "increment": "odd",
+        "range": "close",
+        "hands": 1,
+        "size": "normal",
+        "legal": true,
+        "cost": {
+          "die": 4,
+          "multiplier": 1
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!aa5PcIo0ZoaYBPnP.xPyOkIEf2giv8o2B"
+    },
+    {
+      "_id": "wzabIFYthyJZlahG",
+      "name": "Rifle, Medium",
+      "type": "weapon",
+      "img": "icons/weapons/guns/rifle-assault-bayonet.webp",
+      "system": {
+        "description": "<p>This rifle is designed for two-handed use. The medium model is designed to punch through light armor.</p>",
+        "heavy": false,
+        "reloadActions": 0,
+        "equipped": true,
+        "category": "ranged",
+        "skill": "shooting",
+        "wounds": 2,
+        "increment": "even",
+        "range": "far",
+        "hands": 2,
+        "size": "large",
+        "legal": false,
+        "cost": {
+          "die": 8,
+          "multiplier": 1
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!aa5PcIo0ZoaYBPnP.wzabIFYthyJZlahG"
+    },
+    {
+      "_id": "ZgEe33cTqxBMJs7T",
+      "name": "Trauma Kit",
+      "type": "fieldkit",
+      "img": "icons/svg/heal.svg",
+      "system": {
+        "description": "<p>Trauma treatment and routine medical supplies. Needed to heal wounds with a Medicine check (ranks 0–3 heal 1, 4–5 heal 2, 6 heals 3).</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+        "kitType": "trauma",
+        "legal": true,
+        "size": "normal",
+        "cost": {
+          "die": 6,
+          "multiplier": 1
+        },
+        "usage": 10,
+        "quantity": 1
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "coreVersion": "14",
+        "systemId": "pentra-core-foundry-vtt",
+        "systemVersion": "0.1.0"
+      },
+      "_key": "!actors.items!aa5PcIo0ZoaYBPnP.ZgEe33cTqxBMJs7T"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  },
+  "prototypeToken": {
+    "name": "Military Soldier",
+    "actorLink": false,
+    "disposition": -1,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "icons/svg/mystery-man-black.svg"
+    }
+  }
+}

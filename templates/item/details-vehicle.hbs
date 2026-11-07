@@ -1,0 +1,49 @@
+<section class="item-details">
+  <div class="form-group">
+    <label>{{localize "PENTRA.Vehicle.Category"}}</label>
+    <select name="system.category">{{selectOptions options.vehicleCategories selected=system.category localize=true}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Vehicle.Speed"}}</label>
+    <input type="number" name="system.speedClass" value="{{system.speedClass}}" min="0" max="5">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Trait.health"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.health.value" value="{{system.health.value}}" min="0">
+      <span>/</span>
+      <input type="number" name="system.health.max" value="{{system.health.max}}" min="0">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Trait.evasion"}}</label>
+    <input type="number" name="system.evasion" value="{{system.evasion}}">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Armor.AR"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.armor" value="{{system.armor}}" min="0" max="4">
+      <label class="checkbox"><input type="checkbox" name="system.heavyArmor" {{checked system.heavyArmor}}> {{localize "PENTRA.Armor.Heavy"}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Trait.durabilityDie"}}</label>
+    <div class="form-fields">
+      <select name="system.durability.value">{{selectOptions options.usageDice selected=system.durability.value}}</select>
+      <span>/</span>
+      <select name="system.durability.max">{{selectOptions options.dice selected=system.durability.max}}</select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Vehicle.Handling"}}</label>
+    <input type="number" name="system.handling" value="{{system.handling}}" min="-2" max="2">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Vehicle.Mounts"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.mounts" value="{{system.mounts}}" min="0">
+      <input type="text" name="system.mountNotes" value="{{system.mountNotes}}" placeholder="{{localize 'PENTRA.Vehicle.MountNotes'}}">
+    </div>
+  </div>
+  {{> "systems/pentra-core-foundry-vtt/templates/item/physical.hbs"}}
+</section>

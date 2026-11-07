@@ -1,0 +1,37 @@
+{
+  "_id": "MtPcVhlCy6Hh1ZX0",
+  "_key": "!items!MtPcVhlCy6Hh1ZX0",
+  "name": "Rockets/Torpedoes, Light",
+  "type": "weapon",
+  "img": "icons/weapons/artillery/cannon-banded.webp",
+  "system": {
+    "description": "<p>These are fire-and-forget, non-guided weapons designed to deliver their payload.</p><p>Takes 1 mount spot. Bought separately from the vehicle; reloads at a hangar or garage but still requires a Reloading Kit.</p>",
+    "heavy": true,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "vehicle",
+    "skill": "heavy_weapons",
+    "wounds": 4,
+    "increment": "odd",
+    "range": "close",
+    "hands": 0,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 8,
+      "multiplier": 2
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

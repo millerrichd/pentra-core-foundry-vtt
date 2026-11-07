@@ -1,0 +1,37 @@
+{
+  "_id": "QZVjnkjUlt0lqB7u",
+  "_key": "!items!QZVjnkjUlt0lqB7u",
+  "name": "Bombs, Heavy",
+  "type": "weapon",
+  "img": "icons/weapons/thrown/bomb-detonator.webp",
+  "system": {
+    "description": "<p>Bombs are designed to drop from a plane on unsuspecting targets. Works at the Impact / Fly-by range band.</p><p>Takes 1 mount spot. Bought separately from the vehicle; reloads at a hangar or garage but still requires a Reloading Kit.</p>",
+    "heavy": true,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "vehicle",
+    "skill": "heavy_weapons",
+    "wounds": 4,
+    "increment": "every",
+    "range": "melee",
+    "hands": 0,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 6,
+      "multiplier": 3
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "_id": "PEbuL4PENXkoBjdP",
+  "_key": "!items!PEbuL4PENXkoBjdP",
+  "name": "Single Propeller Plane",
+  "type": "vehicle",
+  "img": "icons/svg/wing.svg",
+  "system": {
+    "description": "<p>This small, 2-seat propeller plane is used for dusting crops and escaping cities.</p>",
+    "category": "air",
+    "speedClass": 4,
+    "evasion": 9,
+    "armor": 1,
+    "handling": 0,
+    "mounts": 1,
+    "mountNotes": "1 forward",
+    "cost": {
+      "die": 8,
+      "multiplier": 2
+    },
+    "legal": true,
+    "health": {
+      "value": 6,
+      "max": 6
+    },
+    "durability": {
+      "value": 6,
+      "max": 6
+    },
+    "heavyArmor": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

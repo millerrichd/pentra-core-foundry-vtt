@@ -1,0 +1,25 @@
+{
+  "_id": "41F4lGgiE1vN04K5",
+  "_key": "!items!41F4lGgiE1vN04K5",
+  "name": "Fast",
+  "type": "talent",
+  "img": "icons/svg/wingfoot.svg",
+  "system": {
+    "description": "<p>Your default Initiative Die is increased from d6 to d8.</p>",
+    "trait": "initiativeDie",
+    "delta": 1,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

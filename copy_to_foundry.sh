@@ -1,0 +1,1 @@
+cp -r * ~/Library/Application\ Support/FoundryVTT/Data/systems/pentra-core-foundry-vtt/

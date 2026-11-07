@@ -1,0 +1,82 @@
+<section class="tab traits-tab {{tab.cssClass}}" data-group="primary" data-tab="traits">
+  {{! Ancestry }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.ancestry"}}</h3>
+      <span class="col">{{localize "PENTRA.Ancestry.Boost"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="ancestry"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.ancestry}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col">{{#if system.attributeBoost}}{{localize (lookup @root.config.attributes system.attributeBoost)}}{{/if}}</span>
+        <span class="controls">
+          <a data-action="itemPost"><i class="fa-solid fa-comment"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{else}}
+      <li class="empty hint">{{localize "PENTRA.Ancestry.DropHint"}}</li>
+      {{/each}}
+    </ol>
+  </section>
+
+  {{! Hindrances }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.hindrance"}}</h3>
+      <span class="col wide">{{localize "PENTRA.Effect"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="hindrance"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.hindrance}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col wide">{{summary}}</span>
+        <span class="controls">
+          <a data-action="itemPost"><i class="fa-solid fa-comment"></i></a>
+          <a data-action="itemDelete" data-buy-off="true" data-tooltip="{{localize 'PENTRA.Karma.BuyOffHint'}}"><i class="fa-solid fa-star"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{/each}}
+    </ol>
+    <p class="hint">{{localize "PENTRA.Hindrance.Hint"}}</p>
+  </section>
+
+  {{! Talents }}
+  <section class="item-section">
+    <header class="item-header">
+      <h3>{{localize "TYPES.Item.talent"}}</h3>
+      <span class="col wide">{{localize "PENTRA.Effect"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="talent"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.talent}}
+      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col wide">{{summary}}{{#if system.requires}} <em>({{localize "PENTRA.Requires"}}: {{system.requires}})</em>{{/if}}</span>
+        <span class="controls">
+          <a data-action="itemPost"><i class="fa-solid fa-comment"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{/each}}
+    </ol>
+    <p class="hint">{{localize "PENTRA.Talent.Hint"}} {{localize "PENTRA.Karma.NextTalent"}}: <strong>{{nextTalentCost}}</strong></p>
+  </section>
+
+  {{! Karma reference }}
+  <section class="panel">
+    <h3>{{localize "PENTRA.Karma.Title"}}</h3>
+    <ul class="reference">
+      <li>{{localize "PENTRA.Karma.RefAttribute"}}</li>
+      <li>{{localize "PENTRA.Karma.RefSkill"}}</li>
+      <li>{{localize "PENTRA.Karma.RefLearn"}}</li>
+      <li>{{localize "PENTRA.Karma.RefTalent"}}</li>
+      <li>{{localize "PENTRA.Karma.RefHindrance"}}</li>
+    </ul>
+    <p class="hint">{{localize "PENTRA.Karma.Earning"}}</p>
+  </section>
+</section>

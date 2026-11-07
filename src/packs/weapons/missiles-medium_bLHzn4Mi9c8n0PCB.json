@@ -1,0 +1,37 @@
+{
+  "_id": "bLHzn4Mi9c8n0PCB",
+  "_key": "!items!bLHzn4Mi9c8n0PCB",
+  "name": "Missiles, Medium",
+  "type": "weapon",
+  "img": "icons/weapons/artillery/cannon-banded.webp",
+  "system": {
+    "description": "<p>These are guided weapons designed to deliver a large payload of destruction.</p><p>Takes 1 mount spot. Bought separately from the vehicle; reloads at a hangar or garage but still requires a Reloading Kit.</p>",
+    "heavy": true,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "vehicle",
+    "skill": "heavy_weapons",
+    "wounds": 5,
+    "increment": "even",
+    "range": "far",
+    "hands": 0,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 10,
+      "multiplier": 3
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

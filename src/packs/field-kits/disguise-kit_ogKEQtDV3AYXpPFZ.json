@@ -1,0 +1,31 @@
+{
+  "_id": "ogKEQtDV3AYXpPFZ",
+  "_key": "!items!ogKEQtDV3AYXpPFZ",
+  "name": "Disguise Kit",
+  "type": "fieldkit",
+  "img": "icons/svg/cowled.svg",
+  "system": {
+    "description": "<p>Appearance alteration and identity-support material.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
+    "kitType": "disguise",
+    "legal": true,
+    "size": "normal",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "usage": null,
+    "quantity": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

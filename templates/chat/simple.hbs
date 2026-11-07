@@ -1,0 +1,8 @@
+<div class="pentra chat-card">
+  <header class="card-header">
+    <h3>{{title}}</h3>
+    {{#if subtitle}}<span class="subtitle">{{subtitle}}</span>{{/if}}
+  </header>
+  {{#if rollHTML}}{{{rollHTML}}}{{/if}}
+  {{#if lines.length}}<ul class="notes">{{#each lines}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+</div>

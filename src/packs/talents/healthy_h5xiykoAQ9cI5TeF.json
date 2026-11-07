@@ -1,0 +1,25 @@
+{
+  "_id": "h5xiykoAQ9cI5TeF",
+  "_key": "!items!h5xiykoAQ9cI5TeF",
+  "name": "Healthy",
+  "type": "talent",
+  "img": "icons/svg/regen.svg",
+  "system": {
+    "description": "<p>Your maximum Health is increased from 6 to 8.</p>",
+    "trait": "health",
+    "delta": 2,
+    "requires": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

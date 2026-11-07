@@ -1,0 +1,74 @@
+<section class="tab skills-tab {{tab.cssClass}}" data-group="primary" data-tab="skills">
+  <div class="tab-toolbar">
+    <span class="hint">{{localize "PENTRA.SkillPoints"}}: <strong>{{skillPoints}}</strong> ({{localize "PENTRA.SkillPointsHint"}})</span>
+    <button type="button" class="toggle {{#if editMode}}active{{/if}}" data-action="toggleEdit">
+      <i class="fa-solid fa-star"></i> {{localize "PENTRA.Karma.AdvanceMode"}}
+    </button>
+  </div>
+
+  <div class="attribute-grid">
+    {{#each attributes as |attr|}}
+    <div class="attribute-block">
+      <header class="attribute-header">
+        <a class="rollable" data-action="roll" data-type="attribute" data-key="{{attr.key}}" data-tooltip="{{localize 'PENTRA.Roll.Hint'}}">
+          <i class="fa-solid fa-dice-d{{attr.die}}"></i> {{attr.label}}
+        </a>
+        <select name="system.attributes.{{attr.key}}.rank" class="rank-select">
+          {{selectOptions @root.rankOptions selected=attr.rank}}
+        </select>
+        {{#if @root.editMode}}{{#if attr.karmaCost}}
+        <button type="button" class="karma-btn" data-action="improveRank" data-group="attributes" data-key="{{attr.key}}" data-tooltip="{{localize 'PENTRA.Karma.Improve'}}">+{{attr.karmaCost}}<i class="fa-solid fa-star"></i></button>
+        {{/if}}{{/if}}
+      </header>
+      <ol class="skill-list">
+        {{#each attr.skills as |skill|}}
+        <li class="skill {{#if skill.trained}}trained{{/if}}">
+          <a class="rollable skill-name" data-action="roll" data-type="skill" data-key="{{skill.key}}">{{skill.label}}</a>
+          <input type="number" name="system.skills.{{skill.key}}" value="{{skill.value}}" min="0" max="6">
+          {{#if @root.editMode}}{{#if skill.karmaCost}}
+          <button type="button" class="karma-btn" data-action="improveSkill" data-key="{{skill.key}}">+{{skill.karmaCost}}<i class="fa-solid fa-star"></i></button>
+          {{/if}}{{/if}}
+        </li>
+        {{/each}}
+        {{#if (eq attr.key "knowledge")}}
+        <li class="languages-header">
+          <span>{{localize "PENTRA.Languages"}}</span>
+          <button type="button" class="icon-btn" data-action="addLanguage" data-tooltip="{{localize 'PENTRA.AddLanguage'}}"><i class="fa-solid fa-plus"></i></button>
+        </li>
+        {{#each @root.languages as |lang|}}
+        <li class="skill language trained">
+          <a class="rollable" data-action="roll" data-type="language" data-key="{{lang.index}}"><i class="fa-solid fa-language"></i></a>
+          <input type="text" class="lang-name" name="system.languages.{{lang.index}}.name" value="{{lang.name}}" placeholder="{{localize 'PENTRA.LanguageName'}}">
+          <input type="number" name="system.languages.{{lang.index}}.value" value="{{lang.value}}" min="0" max="6">
+          {{#if @root.editMode}}
+            {{#if lang.karmaCost}}<button type="button" class="karma-btn" data-action="improveLanguage" data-index="{{lang.index}}">+{{lang.karmaCost}}<i class="fa-solid fa-star"></i></button>{{/if}}
+            <button type="button" class="icon-btn" data-action="removeLanguage" data-index="{{lang.index}}"><i class="fa-solid fa-trash"></i></button>
+          {{/if}}
+        </li>
+        {{/each}}
+        {{/if}}
+      </ol>
+    </div>
+    {{/each}}
+
+    <div class="attribute-block resistances">
+      <header class="attribute-header"><span>{{localize "PENTRA.Resistances"}}</span></header>
+      <ol class="skill-list">
+        {{#each resistances as |res|}}
+        <li class="skill resistance">
+          <a class="rollable skill-name" data-action="roll" data-type="resistance" data-key="{{res.key}}">
+            <i class="fa-solid fa-shield-halved"></i> {{res.label}}
+          </a>
+          <select name="system.resistances.{{res.key}}.rank" class="rank-select">
+            {{selectOptions @root.rankOptions selected=res.rank}}
+          </select>
+          {{#if @root.editMode}}{{#if res.karmaCost}}
+          <button type="button" class="karma-btn" data-action="improveRank" data-group="resistances" data-key="{{res.key}}">+{{res.karmaCost}}<i class="fa-solid fa-star"></i></button>
+          {{/if}}{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      <p class="hint">{{localize "PENTRA.ResistanceHint"}}</p>
+    </div>
+  </div>
+</section>

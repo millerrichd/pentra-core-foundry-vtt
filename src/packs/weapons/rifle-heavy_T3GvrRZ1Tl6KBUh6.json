@@ -1,0 +1,37 @@
+{
+  "_id": "T3GvrRZ1Tl6KBUh6",
+  "_key": "!items!T3GvrRZ1Tl6KBUh6",
+  "name": "Rifle, Heavy",
+  "type": "weapon",
+  "img": "icons/weapons/guns/rifle-assault-heavy.webp",
+  "system": {
+    "description": "<p>This rifle is designed for two-handed use. The heavy model is designed to punch through stronger armor.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "ranged",
+    "skill": "shooting",
+    "wounds": 2,
+    "increment": "every",
+    "range": "far",
+    "hands": 2,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 8,
+      "multiplier": 2
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

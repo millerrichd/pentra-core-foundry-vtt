@@ -1,0 +1,37 @@
+{
+  "_id": "sEeDBU7MKXzjFyeq",
+  "_key": "!items!sEeDBU7MKXzjFyeq",
+  "name": "Knife",
+  "type": "weapon",
+  "img": "icons/weapons/daggers/knife-butterfly.webp",
+  "system": {
+    "description": "<p>This is a simple knife, a hand's width long, that you can use to stab and slice people.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "equipped": true,
+    "category": "melee",
+    "skill": "melee_weapons",
+    "wounds": 1,
+    "increment": "odd",
+    "range": "melee",
+    "hands": 1,
+    "size": "small",
+    "legal": true,
+    "cost": {
+      "die": 4,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}
