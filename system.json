@@ -7,6 +7,9 @@
     "minimum": "14",
     "verified": "14"
   },
+  "url": "https://github.com/millerrichd/pentra-core-foundry-vtt",
+  "manifest": "https://raw.githubusercontent.com/millerrichd/pentra-core-foundry-vtt/refs/heads/main/system.json",
+  "download": "https://github.com/millerrichd/pentra-core-foundry-vtt/archive/refs/heads/main.zip",
   "authors": [
     {
       "name": "Richard Miller",
