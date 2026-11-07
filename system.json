@@ -1,0 +1,26 @@
+{
+  "id": "pentra-core-foundry-vtt",
+  "title": "Pentra: Five-Dice Engine Core",
+  "description": "The core system for the Pentra: Five-Dice Engine.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "esmodules": ["module/main.js"],
+  "styles": ["css/style.css"],
+  "initiative": "@traits.initiative_die.current",
+  "actors": [
+    {"type": "character", "label": "Character"},
+    {"type": "npc", "label": "NPC"}
+  ],
+  "items": [
+    {"type": "ancestry", "label": "Ancestry"},
+    {"type": "hindrance", "label": "Hindrance"},
+    {"type": "talent", "label": "Talent"},
+    {"type": "armor", "label": "Armor"},
+    {"type": "weapon", "label": "Weapon"},
+    {"type": "fieldkit", "label": "Field Kit"},
+    {"type": "vehicle", "label": "Vehicle"}
+  ]
+}
