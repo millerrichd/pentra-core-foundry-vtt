@@ -3,7 +3,7 @@
   "_key": "!items!F0rB1NUZ26rRLZja",
   "name": "Slow",
   "type": "hindrance",
-  "img": "icons/svg/walk.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_hindrance@512.webp",
   "system": {
     "description": "<p>Your default Initiative Die is reduced from d6 to d4.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
     "trait": "initiativeDie",

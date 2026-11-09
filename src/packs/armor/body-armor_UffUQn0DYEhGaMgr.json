@@ -3,9 +3,9 @@
   "_key": "!items!UffUQn0DYEhGaMgr",
   "name": "Body Armor",
   "type": "armor",
-  "img": "icons/equipment/chest/breastplate-layered-steel-black.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor@512.webp",
   "system": {
-    "description": "<p>This is a full suit of body armor, designed for mobility over damage reduction.</p>",
+    "description": "<p>This is a full suit of body armor, designed for mobility over damage reduction. Modern.</p>",
     "legal": false,
     "ar": 2,
     "coverage": {
@@ -26,7 +26,7 @@
     "equipped": false
   },
   "effects": [],
-  "folder": null,
+  "folder": "m5GXvxr9YYAJeMvU",
   "sort": 0,
   "ownership": {
     "default": 0

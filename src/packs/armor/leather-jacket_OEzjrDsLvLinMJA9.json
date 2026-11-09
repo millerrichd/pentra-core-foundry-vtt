@@ -3,9 +3,9 @@
   "_key": "!items!OEzjrDsLvLinMJA9",
   "name": "Leather Jacket",
   "type": "armor",
-  "img": "icons/equipment/chest/jacket-modern-green.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor@512.webp",
   "system": {
-    "description": "<p>An armored leather jacket that is worn around the arms and torso.</p>",
+    "description": "<p>An armored leather jacket that is worn around the arms and torso. Modern.</p>",
     "legal": true,
     "ar": 1,
     "coverage": {
@@ -26,7 +26,7 @@
     "equipped": false
   },
   "effects": [],
-  "folder": null,
+  "folder": "m5GXvxr9YYAJeMvU",
   "sort": 0,
   "ownership": {
     "default": 0

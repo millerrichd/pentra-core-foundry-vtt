@@ -3,12 +3,11 @@
   "_key": "!items!k8cRe5sESNbOfOWL",
   "name": "Crossbow, Heavy",
   "type": "weapon",
-  "img": "icons/weapons/crossbows/crossbow-heavy-black.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
   "system": {
     "description": "<p>This crossbow is designed for two-handed use. It's silent compared to guns and packs a decent punch. 1 extra action to reload.</p>",
     "heavy": false,
     "reloadActions": 1,
-    "equipped": true,
     "category": "ranged",
     "skill": "shooting",
     "wounds": 2,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 6,
       "multiplier": 2
-    }
+    },
+    "slot": "stowed",
+    "underwater": "reduced"
   },
   "effects": [],
-  "folder": null,
+  "folder": "S696u7ghSYR924b3",
   "sort": 0,
   "ownership": {
     "default": 0

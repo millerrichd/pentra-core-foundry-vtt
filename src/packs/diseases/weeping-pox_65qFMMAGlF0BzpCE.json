@@ -1,0 +1,27 @@
+{
+  "_id": "65qFMMAGlF0BzpCE",
+  "_key": "!items!65qFMMAGlF0BzpCE",
+  "name": "Weeping Pox",
+  "type": "disease",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "system": {
+    "description": "<p>Weeping sores bloom across the face and hands, and they smell of rot. People flinch, look away, and keep their distance. Spread by touch and shared towels in crowded hostels.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
+    "effect": "attribute",
+    "attribute": "charm",
+    "trait": "",
+    "penalty": -2,
+    "dieSteps": -1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

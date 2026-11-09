@@ -3,12 +3,11 @@
   "_key": "!items!mecFHKz66DIwGy94",
   "name": "Shotgun, Heavy",
   "type": "weapon",
-  "img": "icons/weapons/guns/gun-blunderbuss-bronze.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
   "system": {
     "description": "<p>This shotgun is designed for two-handed use. The heavy model is designed for crowd control.</p>",
     "heavy": false,
     "reloadActions": 0,
-    "equipped": true,
     "category": "ranged",
     "skill": "shooting",
     "wounds": 2,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 8,
       "multiplier": 1
-    }
+    },
+    "slot": "stowed",
+    "underwater": "reduced"
   },
   "effects": [],
-  "folder": null,
+  "folder": "S696u7ghSYR924b3",
   "sort": 0,
   "ownership": {
     "default": 0

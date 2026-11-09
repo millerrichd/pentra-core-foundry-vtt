@@ -1,0 +1,55 @@
+<div class="party-body">
+  <section class="item-section">
+    <header class="item-header">
+      <h3><a data-action="selectAll" data-tooltip="{{localize 'PENTRA.Party.ToggleAll'}}"><i class="fa-solid fa-check-double"></i></a> {{localize "PENTRA.Party.Members"}}</h3>
+      <span class="col narrow">{{localize "PENTRA.Trait.edge"}}</span>
+      <span class="col">{{localize "PENTRA.Trait.karma"}}</span>
+      <span class="col">{{localize "PENTRA.Trait.resourceDie"}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each members}}
+      <li class="item-row">
+        <input type="checkbox" class="member-toggle" data-actor-id="{{id}}" {{checked checked}}>
+        <a class="item-name" data-action="openSheet" data-actor-id="{{id}}"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col narrow">{{edge}}<span class="hint">/{{edgeStart}}</span></span>
+        <span class="col">{{karma}} <span class="hint">({{localize "PENTRA.Karma.Earned"}} {{earned}})</span></span>
+        <span class="col">{{resourceDie}}</span>
+      </li>
+      {{else}}
+      <li class="empty hint">{{localize "PENTRA.Party.Empty"}}</li>
+      {{/each}}
+    </ol>
+  </section>
+
+  <section class="panel karma-earn">
+    <h3><i class="fa-solid fa-star"></i> {{localize "PENTRA.Party.AwardKarma"}}</h3>
+    <div class="form-group"><label>{{localize "PENTRA.Karma.Reason.session"}}</label><span class="fixed">+{{session}}</span></div>
+    <div class="form-group"><label>{{localize "PENTRA.Karma.ArcLabel"}}</label>
+      <div class="form-fields radios">
+        {{#each arcs}}<label class="radio"><input type="radio" name="arc" value="{{key}}" {{checked checked}}> {{label}}{{#if value}} (+{{value}}){{/if}}</label>{{/each}}
+      </div>
+    </div>
+    <div class="form-group"><label>{{localize "PENTRA.Karma.Reason.misc"}}</label>
+      <div class="form-fields"><input type="range" name="gm" min="0" max="6" step="1" value="0"><span class="range-value">+0</span></div>
+    </div>
+    <div class="form-group total"><label>{{localize "PENTRA.Karma.Total"}}</label><strong class="karma-total">{{session}}</strong></div>
+    <button type="button" data-action="awardKarma"><i class="fa-solid fa-star"></i> {{localize "PENTRA.Party.AwardSelected"}}</button>
+  </section>
+
+  <section class="panel">
+    <h3><i class="fa-solid fa-sack-dollar"></i> {{localize "PENTRA.Party.RewardResource"}}</h3>
+    <div class="form-group"><label>{{localize "PENTRA.Reward.Value"}}</label>
+      <div class="form-fields">
+        <select name="rewardDie">{{#each dice}}<option value="{{this}}" {{#if (eq this 6)}}selected{{/if}}>d{{this}}</option>{{/each}}</select>
+        <select name="rewardMult">{{#each multipliers}}<option value="{{this}}">x{{this}}</option>{{/each}}</select>
+      </div>
+    </div>
+    <p class="hint">{{localize "PENTRA.Party.RewardHint"}}</p>
+    <button type="button" data-action="rewardResource"><i class="fa-solid fa-dice"></i> {{localize "PENTRA.Party.RollSelected"}}</button>
+  </section>
+
+  <section class="panel">
+    <h3><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Party.Session"}}</h3>
+    <button type="button" data-action="resetEdge"><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Party.ResetEdge"}}</button>
+  </section>
+</div>

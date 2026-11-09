@@ -3,9 +3,9 @@
   "_key": "!items!h5xiykoAQ9cI5TeF",
   "name": "Healthy",
   "type": "talent",
-  "img": "icons/svg/regen.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
   "system": {
-    "description": "<p>Your maximum Health is increased from 6 to 8.</p>",
+    "description": "<p>Your maximum Health is increased from 12 to 14.</p>",
     "trait": "health",
     "delta": 2,
     "requires": ""

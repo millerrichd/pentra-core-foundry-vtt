@@ -1,0 +1,27 @@
+{
+  "_id": "EIr43Hq0Ljfc2J7h",
+  "_key": "!items!EIr43Hq0Ljfc2J7h",
+  "name": "Tremor Fever",
+  "type": "disease",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "system": {
+    "description": "<p>A low fever that leaves the hands shaking and the balance unsure. Picking a lock or lining up a shot becomes a fight against your own body. Caught from contaminated water.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
+    "effect": "attribute",
+    "attribute": "finesse",
+    "trait": "",
+    "penalty": -2,
+    "dieSteps": -1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

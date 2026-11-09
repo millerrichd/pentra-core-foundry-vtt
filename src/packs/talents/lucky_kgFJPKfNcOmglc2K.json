@@ -3,7 +3,7 @@
   "_key": "!items!kgFJPKfNcOmglc2K",
   "name": "Lucky",
   "type": "talent",
-  "img": "icons/svg/sun.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
   "system": {
     "description": "<p>Your starting Edge for each session is increased from 2 to 4.</p>",
     "trait": "edge",

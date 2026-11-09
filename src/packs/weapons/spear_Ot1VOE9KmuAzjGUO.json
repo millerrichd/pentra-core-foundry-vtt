@@ -3,12 +3,11 @@
   "_key": "!items!Ot1VOE9KmuAzjGUO",
   "name": "Spear",
   "type": "weapon",
-  "img": "icons/weapons/polearms/spear-barbed-silver.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
   "system": {
     "description": "<p>A stick with a point at the end, usually made of metal, but could be made of straight wood.</p>",
     "heavy": false,
     "reloadActions": 0,
-    "equipped": true,
     "category": "melee",
     "skill": "melee_weapons",
     "wounds": 1,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 6,
       "multiplier": 1
-    }
+    },
+    "slot": "stowed",
+    "underwater": "reduced"
   },
   "effects": [],
-  "folder": null,
+  "folder": "8FLLXrO1ouJzcnAB",
   "sort": 0,
   "ownership": {
     "default": 0

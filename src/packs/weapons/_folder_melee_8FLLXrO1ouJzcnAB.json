@@ -1,0 +1,17 @@
+{
+  "_id": "8FLLXrO1ouJzcnAB",
+  "_key": "!folders!8FLLXrO1ouJzcnAB",
+  "name": "Melee",
+  "type": "Item",
+  "folder": null,
+  "description": "",
+  "sorting": "a",
+  "sort": 100000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

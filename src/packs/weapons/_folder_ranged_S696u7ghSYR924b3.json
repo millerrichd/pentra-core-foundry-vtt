@@ -1,0 +1,17 @@
+{
+  "_id": "S696u7ghSYR924b3",
+  "_key": "!folders!S696u7ghSYR924b3",
+  "name": "Ranged",
+  "type": "Item",
+  "folder": null,
+  "description": "",
+  "sorting": "a",
+  "sort": 200000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

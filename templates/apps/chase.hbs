@@ -1,0 +1,95 @@
+<div class="chases-body">
+  <p class="hint">{{#if isGM}}{{localize "PENTRA.Chase.GMHint"}}{{else}}{{localize "PENTRA.Chase.PlayerHint"}}{{/if}}</p>
+  {{#each chases}}
+  <section class="panel chase" data-chase-id="{{id}}">
+    <header class="battle-header">
+      {{#if @root.isGM}}
+      <input type="text" class="battle-name" data-chase-field="name" value="{{name}}">
+      {{else}}
+      <h3 class="battle-name"><i class="fa-solid fa-car-burst"></i> {{name}}</h3>
+      {{/if}}
+      <span class="battle-phase">{{#if setup}}{{localize "PENTRA.Battle.Phase.setup"}}{{else}}{{localize "PENTRA.Battle.Round"}} {{round}}{{#if roundOver}} · {{localize "PENTRA.Chase.RoundOver"}}{{/if}}{{/if}}</span>
+      {{#if @root.isGM}}
+      <button type="button" class="chase-round" data-action="chaseRound"><i class="fa-solid fa-dice"></i> {{#if setup}}{{localize "PENTRA.Chase.Begin"}}{{else}}{{localize "PENTRA.Chase.NewRound"}}{{/if}}</button>
+      <a data-action="chaseRemove" data-tooltip="{{localize 'PENTRA.Chase.Remove'}}"><i class="fa-solid fa-trash"></i></a>
+      {{/if}}
+    </header>
+
+    <div class="chase-grid">
+      <ol class="chase-lane">
+        {{#each rows}}
+        <li class="chase-row {{#if escape}}escape{{/if}} {{#if center}}center{{/if}}" data-pos="{{pos}}">
+          <span class="chase-band">{{label}}</span>
+          <span class="chase-cell">
+            {{#each chips}}
+            <span class="chase-chip {{#if isAnchor}}anchor{{/if}} {{#if targeted}}targeted{{/if}} {{#unless visible}}private{{/unless}}" data-vehicle="{{uuid}}" {{#if @root.isGM}}draggable="true"{{/if}} data-tooltip="{{name}}{{#if driver}} ({{driver}}){{/if}}{{#if showHealth}} · {{health}}/{{healthMax}}{{/if}}">
+              <img src="{{img}}" alt="">
+              <span class="chip-name">{{name}}</span>
+              <i class="fa-solid {{facingIcon}}"></i>
+              {{#if isAnchor}}<i class="fa-solid fa-anchor"></i>{{/if}}
+            </span>
+            {{/each}}
+          </span>
+        </li>
+        {{/each}}
+      </ol>
+
+      <ol class="chase-order">
+        {{#each order}}
+        <li class="chase-vehicle {{#if escaped}}escaped{{/if}} {{#if targeted}}targeted{{/if}} {{#if current}}current{{/if}}" data-vehicle="{{uuid}}">
+          <div class="chase-vehicle-head">
+            {{#if current}}<i class="fa-solid fa-play chase-turn-marker" data-tooltip="{{localize 'PENTRA.Chase.CurrentTurn'}}"></i>{{/if}}
+            <span class="chase-init" data-tooltip="{{localize 'PENTRA.Chase.Initiative'}}">{{#if init}}{{init}}{{else}}–{{/if}}<small>d{{die}}</small></span>
+            <a class="chase-name" data-action="chaseOpen">{{name}}</a>
+            {{#if showHealth}}
+            <span class="chase-health {{#if hurt}}hurt{{/if}} {{#if wrecked}}wrecked{{/if}}" data-tooltip="{{localize 'PENTRA.Trait.health'}}"><i class="fa-solid {{#if wrecked}}fa-car-burst{{else}}fa-heart{{/if}}"></i> {{health}}/{{healthMax}}</span>
+            {{/if}}
+            {{#if isAnchor}}<i class="fa-solid fa-anchor" data-tooltip="{{localize 'PENTRA.Chase.Anchor'}}"></i>{{/if}}
+            {{#if pushed}}<span class="warning" data-tooltip="{{localize 'PENTRA.Chase.PushedHint'}}"><i class="fa-solid fa-gauge-high"></i> {{localize "PENTRA.Chase.Pushed"}}</span>{{/if}}
+          </div>
+          {{#if showHealth}}<span class="chase-health-bar {{#if hurt}}hurt{{/if}}"><span style="width: {{healthPercent}}%"></span></span>{{/if}}
+          <div class="chase-vehicle-info">
+            <span><i class="fa-solid {{facingIcon}}"></i> {{band}}</span>
+            <span class="chase-pips" data-tooltip="{{localize 'PENTRA.Chase.MovesHint'}}">{{#each pips}}<i class="fa-{{#if this}}solid{{else}}regular{{/if}} fa-circle"></i>{{/each}}</span>
+          </div>
+          <div class="chase-actions">
+            {{#if canMove}}
+            <button type="button" data-action="chaseMove" data-tooltip="{{localize 'PENTRA.Chase.MoveHint'}}"><i class="fa-solid {{facingIcon}}"></i> {{localize "PENTRA.Chase.Move"}}</button>
+            <button type="button" data-action="chaseTurn" data-tooltip="{{localize 'PENTRA.Chase.TurnHint'}}"><i class="fa-solid fa-rotate"></i> {{localize "PENTRA.Chase.Turn"}}</button>
+            {{/if}}
+            {{#if canPush}}
+            <button type="button" data-action="chasePush" data-tooltip="{{localize 'PENTRA.Chase.PushHint'}}"><i class="fa-solid fa-gauge-high"></i> {{localize "PENTRA.Vehicle.Push"}}</button>
+            {{/if}}
+            {{#if canRam}}
+            <button type="button" data-action="chaseRam" data-tooltip="{{localize 'PENTRA.Chase.RamHint'}}"><i class="fa-solid fa-car-burst"></i> {{localize "PENTRA.Chase.Ram"}}</button>
+            {{/if}}
+            {{#if canEnd}}
+            <button type="button" class="chase-end" data-action="chaseEndTurn" data-tooltip="{{localize 'PENTRA.Chase.EndTurnHint'}}"><i class="fa-solid fa-forward"></i> {{localize "PENTRA.Chase.EndTurn"}}</button>
+            {{/if}}
+            {{#unless escaped}}<a data-action="chaseTarget" class="{{#if targeted}}active{{/if}}" data-tooltip="{{localize 'PENTRA.Chase.TargetHint'}}"><i class="fa-solid fa-crosshairs"></i></a>{{/unless}}
+            {{#if @root.isGM}}
+            {{#if escaped}}
+            <a data-action="chaseRejoin" data-tooltip="{{localize 'PENTRA.Chase.Rejoin'}}"><i class="fa-solid fa-person-walking-arrow-loop-left"></i></a>
+            {{else}}
+            {{#unless isAnchor}}<a data-action="chaseAnchor" data-tooltip="{{localize 'PENTRA.Chase.MakeAnchor'}}"><i class="fa-solid fa-anchor"></i></a>{{/unless}}
+            <a data-action="chaseFlip" data-tooltip="{{localize 'PENTRA.Chase.Flip'}}"><i class="fa-solid fa-arrows-up-down"></i></a>
+            {{/if}}
+            <a data-action="chaseVisible" data-tooltip="{{localize 'PENTRA.Chase.VisibleHint'}}"><i class="fa-solid {{#if visible}}fa-eye{{else}}fa-eye-slash{{/if}}"></i></a>
+            <a data-action="chaseSplit" data-tooltip="{{localize 'PENTRA.Chase.Split'}}"><i class="fa-solid fa-code-branch"></i></a>
+            <a data-action="chaseDrop" data-tooltip="{{localize 'PENTRA.Chase.RemoveVehicle'}}"><i class="fa-solid fa-xmark"></i></a>
+            {{/if}}
+          </div>
+        </li>
+        {{else}}
+        <li class="empty hint">{{localize "PENTRA.Chase.DropHere"}}</li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+  {{else}}
+  <p class="empty hint">{{#if isGM}}{{localize "PENTRA.Chase.EmptyGM"}}{{else}}{{localize "PENTRA.Chase.EmptyPlayer"}}{{/if}}</p>
+  {{/each}}
+  {{#if isGM}}
+  <button type="button" class="add-counter" data-action="chaseAdd"><i class="fa-solid fa-plus"></i> {{localize "PENTRA.Chase.Add"}}</button>
+  {{/if}}
+</div>

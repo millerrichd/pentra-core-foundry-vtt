@@ -3,7 +3,7 @@
   "_key": "!items!4BJjNNaWPBWDzwBj",
   "name": "Shoddy Equipment",
   "type": "hindrance",
-  "img": "icons/svg/downgrade.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_hindrance@512.webp",
   "system": {
     "description": "<p>Your starting Durability Die is reduced from d8 to d6.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
     "trait": "durabilityDie",

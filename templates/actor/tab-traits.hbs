@@ -8,14 +8,28 @@
     </header>
     <ol class="item-list">
       {{#each items.ancestry}}
-      <li class="item-row" data-item-id="{{id}}" data-drag="true">
-        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+      <li class="item-row draggable" data-item-id="{{id}}">
+        <a class="item-name" data-action="toggleAncestry" data-tooltip="{{localize 'PENTRA.Ancestry.ShowDetails'}}">
+          <i class="fa-solid {{#if @root.showAncestry}}fa-caret-down{{else}}fa-caret-right{{/if}}"></i>
+          <img src="{{img}}" alt=""> {{name}}
+        </a>
         <span class="col">{{#if system.attributeBoost}}{{localize (lookup @root.config.attributes system.attributeBoost)}}{{/if}}</span>
         <span class="controls">
-          <a data-action="itemPost"><i class="fa-solid fa-comment"></i></a>
-          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          <a data-action="itemEdit" data-tooltip="{{localize 'PENTRA.Edit'}}"><i class="fa-solid fa-pen"></i></a>
+          <a data-action="itemPost" data-tooltip="{{localize 'PENTRA.PostToChat'}}"><i class="fa-solid fa-comment"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Ancestry.Remove'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
         </span>
       </li>
+      {{#if @root.showAncestry}}
+      <li class="item-details-row">
+        <div class="ancestry-boost">
+          <span class="label">{{localize "PENTRA.Ancestry.Boost"}}:</span>
+          {{#if @root.ancestry.boostLabel}}<strong>{{@root.ancestry.boostLabel}}</strong> <span class="hint">({{localize "PENTRA.Ancestry.BoostEffect"}})</span>
+          {{else}}<em>{{localize "PENTRA.None"}}</em>{{/if}}
+        </div>
+        {{#if @root.ancestry.description}}<div class="ancestry-description">{{{@root.ancestry.description}}}</div>{{/if}}
+      </li>
+      {{/if}}
       {{else}}
       <li class="empty hint">{{localize "PENTRA.Ancestry.DropHint"}}</li>
       {{/each}}
@@ -31,7 +45,7 @@
     </header>
     <ol class="item-list">
       {{#each items.hindrance}}
-      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+      <li class="item-row draggable" data-item-id="{{id}}">
         <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
         <span class="col wide">{{summary}}</span>
         <span class="controls">
@@ -54,7 +68,7 @@
     </header>
     <ol class="item-list">
       {{#each items.talent}}
-      <li class="item-row" data-item-id="{{id}}" data-drag="true">
+      <li class="item-row draggable" data-item-id="{{id}}">
         <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
         <span class="col wide">{{summary}}{{#if system.requires}} <em>({{localize "PENTRA.Requires"}}: {{system.requires}})</em>{{/if}}</span>
         <span class="controls">
@@ -65,6 +79,31 @@
       {{/each}}
     </ol>
     <p class="hint">{{localize "PENTRA.Talent.Hint"}} {{localize "PENTRA.Karma.NextTalent"}}: <strong>{{nextTalentCost}}</strong></p>
+  </section>
+
+  {{! Diseases }}
+  <section class="item-section diseases">
+    <header class="item-header">
+      <h3>{{localize "PENTRA.Disease.Heading"}}</h3>
+      <span class="col wide">{{localize "PENTRA.Effect"}}</span>
+      <span class="controls">{{#if isGM}}<a data-action="itemCreate" data-type="disease" data-tooltip="{{localize 'PENTRA.Disease.Add'}}"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each items.disease}}
+      <li class="item-row draggable" data-item-id="{{id}}">
+        <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+        <span class="col wide warning">{{summary}}</span>
+        <span class="controls">
+          {{#if @root.editable}}<a data-action="diseaseCheck" data-tooltip="{{localize 'PENTRA.Disease.CheckHint'}}"><i class="fa-solid fa-shield-virus"></i></a>{{/if}}
+          <a data-action="itemPost"><i class="fa-solid fa-comment"></i></a>
+          {{#if @root.isGM}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Disease.Cure'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{else}}
+      <li class="empty hint">{{localize "PENTRA.Disease.None"}}</li>
+      {{/each}}
+    </ol>
+    <p class="hint">{{localize "PENTRA.Disease.Hint"}}</p>
   </section>
 
   {{! Karma reference }}

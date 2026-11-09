@@ -1,0 +1,27 @@
+{
+  "_id": "ewTfiCNsFiFeOg4i",
+  "_key": "!items!ewTfiCNsFiFeOg4i",
+  "name": "Swamp Knee",
+  "type": "disease",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "system": {
+    "description": "<p>Swollen, stiff joints that turn a quick sidestep into a slow shuffle. You're easier to hit and you know it. Picked up wading through stagnant water.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
+    "effect": "trait",
+    "attribute": "",
+    "trait": "evasion",
+    "penalty": -2,
+    "dieSteps": -1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "_id": "FlI0nj7g6sqU6jHg",
+  "_key": "!folders!FlI0nj7g6sqU6jHg",
+  "name": "Vehicle",
+  "type": "Item",
+  "folder": null,
+  "description": "",
+  "sorting": "a",
+  "sort": 300000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

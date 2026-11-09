@@ -1,0 +1,17 @@
+{
+  "_id": "ZE6Kujzpn7pBm2iy",
+  "_key": "!folders!ZE6Kujzpn7pBm2iy",
+  "name": "Medieval",
+  "type": "Item",
+  "folder": null,
+  "description": "",
+  "sorting": "a",
+  "sort": 200000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

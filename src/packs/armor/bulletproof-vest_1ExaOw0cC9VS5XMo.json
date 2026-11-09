@@ -3,9 +3,9 @@
   "_key": "!items!1ExaOw0cC9VS5XMo",
   "name": "Bulletproof Vest",
   "type": "armor",
-  "img": "icons/equipment/chest/bullet-proof-vest-kevlar.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor@512.webp",
   "system": {
-    "description": "<p>An armored vest that protects the vitals in the torso. Is wearable under a Leather Jacket or Leather Long Coat.</p>",
+    "description": "<p>An armored vest that protects the vitals in the torso. Is wearable under a Leather Jacket or Leather Long Coat.</p><p>Modern.</p>",
     "legal": true,
     "ar": 1,
     "coverage": {
@@ -26,7 +26,7 @@
     "equipped": false
   },
   "effects": [],
-  "folder": null,
+  "folder": "m5GXvxr9YYAJeMvU",
   "sort": 0,
   "ownership": {
     "default": 0

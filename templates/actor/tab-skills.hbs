@@ -1,10 +1,56 @@
 <section class="tab skills-tab {{tab.cssClass}}" data-group="primary" data-tab="skills">
+  {{#if creation.active}}
+  <section class="creation-panel">
+    <header>
+      <h3><i class="fa-solid fa-user-pen"></i> {{localize "PENTRA.Creation.Title"}}</h3>
+      <button type="button" class="finish-btn" data-action="finishCreation"><i class="fa-solid fa-flag-checkered"></i> {{localize "PENTRA.Creation.Finish"}}</button>
+    </header>
+    <div class="budget-row">
+      <div class="budget {{#if creation.attributes.over}}over{{else if creation.attributes.done}}done{{/if}}"
+           data-tooltip="{{localize 'PENTRA.Creation.AttributeHint'}}">
+        <span class="label">{{localize "PENTRA.Creation.Attributes"}}</span>
+        <span class="value">{{creation.attributes.used}} / {{creation.attributes.budget}}</span>
+      </div>
+      <div class="budget {{#if creation.resistances.over}}over{{else if creation.resistances.done}}done{{/if}}"
+           data-tooltip="{{localize 'PENTRA.Creation.ResistanceHint'}}">
+        <span class="label">{{localize "PENTRA.Resistances"}}</span>
+        <span class="value">{{creation.resistances.used}} / {{creation.resistances.budget}}</span>
+      </div>
+      <div class="budget {{#if creation.skills.over}}over{{else if creation.skills.done}}done{{/if}}"
+           data-tooltip="{{localize 'PENTRA.Creation.SkillHint'}}">
+        <span class="label">{{localize "PENTRA.Skills"}}</span>
+        <span class="value">{{creation.skills.used}} / {{creation.skills.budget}}</span>
+      </div>
+      <div class="budget {{#if creation.hindrances.over}}over{{/if}}" data-tooltip="{{localize 'PENTRA.Hindrance.Hint'}}">
+        <span class="label">{{localize "TYPES.Item.hindrance"}}</span>
+        <span class="value">{{creation.hindrances.used}} / {{creation.hindrances.max}}</span>
+      </div>
+      <div class="budget {{#if creation.talents.over}}over{{/if}}" data-tooltip="{{localize 'PENTRA.Talent.Hint'}}">
+        <span class="label">{{localize "TYPES.Item.talent"}}</span>
+        <span class="value">{{creation.talents.used}} / {{creation.talents.max}}</span>
+      </div>
+    </div>
+    {{#if creation.errors.length}}
+    <ul class="creation-errors">{{#each creation.errors}}<li><i class="fa-solid fa-circle-exclamation"></i> {{this}}</li>{{/each}}</ul>
+    {{/if}}
+    {{#if creation.warnings.length}}
+    <ul class="creation-warnings">{{#each creation.warnings}}<li>{{this}}</li>{{/each}}</ul>
+    {{/if}}
+    {{#if creation.isGM}}<p class="hint">{{localize "PENTRA.Creation.GMHint"}}</p>{{/if}}
+  </section>
+  {{else}}
   <div class="tab-toolbar">
-    <span class="hint">{{localize "PENTRA.SkillPoints"}}: <strong>{{skillPoints}}</strong> ({{localize "PENTRA.SkillPointsHint"}})</span>
-    <button type="button" class="toggle {{#if editMode}}active{{/if}}" data-action="toggleEdit">
-      <i class="fa-solid fa-star"></i> {{localize "PENTRA.Karma.AdvanceMode"}}
-    </button>
+    <span class="hint">{{#if creation.locked}}<i class="fa-solid fa-lock"></i> {{localize "PENTRA.Creation.LockedHint"}}{{/if}}</span>
+    <div class="button-row">
+      {{#if creation.isGM}}
+      <button type="button" data-action="reopenCreation" data-tooltip="{{localize 'PENTRA.Creation.ReopenHint'}}"><i class="fa-solid fa-user-pen"></i> {{localize "PENTRA.Creation.Reopen"}}</button>
+      {{/if}}
+      <button type="button" class="toggle {{#if editMode}}active{{/if}}" data-action="toggleEdit">
+        <i class="fa-solid fa-star"></i> {{localize "PENTRA.Karma.AdvanceMode"}}
+      </button>
+    </div>
   </div>
+  {{/if}}
 
   <div class="attribute-grid">
     {{#each attributes as |attr|}}
@@ -13,21 +59,27 @@
         <a class="rollable" data-action="roll" data-type="attribute" data-key="{{attr.key}}" data-tooltip="{{localize 'PENTRA.Roll.Hint'}}">
           <i class="fa-solid fa-dice-d{{attr.die}}"></i> {{attr.label}}
         </a>
-        <select name="system.attributes.{{attr.key}}.rank" class="rank-select">
-          {{selectOptions @root.rankOptions selected=attr.rank}}
+        <select name="system.attributes.{{attr.key}}.rank" class="rank-select" {{#if @root.creation.locked}}disabled{{/if}}>
+          {{#each @root.attrRankChoices as |c|}}
+          <option value="{{c.value}}" {{#if (eq c.value attr.rank)}}selected{{/if}} {{#if c.disabled}}disabled{{/if}}>{{c.label}}</option>
+          {{/each}}
         </select>
-        {{#if @root.editMode}}{{#if attr.karmaCost}}
+        {{#if @root.editMode}}{{#unless @root.creation.active}}{{#if attr.karmaCost}}
         <button type="button" class="karma-btn" data-action="improveRank" data-group="attributes" data-key="{{attr.key}}" data-tooltip="{{localize 'PENTRA.Karma.Improve'}}">+{{attr.karmaCost}}<i class="fa-solid fa-star"></i></button>
-        {{/if}}{{/if}}
+        {{/if}}{{/unless}}{{/if}}
       </header>
       <ol class="skill-list">
         {{#each attr.skills as |skill|}}
         <li class="skill {{#if skill.trained}}trained{{/if}}">
           <a class="rollable skill-name" data-action="roll" data-type="skill" data-key="{{skill.key}}">{{skill.label}}</a>
-          <input type="number" name="system.skills.{{skill.key}}" value="{{skill.value}}" min="0" max="6">
-          {{#if @root.editMode}}{{#if skill.karmaCost}}
+          <span class="skill-stepper">
+            {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="-1" {{#unless skill.canLower}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Lower'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+            <span class="skill-value">{{skill.value}}</span>
+            {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="1" {{#unless skill.canRaise}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Raise'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+          </span>
+          {{#if @root.editMode}}{{#unless @root.creation.active}}{{#if skill.karmaCost}}
           <button type="button" class="karma-btn" data-action="improveSkill" data-key="{{skill.key}}">+{{skill.karmaCost}}<i class="fa-solid fa-star"></i></button>
-          {{/if}}{{/if}}
+          {{/if}}{{/unless}}{{/if}}
         </li>
         {{/each}}
         {{#if (eq attr.key "knowledge")}}
@@ -39,9 +91,18 @@
         <li class="skill language trained">
           <a class="rollable" data-action="roll" data-type="language" data-key="{{lang.index}}"><i class="fa-solid fa-language"></i></a>
           <input type="text" class="lang-name" name="system.languages.{{lang.index}}.name" value="{{lang.name}}" placeholder="{{localize 'PENTRA.LanguageName'}}">
-          <input type="number" name="system.languages.{{lang.index}}.value" value="{{lang.value}}" min="0" max="6">
-          {{#if @root.editMode}}
+          {{#if lang.isNative}}<span class="native-tag" data-tooltip="{{localize 'PENTRA.Creation.NativeHint'}}">{{localize "PENTRA.Native"}}</span>{{/if}}
+          <input type="hidden" name="system.languages.{{lang.index}}.native" value="{{lang.native}}" data-dtype="Boolean">
+          <input type="hidden" name="system.languages.{{lang.index}}.value" value="{{lang.value}}">
+          <span class="skill-stepper">
+            {{#if lang.canStep}}<button type="button" class="step-btn" data-action="stepLanguage" data-index="{{lang.index}}" data-delta="-1" {{#unless lang.canLower}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Lower'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+            <span class="skill-value">{{lang.value}}</span>
+            {{#if lang.canStep}}<button type="button" class="step-btn" data-action="stepLanguage" data-index="{{lang.index}}" data-delta="1" {{#unless lang.canRaise}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Raise'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+          </span>
+          {{#if @root.editMode}}{{#unless @root.creation.active}}
             {{#if lang.karmaCost}}<button type="button" class="karma-btn" data-action="improveLanguage" data-index="{{lang.index}}">+{{lang.karmaCost}}<i class="fa-solid fa-star"></i></button>{{/if}}
+          {{/unless}}{{/if}}
+          {{#if (or @root.creation.active @root.editMode)}}
             <button type="button" class="icon-btn" data-action="removeLanguage" data-index="{{lang.index}}"><i class="fa-solid fa-trash"></i></button>
           {{/if}}
         </li>
@@ -59,12 +120,14 @@
           <a class="rollable skill-name" data-action="roll" data-type="resistance" data-key="{{res.key}}">
             <i class="fa-solid fa-shield-halved"></i> {{res.label}}
           </a>
-          <select name="system.resistances.{{res.key}}.rank" class="rank-select">
-            {{selectOptions @root.rankOptions selected=res.rank}}
+          <select name="system.resistances.{{res.key}}.rank" class="rank-select" {{#if @root.creation.locked}}disabled{{/if}}>
+            {{#each @root.resRankChoices as |c|}}
+            <option value="{{c.value}}" {{#if (eq c.value res.rank)}}selected{{/if}} {{#if c.disabled}}disabled{{/if}}>{{c.label}}</option>
+            {{/each}}
           </select>
-          {{#if @root.editMode}}{{#if res.karmaCost}}
+          {{#if @root.editMode}}{{#unless @root.creation.active}}{{#if res.karmaCost}}
           <button type="button" class="karma-btn" data-action="improveRank" data-group="resistances" data-key="{{res.key}}">+{{res.karmaCost}}<i class="fa-solid fa-star"></i></button>
-          {{/if}}{{/if}}
+          {{/if}}{{/unless}}{{/if}}
         </li>
         {{/each}}
       </ol>

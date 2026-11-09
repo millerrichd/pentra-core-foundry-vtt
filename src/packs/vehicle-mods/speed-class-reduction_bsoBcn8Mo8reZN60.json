@@ -1,0 +1,27 @@
+{
+  "_id": "bsoBcn8Mo8reZN60",
+  "_key": "!items!bsoBcn8Mo8reZN60",
+  "name": "Speed Class Reduction",
+  "type": "vehiclemod",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_modifications@512.webp",
+  "system": {
+    "description": "<p>Reduce the vehicle's Speed Class by one category (5 → 4 → 3 → 2 → 1). This buys back 2 multipliers' worth of cost.</p><p><em>Each modification raises the vehicle's cost by one multiplier level (when the die reaches its maximum multiplier, the die grows a size instead); no vehicle may exceed d12x6 R.D. Added after the vehicle is acquired, each modification costs d6 R.D.</em></p>",
+    "mod": "speedClass",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

@@ -3,7 +3,7 @@
   "_key": "!items!pOSc5o4Ex7V5h85p",
   "name": "Rich",
   "type": "talent",
-  "img": "icons/svg/coins.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
   "system": {
     "description": "<p>Your starting Resource Die is increased from d6 to d8, or your current die increases one level.</p>",
     "trait": "resourceDie",

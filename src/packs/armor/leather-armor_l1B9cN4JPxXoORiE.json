@@ -1,0 +1,40 @@
+{
+  "_id": "l1B9cN4JPxXoORiE",
+  "_key": "!items!l1B9cN4JPxXoORiE",
+  "name": "Leather Armor",
+  "type": "armor",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_medieval_armor@512.webp",
+  "system": {
+    "description": "<p>Soft leather hides woven into a tunic and leggings that protect the body from harm. Medieval.</p>",
+    "legal": true,
+    "ar": 2,
+    "coverage": {
+      "torso": true,
+      "arms": true,
+      "legs": true,
+      "head": false
+    },
+    "evasion": -1,
+    "size": "normal",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    },
+    "layerable": false,
+    "heavy": false,
+    "durability": null,
+    "equipped": false
+  },
+  "effects": [],
+  "folder": "ZE6Kujzpn7pBm2iy",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

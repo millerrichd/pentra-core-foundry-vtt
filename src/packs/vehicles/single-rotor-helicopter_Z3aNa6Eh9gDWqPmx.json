@@ -1,32 +1,39 @@
 {
   "_id": "Z3aNa6Eh9gDWqPmx",
-  "_key": "!items!Z3aNa6Eh9gDWqPmx",
+  "_key": "!actors!Z3aNa6Eh9gDWqPmx",
   "name": "Single Rotor Helicopter",
   "type": "vehicle",
-  "img": "icons/svg/wing.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp",
   "system": {
     "description": "<p>A small helicopter that seats 4 comfortably, designed for short distances.</p>",
-    "category": "air",
-    "speedClass": 4,
-    "evasion": 9,
-    "armor": 1,
-    "handling": 1,
-    "mounts": 1,
-    "mountNotes": "1 forward",
     "cost": {
       "die": 8,
       "multiplier": 3
     },
     "legal": true,
+    "category": "air",
+    "speedClass": 4,
     "health": {
-      "value": 5,
-      "max": 5
+      "value": 10,
+      "max": 10
     },
+    "evasion": {
+      "base": 9
+    },
+    "ar": 1,
+    "heavyArmor": false,
     "durability": {
       "value": 6,
       "max": 6
     },
-    "heavyArmor": false
+    "handling": 1,
+    "mounts": 1,
+    "mountNotes": "1 forward",
+    "owner": "",
+    "crew": {
+      "driver": "",
+      "passengers": []
+    }
   },
   "effects": [],
   "folder": null,
@@ -39,5 +46,17 @@
     "coreVersion": "14",
     "systemId": "pentra-core-foundry-vtt",
     "systemVersion": "0.1.0"
+  },
+  "items": [],
+  "prototypeToken": {
+    "name": "Single Rotor Helicopter",
+    "actorLink": true,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp"
+    },
+    "disposition": 0
   }
 }

@@ -3,12 +3,11 @@
   "_key": "!items!xXvyuGUY5SD3rd1Y",
   "name": "Pistol, Heavy",
   "type": "weapon",
-  "img": "icons/weapons/guns/pistol-machine-long.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
   "system": {
     "description": "<p>This pistol is designed for one-handed use. The heavy model deals acceptable damage to lightly and medium-armored people.</p>",
     "heavy": false,
     "reloadActions": 0,
-    "equipped": true,
     "category": "ranged",
     "skill": "shooting",
     "wounds": 1,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 6,
       "multiplier": 2
-    }
+    },
+    "slot": "stowed",
+    "underwater": "reduced"
   },
   "effects": [],
-  "folder": null,
+  "folder": "S696u7ghSYR924b3",
   "sort": 0,
   "ownership": {
     "default": 0

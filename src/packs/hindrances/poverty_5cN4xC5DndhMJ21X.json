@@ -3,7 +3,7 @@
   "_key": "!items!5cN4xC5DndhMJ21X",
   "name": "Poverty",
   "type": "hindrance",
-  "img": "icons/svg/coins.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_hindrance@512.webp",
   "system": {
     "description": "<p>Your starting Resource Die is reduced from d6 to d4.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
     "trait": "resourceDie",

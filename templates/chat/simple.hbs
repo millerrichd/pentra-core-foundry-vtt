@@ -5,4 +5,5 @@
   </header>
   {{#if rollHTML}}{{{rollHTML}}}{{/if}}
   {{#if lines.length}}<ul class="notes">{{#each lines}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+  {{#if button}}<div class="card-buttons"><button type="button" data-pentra-action="{{button.action}}"><i class="{{button.icon}}"></i> {{button.label}}</button></div>{{/if}}
 </div>

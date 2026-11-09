@@ -1,0 +1,40 @@
+{
+  "_id": "NMvy4ynXUR3Oreyu",
+  "_key": "!items!NMvy4ynXUR3Oreyu",
+  "name": "Platemail",
+  "type": "armor",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_medieval_armor@512.webp",
+  "system": {
+    "description": "<p>Heavy plates formed to fit a body, maximum protection for the most hindrance of movement. Medieval.</p>",
+    "legal": true,
+    "ar": 4,
+    "coverage": {
+      "torso": true,
+      "arms": true,
+      "legs": true,
+      "head": true
+    },
+    "evasion": -3,
+    "size": "large",
+    "cost": {
+      "die": 10,
+      "multiplier": 1
+    },
+    "layerable": false,
+    "heavy": false,
+    "durability": null,
+    "equipped": false
+  },
+  "effects": [],
+  "folder": "ZE6Kujzpn7pBm2iy",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

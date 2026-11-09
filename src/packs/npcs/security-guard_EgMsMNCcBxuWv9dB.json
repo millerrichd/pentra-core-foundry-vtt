@@ -42,8 +42,8 @@
     "size": "medium",
     "notes": "<p>Your traditional security guard: someone who monitors a shopping center or small corporate building, not military. Carries a Reloading or Trauma Kit one die size above the default.</p>",
     "health": {
-      "value": 3,
-      "max": 3
+      "value": 6,
+      "max": 6
     },
     "evasion": {
       "base": 7
@@ -102,7 +102,6 @@
         "description": "<p>This pistol is designed for one-handed use. The light model does acceptable damage to unarmored people.</p>",
         "heavy": false,
         "reloadActions": 0,
-        "equipped": true,
         "category": "ranged",
         "skill": "shooting",
         "wounds": 1,
@@ -114,7 +113,8 @@
         "cost": {
           "die": 4,
           "multiplier": 1
-        }
+        },
+        "slot": "primary"
       },
       "effects": [],
       "folder": null,

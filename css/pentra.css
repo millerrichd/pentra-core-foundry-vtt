@@ -187,29 +187,42 @@
 }
 
 .pentra .resource .max { font-weight: bold; }
+.pentra .resource .pool-value {
+  min-width: 2.75em;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
 .pentra .resource select { width: auto; }
+.pentra .resource .reward-btn {
+  flex: 0 0 auto;
+  width: auto;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  font-size: var(--font-size-11, 11px);
+  line-height: 1;
+}
+
+/* Read-only die (derived from hindrances/talents), sized to match the die dropdowns beside it. */
+.pentra .resource .die-static {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5rem;
+  height: var(--input-height, 1.75rem);
+  padding: 0 0.5rem;
+  border: 1px solid var(--pentra-border);
+  border-radius: 4px;
+  font-weight: bold;
+}
 .pentra .resource-actions { display: flex; gap: 0.2rem; }
 .pentra .resource.health { border-color: var(--pentra-failure); }
 .pentra .resource.edge { border-color: var(--pentra-accent); }
 
-.pentra .derived-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.pentra .derived {
-  display: flex;
-  gap: 0.35rem;
-  align-items: baseline;
-}
-
-.pentra .derived .label {
+.pentra .stat .detail {
   color: var(--pentra-muted);
-  font-size: var(--font-size-12, 12px);
+  font-size: var(--font-size-11, 11px);
 }
-
-.pentra .derived .value { font-weight: bold; }
 
 .pentra .armor-locs {
   display: inline-flex;
@@ -222,6 +235,211 @@
   border-radius: 3px;
   padding: 0 0.15rem;
 }
+
+/* ---------- Ancestry details ---------- */
+
+.pentra .ancestry-link { cursor: pointer; }
+.pentra .ancestry-link:hover { color: var(--pentra-accent); }
+
+.pentra .ancestry-panel,
+.pentra .item-details-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--pentra-border);
+  border-left: 3px solid var(--pentra-accent);
+  border-radius: 4px;
+  background: var(--pentra-panel);
+}
+
+.pentra .item-details-row { margin: 0.2rem 0 0.4rem; }
+
+.pentra .ancestry-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.pentra .ancestry-panel-header img { width: 24px; height: 24px; border: none; }
+.pentra .ancestry-panel-header strong { flex: 1; }
+
+.pentra .ancestry-boost .label { color: var(--pentra-muted); }
+.pentra .ancestry-description p { margin: 0.2rem 0; }
+
+/* ---------- Character creation ---------- */
+
+.pentra .creation-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--pentra-accent);
+  border-radius: 6px;
+  background: var(--pentra-accent-soft);
+}
+
+.pentra .creation-panel > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pentra .creation-panel .finish-btn { flex: 0 0 auto; width: auto; }
+
+.pentra .budget-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pentra .budget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 6rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  background: var(--color-bg-option, rgba(255, 255, 255, 0.05));
+}
+.pentra .budget .label { font-size: var(--font-size-11, 11px); color: var(--pentra-muted); text-transform: uppercase; }
+.pentra .budget .value { font-size: 1.1rem; font-weight: bold; }
+.pentra .budget.done { border-color: var(--pentra-success); }
+.pentra .budget.done .value { color: var(--pentra-success); }
+.pentra .budget.over { border-color: var(--pentra-failure); }
+.pentra .budget.over .value { color: var(--pentra-failure); }
+
+.pentra .creation-errors,
+.pentra .creation-warnings {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: var(--font-size-12, 12px);
+}
+.pentra .creation-errors { color: var(--pentra-failure); list-style: none; padding-left: 0; }
+.pentra .creation-warnings { color: var(--pentra-muted); }
+
+.pentra .native-tag {
+  font-size: var(--font-size-11, 11px);
+  color: var(--pentra-muted);
+  font-style: italic;
+}
+
+.pentra select option:disabled { color: var(--pentra-muted); }
+.pentra input[readonly] { opacity: 0.75; }
+
+/* ---------- Weapon carry slots ---------- */
+
+.pentra .slot-select {
+  flex: 0 0 auto;
+  width: auto;
+  height: 1.5rem;
+  font-size: var(--font-size-12, 12px);
+}
+.pentra .slot-select.slot-primary { border-color: var(--pentra-accent); color: var(--pentra-accent); }
+.pentra .slot-select.slot-stowed { opacity: 0.7; }
+.pentra .carry-summary {
+  font-size: var(--font-size-11, 11px);
+  font-weight: normal;
+  color: var(--pentra-muted);
+}
+.pentra .carry-summary.warning { color: var(--pentra-failure); font-weight: bold; }
+
+/* ---------- Downtime ---------- */
+
+.pentra .downtime-panel { margin-bottom: 0.6rem; }
+.pentra .downtime-header { display: flex; flex-direction: column; gap: 0.1rem; }
+.pentra .activity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.pentra .activity button,
+.pentra .activity select { flex: 0 0 auto; width: auto; }
+.pentra .activity button { min-width: 13rem; justify-content: flex-start; }
+.pentra .activity .hint { flex: 1 1 12rem; }
+
+/* ---------- Karma earn dialog ---------- */
+
+.pentra.karma-earn .radios { flex-wrap: wrap; gap: 0.75rem; }
+.pentra.karma-earn label.radio { display: flex; align-items: center; gap: 0.25rem; }
+.pentra.karma-earn .fixed,
+.pentra.karma-earn .range-value { min-width: 2rem; text-align: right; font-weight: bold; }
+.pentra.karma-earn .total { border-top: 1px solid var(--pentra-border); padding-top: 0.3rem; }
+.pentra.karma-earn .karma-total { font-size: 1.3rem; color: var(--pentra-accent); }
+
+/* ---------- Party window ---------- */
+
+.pentra.party-app .window-content { padding: 0.5rem 0.75rem; }
+.pentra .party-body { display: flex; flex-direction: column; gap: 0.6rem; }
+.pentra .party-body .panel button { align-self: flex-start; width: auto; }
+.pentra .party-body .member-toggle { flex: 0 0 auto; margin: 0; }
+.pentra .party-body .karma-earn .radios { flex-wrap: wrap; gap: 0.75rem; }
+.pentra .party-body label.radio { display: flex; align-items: center; gap: 0.25rem; }
+.pentra .party-body .fixed,
+.pentra .party-body .range-value { min-width: 2rem; text-align: right; font-weight: bold; }
+.pentra .party-body .karma-total { font-size: 1.3rem; color: var(--pentra-accent); }
+.pentra-party-btn { flex: 1; }
+
+/* ---------- Dying ---------- */
+
+.pentra .dying-banner {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--pentra-failure);
+  border-radius: 4px;
+  background: rgba(176, 58, 58, 0.12);
+  color: var(--pentra-failure);
+}
+.pentra .dying-banner .hint { display: block; }
+
+.pentra .dead-banner {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--pentra-failure);
+  border-radius: 4px;
+  background: rgba(176, 58, 58, 0.18);
+  color: var(--pentra-failure);
+}
+.pentra .dead-banner .hint { display: block; }
+.pentra .dead-tag {
+  font-size: var(--font-size-12, 12px);
+  font-weight: bold;
+  color: var(--pentra-failure);
+  text-transform: uppercase;
+}
+
+.pentra .dying-tag {
+  font-size: var(--font-size-11, 11px);
+  font-weight: bold;
+  color: var(--pentra-failure);
+}
+
+/* ---------- Skill steppers ---------- */
+
+.pentra .skill-stepper {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.pentra .skill-stepper .step-btn {
+  flex: 0 0 auto;
+  width: 1.3rem;
+  height: 1.3rem;
+  min-height: 0;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  border-radius: 50%;
+}
+.pentra .skill-stepper .step-btn:disabled { opacity: 0.3; cursor: default; }
+
+.pentra .skill-stepper .skill-value {
+  min-width: 1.3rem;
+  text-align: center;
+  font-weight: bold;
+}
+.pentra .skill:not(.trained) .skill-value { color: var(--pentra-muted); font-weight: normal; }
 
 /* ---------- Skills tab ---------- */
 
@@ -316,7 +534,7 @@
   font-weight: bold;
 }
 
-.pentra .item-header h3 { flex: 1; }
+.pentra .item-header h3 { flex: 1 1 0; min-width: 0; }
 
 .pentra .item-list {
   list-style: none;
@@ -330,7 +548,7 @@
 .pentra .item-row.broken .item-name { text-decoration: line-through; }
 
 .pentra .item-name {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -350,12 +568,18 @@
 .pentra .col input[type="number"] { width: 3em; text-align: center; }
 .pentra .col select { width: 100%; }
 
+/* Every button group has the same fixed width (room for 4 icons) in headers and rows, so the columns
+   between the name and the buttons line up within and across sections. */
 .pentra .controls {
-  flex: 0 0 auto;
+  flex: 0 0 calc(4 * 1rem + 3 * 0.4rem);
   display: flex;
   gap: 0.4rem;
   justify-content: flex-end;
-  min-width: 2rem;
+  align-items: center;
+}
+.pentra .controls > a {
+  flex: 0 0 1rem;
+  text-align: center;
 }
 .pentra .controls a { color: var(--pentra-muted); }
 .pentra .controls a:hover,
@@ -461,6 +685,17 @@
 .pentra .form-fields.checkboxes { flex-wrap: wrap; gap: 0.6rem; }
 .pentra label.checkbox { display: flex; align-items: center; gap: 0.2rem; }
 
+/* ---------- Players list (lower left) ---------- */
+
+#players .pentra-edge {
+  flex: 0 0 auto;
+  margin-left: 0.4rem;
+  font-size: var(--font-size-12, 12px);
+  font-weight: bold;
+  color: #e0a23b;
+}
+#players .pentra-edge.low { opacity: 0.6; }
+
 /* ---------- Combat tracker ---------- */
 
 .combat-tracker .pentra-init {
@@ -545,3 +780,230 @@
   flex-direction: column;
   gap: 0.3rem;
 }
+
+/* ---------- Vehicle health stepper ---------- */
+.pentra .vehicle-health .skill-value.warning { color: var(--pentra-failure); }
+.pentra .vehicle-health .max { opacity: 0.7; margin-right: 0.15rem; }
+
+/* ---------- Vehicle sheet ---------- */
+
+.pentra.vehicle .vehicle-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+}
+.pentra.vehicle .vehicle-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+.pentra .vehicle-owner { flex: 0 0 auto; font-size: var(--font-size-12, 12px); }
+.pentra .vehicle-stats .form-group { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.pentra .vehicle-stats .form-group label { flex: 0 0 auto; font-weight: bold; }
+.pentra .vehicle-stats input[type="number"] { flex: 0 0 4rem; width: 4rem; }
+.pentra .vehicle-stats select { flex: 0 0 auto; width: auto; }
+.pentra select.inline { width: auto; padding: 0 0.2rem; height: auto; }
+.pentra .crew-list .seat-label {
+  flex: 0 0 6.5rem;
+  font-weight: bold;
+  font-size: var(--font-size-12, 12px);
+  color: var(--pentra-muted);
+}
+.pentra .crew-seat.driver-seat { background: var(--pentra-accent-soft); }
+.pentra .crew-seat.drop-zone { border: 1px dashed var(--pentra-border); border-radius: 4px; justify-content: center; }
+.pentra .crew-seat.missing { opacity: 0.6; }
+.pentra .vehicle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+.pentra .vehicle-actions button { flex: 1 1 auto; }
+.pentra .vehicle-health .pool-value { font-weight: bold; min-width: 1.3rem; text-align: center; }
+.pentra .vehicle-health input[type="number"] { width: 3rem; }
+.pentra .vehicle-stats .stat-line { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+.pentra .vehicle-stats .base-model { margin-top: 0.4rem; }
+.pentra .vehicle-stats .base-model summary { cursor: pointer; font-weight: bold; }
+
+/* ---------- Scars, running, roll dialog extras ---------- */
+.pentra .scar-btn {
+  flex: 0 0 auto;
+  width: auto;
+  margin-top: 0.2rem;
+  font-size: var(--font-size-11, 11px);
+  color: var(--pentra-failure);
+  border-color: var(--pentra-failure);
+}
+.pentra .run-btn { width: auto; font-size: var(--font-size-12, 12px); }
+.pentra .run-btn.active { background: var(--pentra-accent-soft); border-color: var(--pentra-accent); color: var(--pentra-accent); }
+.pentra.roll-dialog .checkboxes,
+.pentra .roll-dialog .checkboxes { display: flex; flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+.pentra .roll-dialog .checkboxes label.checkbox { display: flex; align-items: center; gap: 0.4rem; flex: none; }
+.pentra .scar-dialog label.checkbox { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0; }
+
+/* ---------- Range bands on rulers (labels live in #hud #measurement, outside .pentra) ---------- */
+#measurement .waypoint-label .pentra-band,
+#measurement .waypoint-label .pentra-move {
+  padding: 0 0.35em;
+  border-radius: 3px;
+  font-weight: bold;
+  color: #111;
+}
+#measurement .waypoint-label .band-melee { background: #d64545; color: #fff; }
+#measurement .waypoint-label .band-veryClose { background: #e8873a; }
+#measurement .waypoint-label .band-close { background: #e3c43a; }
+#measurement .waypoint-label .band-far { background: #54b062; }
+#measurement .waypoint-label .band-veryFar { background: #4a8ad6; color: #fff; }
+#measurement .waypoint-label .band-outOfRange { background: #8a8a8a; color: #fff; }
+#measurement .waypoint-label .move-walk { background: #54b062; }
+#measurement .waypoint-label .move-run { background: #e8a13a; }
+#measurement .waypoint-label .move-tooFar { background: #d64545; color: #fff; }
+
+/* ---------- Projects ---------- */
+.pentra .projects .col.wide { flex: 0 0 11rem; }
+.pentra .projects .project-row .item-name input { width: 100%; }
+.pentra .projects .project-value { display: flex; align-items: center; gap: 0.2rem; flex: 0 0 9rem; }
+.pentra .projects .project-value select { width: auto; flex: 0 0 auto; padding: 0 0.1rem; }
+.pentra .projects .project-progress { display: flex; flex-direction: column; gap: 0.15rem; }
+.pentra .projects .progress-bar { display: block; height: 4px; border-radius: 2px; background: var(--pentra-border); overflow: hidden; }
+.pentra .projects .progress-bar > span { display: block; height: 100%; background: var(--pentra-accent); }
+.pentra .projects .project-row.done { opacity: 0.75; }
+.pentra .success-text { color: var(--pentra-success); }
+
+/* ---------- Counters ---------- */
+.pentra.counters-app .counters-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.25rem; }
+.pentra .counter-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.pentra .counter {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--pentra-border);
+  border-radius: 6px;
+  background: var(--pentra-panel);
+}
+.pentra .counter.private { border-style: dashed; }
+.pentra .counter.triggered { border-color: var(--pentra-failure); }
+.pentra .counter-dial { display: flex; align-items: center; gap: 0.3rem; flex: 0 0 auto; }
+.pentra .counter-dial .step-btn { width: 1.6rem; height: 1.6rem; min-height: 0; padding: 0; border-radius: 50%; font-size: 0.7rem; }
+.pentra .counter-dial .step-btn:disabled { opacity: 0.3; }
+.pentra .counter-value {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.6rem; height: 2.6rem;
+  font-size: 1.4rem; font-weight: bold;
+  border: 2px solid var(--pentra-accent); border-radius: 8px;
+}
+.pentra .counter.triggered .counter-value { border-color: var(--pentra-failure); color: var(--pentra-failure); }
+.pentra .counter-main { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.pentra .counter-main .counter-name { font-weight: bold; }
+.pentra .counter-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.9rem; font-size: var(--font-size-12, 12px); }
+.pentra .counter-options select { width: auto; }
+.pentra .counter .progress-bar { display: block; height: 4px; border-radius: 2px; background: var(--pentra-border); overflow: hidden; }
+.pentra .counter .progress-bar > span { display: block; height: 100%; background: var(--pentra-accent); }
+.pentra .counter .controls { display: flex; flex-direction: column; gap: 0.4rem; flex: 0 0 auto; }
+.pentra .add-counter { align-self: flex-start; width: auto; }
+.pentra.chat-card.counter-card.triggered { border-left: 3px solid var(--pentra-failure); padding-left: 0.4rem; }
+
+/* ---------- Clocks ---------- */
+.pentra.clocks-app .clocks-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.25rem; }
+.pentra .clock-panel { display: flex; flex-direction: column; gap: 0.35rem; }
+.pentra .clock-header { display: flex; align-items: center; gap: 0.5rem; }
+.pentra .clock-header h3 { flex: 1 1 0; margin: 0; }
+.pentra .clock-time { font-weight: bold; font-size: 1.1rem; color: var(--pentra-accent); }
+.pentra .clock-actions { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.pentra .clock-actions button { flex: 1 1 auto; width: auto; }
+.pentra .clock-panel .form-group select { width: auto; flex: 1 1 auto; }
+.pentra.chat-card.clock-card.alert { border-left: 3px solid var(--pentra-failure); padding-left: 0.4rem; }
+
+/* ---------- Counters window tabs & Battles ---------- */
+.pentra.counters-app .counters-window { display: flex; flex-direction: column; gap: 0.5rem; }
+.pentra .counters-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--pentra-border); }
+.pentra .counters-tabs .item { padding: 0.25rem 0.75rem; border-bottom: 2px solid transparent; }
+.pentra .counters-tabs .item.active { border-bottom-color: var(--pentra-accent); font-weight: bold; }
+.pentra .battles-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.25rem; }
+.pentra .battle { display: flex; flex-direction: column; gap: 0.4rem; }
+.pentra .battle.private { border-style: dashed; }
+.pentra .battle-header { display: flex; align-items: center; gap: 0.5rem; }
+.pentra .battle-header .battle-name { flex: 1 1 0; margin: 0; min-width: 0; }
+.pentra .battle-phase { font-weight: bold; color: var(--pentra-accent); white-space: nowrap; }
+.pentra .battle-header .checkbox { white-space: nowrap; font-size: var(--font-size-12, 12px); }
+.pentra .battle-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.pentra .army {
+  display: flex; flex-direction: column; gap: 0.25rem; padding: 0.4rem;
+  border: 1px solid var(--pentra-border); border-radius: 4px; min-width: 0;
+}
+.pentra .army.broken { border-color: var(--pentra-failure); }
+.pentra .army.winner { border-color: var(--pentra-success); border-width: 2px; }
+.pentra .army label { display: flex; align-items: center; gap: 0.4rem; }
+.pentra .army label input[type="number"], .pentra .army label select { flex: 1 1 auto; width: auto; min-width: 0; }
+.pentra .army .army-name { font-weight: bold; }
+.pentra .army .progress-bar { display: block; height: 4px; border-radius: 2px; background: var(--pentra-border); overflow: hidden; }
+.pentra .army .progress-bar > span { display: block; height: 100%; background: var(--pentra-accent); }
+.pentra .army-result { font-style: italic; }
+.pentra .army-actions { display: flex; align-items: center; gap: 0.4rem; }
+.pentra .army-actions button { flex: 1 1 auto; width: auto; }
+.pentra .army-actions button:disabled { opacity: 0.4; }
+.pentra.chat-card.battle-card.ended { border-left: 3px solid var(--pentra-accent); padding-left: 0.4rem; }
+@media (max-width: 480px) { .pentra .battle-sides { grid-template-columns: 1fr; } }
+
+/* ---------- Chase (swim-lane range band chart) ---------- */
+.pentra.chase-app .chases-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.25rem; }
+.pentra .chase { display: flex; flex-direction: column; gap: 0.4rem; }
+.pentra .chase .chase-round { width: auto; flex: 0 0 auto; white-space: nowrap; }
+.pentra .chase-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 0.5rem; align-items: start; }
+.pentra .chase-lane, .pentra .chase-order { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pentra .chase-lane { border: 1px solid var(--pentra-border); border-radius: 4px; overflow: hidden; }
+.pentra .chase-row {
+  display: flex; align-items: center; gap: 0.4rem; min-height: 1.7rem; padding: 0 0.3rem;
+  border-bottom: 1px solid var(--pentra-border); font-size: var(--font-size-12, 12px);
+}
+.pentra .chase-row:last-child { border-bottom: none; }
+.pentra .chase-row.escape { background: rgba(127, 127, 127, 0.15); font-style: italic; }
+.pentra .chase-row.center { background: rgba(201, 121, 43, 0.15); font-weight: bold; }
+.pentra .chase-row.drag-over, .pentra .chase-lane.drag-over { outline: 2px dashed var(--pentra-accent); outline-offset: -2px; }
+.pentra .chase-band { flex: 0 0 7.5rem; opacity: 0.8; }
+.pentra .chase-cell { flex: 1 1 0; display: flex; flex-wrap: wrap; gap: 0.2rem; min-width: 0; }
+.pentra .chase-chip {
+  display: inline-flex; align-items: center; gap: 0.2rem; padding: 0 0.35rem 0 0; max-width: 100%;
+  border: 1px solid var(--pentra-border); border-radius: 999px; background: rgba(127, 127, 127, 0.1); font-weight: normal;
+}
+.pentra .chase-chip[draggable="true"] { cursor: grab; }
+.pentra .chase-chip img { width: 1.3rem; height: 1.3rem; border: none; border-radius: 50%; object-fit: cover; }
+.pentra .chase-chip .chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pentra .chase-chip.anchor { border-color: var(--pentra-accent); }
+.pentra .chase-chip.private { border-style: dashed; opacity: 0.75; }
+.pentra .chase-chip.targeted, .pentra .chase-vehicle.targeted { box-shadow: 0 0 0 2px var(--pentra-failure); }
+.pentra .chase-order { gap: 0.35rem; }
+.pentra .chase-vehicle {
+  display: flex; flex-direction: column; gap: 0.2rem; padding: 0.3rem;
+  border: 1px solid var(--pentra-border); border-radius: 4px; font-size: var(--font-size-12, 12px);
+}
+.pentra .chase-vehicle.escaped { opacity: 0.55; }
+.pentra .chase-vehicle-head { display: flex; align-items: center; gap: 0.35rem; }
+.pentra .chase-init { font-weight: bold; font-size: 1.1rem; color: var(--pentra-accent); min-width: 1.6rem; }
+.pentra .chase-init small { font-size: 0.65rem; opacity: 0.7; margin-left: 1px; }
+.pentra .chase-name { flex: 1 1 0; font-weight: bold; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pentra .chase-vehicle-info { display: flex; justify-content: space-between; gap: 0.3rem; flex-wrap: wrap; }
+.pentra .chase-pips { color: var(--pentra-accent); letter-spacing: 1px; font-size: 0.6rem; }
+.pentra .chase-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.pentra .chase-actions button { width: auto; flex: 0 0 auto; padding: 0 0.4rem; line-height: 1.5rem; min-height: 0; font-size: var(--font-size-12, 12px); }
+.pentra .chase-actions a.active { color: var(--pentra-failure); }
+@media (max-width: 560px) { .pentra .chase-grid { grid-template-columns: 1fr; } }
+.pentra .chase-vehicle.current { border-color: var(--pentra-accent); border-width: 2px; background: rgba(201, 121, 43, 0.08); }
+.pentra .chase-turn-marker { color: var(--pentra-accent); }
+.pentra .chase-actions button.chase-end { margin-left: auto; }
+.pentra .chase-health { white-space: nowrap; font-weight: bold; color: var(--pentra-success); }
+.pentra .chase-health.hurt { color: var(--pentra-accent); }
+.pentra .chase-health.wrecked { color: var(--pentra-failure); }
+.pentra .chase-health-bar { display: block; height: 4px; border-radius: 2px; background: var(--pentra-border); overflow: hidden; }
+.pentra .chase-health-bar > span { display: block; height: 100%; background: var(--pentra-success); }
+.pentra .chase-health-bar.hurt > span { background: var(--pentra-accent); }
+
+/* ---------- Underwater ---------- */
+.pentra-underwater {
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.25rem;
+  padding: 0.2rem 0.5rem; border-radius: 4px; font-size: var(--font-size-12, 12px); opacity: 0.75;
+}
+.pentra-underwater.active { opacity: 1; background: rgba(40, 110, 170, 0.35); color: #cfe8ff; font-weight: bold; }
+.pentra .stat.breath.drowning .detail { color: var(--pentra-failure); font-weight: bold; }
+.pentra .stat.breath button { width: auto; }

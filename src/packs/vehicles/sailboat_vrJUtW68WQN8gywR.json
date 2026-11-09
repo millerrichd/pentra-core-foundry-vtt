@@ -1,32 +1,39 @@
 {
   "_id": "vrJUtW68WQN8gywR",
-  "_key": "!items!vrJUtW68WQN8gywR",
+  "_key": "!actors!vrJUtW68WQN8gywR",
   "name": "Sailboat",
   "type": "vehicle",
-  "img": "icons/svg/anchor.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water@512.webp",
   "system": {
     "description": "<p>A larger boat, equipped with sails; while it has a motor, it primarily uses the wind to move. It seats 6 comfortably and sleeps at least 4.</p>",
-    "category": "sea",
-    "speedClass": 2,
-    "evasion": 6,
-    "armor": 3,
-    "handling": 0,
-    "mounts": 2,
-    "mountNotes": "1 forward, 1 aft",
     "cost": {
       "die": 8,
       "multiplier": 4
     },
     "legal": true,
+    "category": "sea",
+    "speedClass": 2,
     "health": {
-      "value": 6,
-      "max": 6
+      "value": 12,
+      "max": 12
     },
+    "evasion": {
+      "base": 6
+    },
+    "ar": 3,
+    "heavyArmor": false,
     "durability": {
       "value": 8,
       "max": 8
     },
-    "heavyArmor": false
+    "handling": 0,
+    "mounts": 2,
+    "mountNotes": "1 forward, 1 aft",
+    "owner": "",
+    "crew": {
+      "driver": "",
+      "passengers": []
+    }
   },
   "effects": [],
   "folder": null,
@@ -39,5 +46,17 @@
     "coreVersion": "14",
     "systemId": "pentra-core-foundry-vtt",
     "systemVersion": "0.1.0"
+  },
+  "items": [],
+  "prototypeToken": {
+    "name": "Sailboat",
+    "actorLink": true,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water@512.webp"
+    },
+    "disposition": 0
   }
 }

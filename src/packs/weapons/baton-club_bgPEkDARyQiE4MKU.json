@@ -3,12 +3,11 @@
   "_key": "!items!bgPEkDARyQiE4MKU",
   "name": "Baton/Club",
   "type": "weapon",
-  "img": "icons/weapons/clubs/baseball-bat-metal.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
   "system": {
     "description": "<p>This is a simple club or baton you can use to defend yourself.</p>",
     "heavy": false,
     "reloadActions": 0,
-    "equipped": true,
     "category": "melee",
     "skill": "melee_weapons",
     "wounds": 1,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 4,
       "multiplier": 1
-    }
+    },
+    "slot": "stowed",
+    "underwater": "swing"
   },
   "effects": [],
-  "folder": null,
+  "folder": "8FLLXrO1ouJzcnAB",
   "sort": 0,
   "ownership": {
     "default": 0

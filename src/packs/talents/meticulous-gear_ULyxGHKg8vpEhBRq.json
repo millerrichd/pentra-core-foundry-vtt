@@ -3,7 +3,7 @@
   "_key": "!items!ULyxGHKg8vpEhBRq",
   "name": "Meticulous Gear",
   "type": "talent",
-  "img": "icons/svg/upgrade.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
   "system": {
     "description": "<p>Your starting Durability Die is increased from d8 to d10.</p>",
     "trait": "durabilityDie",

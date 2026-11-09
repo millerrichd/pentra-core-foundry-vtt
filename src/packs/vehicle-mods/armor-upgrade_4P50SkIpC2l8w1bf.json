@@ -1,0 +1,27 @@
+{
+  "_id": "4P50SkIpC2l8w1bf",
+  "_key": "!items!4P50SkIpC2l8w1bf",
+  "name": "Armor Upgrade",
+  "type": "vehiclemod",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_modifications@512.webp",
+  "system": {
+    "description": "<p>Increase the vehicle's Armor by 1 point. A vehicle may not exceed 4 total Armor.</p><p><em>Each modification raises the vehicle's cost by one multiplier level (when the die reaches its maximum multiplier, the die grows a size instead); no vehicle may exceed d12x6 R.D. Added after the vehicle is acquired, each modification costs d6 R.D.</em></p>",
+    "mod": "armor",
+    "cost": {
+      "die": 6,
+      "multiplier": 1
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

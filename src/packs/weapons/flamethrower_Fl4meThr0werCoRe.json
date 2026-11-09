@@ -1,0 +1,39 @@
+{
+  "_id": "Fl4meThr0werCoRe",
+  "_key": "!items!Fl4meThr0werCoRe",
+  "name": "Flamethrower",
+  "type": "weapon",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "system": {
+    "description": "<p>This flamethrower shoots jets of flame at the target. It uses a propane-style tank to supply fuel. It is designed for two hands.</p>",
+    "heavy": false,
+    "reloadActions": 0,
+    "category": "ranged",
+    "skill": "shooting",
+    "wounds": 2,
+    "increment": "even",
+    "range": "veryClose",
+    "hands": 2,
+    "size": "large",
+    "legal": false,
+    "cost": {
+      "die": 8,
+      "multiplier": 2
+    },
+    "slot": "stowed",
+    "underwater": "none",
+    "burning": true
+  },
+  "effects": [],
+  "folder": "S696u7ghSYR924b3",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

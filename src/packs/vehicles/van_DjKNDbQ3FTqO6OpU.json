@@ -1,32 +1,39 @@
 {
   "_id": "DjKNDbQ3FTqO6OpU",
-  "_key": "!items!DjKNDbQ3FTqO6OpU",
+  "_key": "!actors!DjKNDbQ3FTqO6OpU",
   "name": "Van",
   "type": "vehicle",
-  "img": "icons/svg/house.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
   "system": {
     "description": "<p>This van has bucket seats in the back, which most players remove to make more cargo space. Seats 6 comfortably.</p>",
-    "category": "land",
-    "speedClass": 2,
-    "evasion": 7,
-    "armor": 2,
-    "handling": 0,
-    "mounts": 1,
-    "mountNotes": "1 omnidirectional",
     "cost": {
       "die": 8,
       "multiplier": 2
     },
     "legal": true,
+    "category": "land",
+    "speedClass": 2,
     "health": {
-      "value": 6,
-      "max": 6
+      "value": 12,
+      "max": 12
     },
+    "evasion": {
+      "base": 7
+    },
+    "ar": 2,
+    "heavyArmor": false,
     "durability": {
       "value": 8,
       "max": 8
     },
-    "heavyArmor": false
+    "handling": 0,
+    "mounts": 1,
+    "mountNotes": "1 omnidirectional",
+    "owner": "",
+    "crew": {
+      "driver": "",
+      "passengers": []
+    }
   },
   "effects": [],
   "folder": null,
@@ -39,5 +46,17 @@
     "coreVersion": "14",
     "systemId": "pentra-core-foundry-vtt",
     "systemVersion": "0.1.0"
+  },
+  "items": [],
+  "prototypeToken": {
+    "name": "Van",
+    "actorLink": true,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+    },
+    "disposition": 0
   }
 }

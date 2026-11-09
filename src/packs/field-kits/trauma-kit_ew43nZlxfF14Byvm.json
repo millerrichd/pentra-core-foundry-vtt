@@ -3,7 +3,7 @@
   "_key": "!items!ew43nZlxfF14Byvm",
   "name": "Trauma Kit",
   "type": "fieldkit",
-  "img": "icons/svg/heal.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
   "system": {
     "description": "<p>Trauma treatment and routine medical supplies. Needed to heal wounds with a Medicine check (ranks 0–3 heal 1, 4–5 heal 2, 6 heals 3).</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "trauma",

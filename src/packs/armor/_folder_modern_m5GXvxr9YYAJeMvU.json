@@ -1,0 +1,17 @@
+{
+  "_id": "m5GXvxr9YYAJeMvU",
+  "_key": "!folders!m5GXvxr9YYAJeMvU",
+  "name": "Modern",
+  "type": "Item",
+  "folder": null,
+  "description": "",
+  "sorting": "a",
+  "sort": 100000,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

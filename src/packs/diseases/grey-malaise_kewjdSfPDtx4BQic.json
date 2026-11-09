@@ -1,0 +1,27 @@
+{
+  "_id": "kewjdSfPDtx4BQic",
+  "_key": "!items!kewjdSfPDtx4BQic",
+  "name": "Grey Malaise",
+  "type": "disease",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "system": {
+    "description": "<p>A listless, colorless mood that drains your spark. Little things stop going your way, and you stop noticing the openings that luck gives you. Caught from a sick companion's breath.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
+    "effect": "trait",
+    "attribute": "",
+    "trait": "edge",
+    "penalty": -2,
+    "dieSteps": -1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}

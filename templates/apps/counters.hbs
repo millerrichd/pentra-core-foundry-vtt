@@ -1,0 +1,121 @@
+<div class="counters-window">
+<nav class="sheet-tabs tabs counters-tabs">
+  <a class="item {{#if (eq tab 'counters')}}active{{/if}}" data-action="switchTab" data-tab="counters"><i class="fa-solid fa-hourglass-half"></i> {{localize "PENTRA.Counter.Title"}}</a>
+  <a class="item {{#if (eq tab 'battles')}}active{{/if}}" data-action="switchTab" data-tab="battles"><i class="fa-solid fa-chess-rook"></i> {{localize "PENTRA.Battle.Title"}}</a>
+</nav>
+{{#if (eq tab "counters")}}
+<div class="counters-body">
+  {{#if isGM}}<p class="hint">{{localize "PENTRA.Counter.GMHint"}}</p>{{/if}}
+  <ol class="counter-list">
+    {{#each counters}}
+    <li class="counter {{#if triggered}}triggered{{/if}} {{#unless visible}}private{{/unless}}" data-counter-id="{{id}}">
+      <div class="counter-dial">
+        {{#if @root.isGM}}<button type="button" class="step-btn" data-action="step" data-delta="-1" {{#unless canLower}}disabled{{/unless}} data-tooltip="{{localize 'PENTRA.Counter.Down'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+        <span class="counter-value" data-tooltip="{{localize 'PENTRA.Counter.ValueHint'}}">{{value}}</span>
+        {{#if @root.isGM}}<button type="button" class="step-btn" data-action="step" data-delta="1" {{#unless canRaise}}disabled{{/unless}} data-tooltip="{{localize 'PENTRA.Counter.Up'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+      </div>
+      <div class="counter-main">
+        {{#if @root.isGM}}
+        <input type="text" class="counter-name" data-counter-field="name" value="{{name}}" placeholder="{{localize 'PENTRA.Counter.NamePlaceholder'}}">
+        <input type="text" class="counter-condition" data-counter-field="condition" value="{{condition}}" placeholder="{{localize 'PENTRA.Counter.ConditionPlaceholder'}}">
+        <div class="counter-options">
+          <label>{{localize "PENTRA.Counter.Start"}} <select data-counter-field="start">{{selectOptions @root.startOptions selected=start}}</select></label>
+          <label class="checkbox" data-tooltip="{{localize 'PENTRA.Counter.PublicHint'}}"><input type="checkbox" data-counter-field="visible" {{checked visible}}> {{localize "PENTRA.Counter.Public"}}</label>
+          <label class="checkbox" data-tooltip="{{localize 'PENTRA.Counter.RepeatHint'}}"><input type="checkbox" data-counter-field="repeat" {{checked repeat}}> {{localize "PENTRA.Counter.Repeat"}}</label>
+        </div>
+        {{else}}
+        <strong class="counter-name">{{name}}</strong>
+        {{#if condition}}<span class="counter-condition hint">{{condition}}</span>{{/if}}
+        {{/if}}
+        <span class="progress-bar"><span style="width: {{percent}}%"></span></span>
+        {{#if triggered}}<span class="warning"><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Counter.Fired"}}</span>{{/if}}
+      </div>
+      {{#if @root.isGM}}
+      <div class="controls">
+        <a data-action="reset" data-tooltip="{{localize 'PENTRA.Counter.Reset'}}"><i class="fa-solid fa-rotate-left"></i></a>
+        <a data-action="remove" data-tooltip="{{localize 'PENTRA.Counter.Remove'}}"><i class="fa-solid fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </li>
+    {{else}}
+    <li class="empty hint">{{#if isGM}}{{localize "PENTRA.Counter.EmptyGM"}}{{else}}{{localize "PENTRA.Counter.EmptyPlayer"}}{{/if}}</li>
+    {{/each}}
+  </ol>
+  {{#if isGM}}
+  <button type="button" class="add-counter" data-action="add"><i class="fa-solid fa-plus"></i> {{localize "PENTRA.Counter.Add"}}</button>
+  {{/if}}
+</div>
+{{else}}
+<div class="battles-body">
+  {{#if isGM}}<p class="hint">{{localize "PENTRA.Battle.GMHint"}}</p>{{/if}}
+  {{#each battles}}
+  <section class="panel battle {{#unless visible}}private{{/unless}} {{#if over}}over{{/if}}" data-battle-id="{{id}}">
+    <header class="battle-header">
+      {{#if (and @root.isGM setup)}}
+      <input type="text" class="battle-name" data-battle-field="name" value="{{name}}">
+      {{else}}
+      <h3 class="battle-name"><i class="fa-solid fa-chess-rook"></i> {{name}}</h3>
+      {{/if}}
+      <span class="battle-phase">{{#unless setup}}{{localize "PENTRA.Battle.Round"}} {{round}} · {{/unless}}{{phaseLabel}}</span>
+      {{#if @root.isGM}}
+      <label class="checkbox" data-tooltip="{{localize 'PENTRA.Battle.PublicHint'}}"><input type="checkbox" data-battle-field="visible" {{checked visible}}> {{localize "PENTRA.Counter.Public"}}</label>
+      {{#unless setup}}<a data-action="battleReset" data-tooltip="{{localize 'PENTRA.Battle.Reset'}}"><i class="fa-solid fa-rotate-left"></i></a>{{/unless}}
+      <a data-action="battleRemove" data-tooltip="{{localize 'PENTRA.Battle.Remove'}}"><i class="fa-solid fa-trash"></i></a>
+      {{/if}}
+    </header>
+
+    <div class="battle-sides">
+      {{#each sides}}
+      <div class="army {{#if broken}}broken{{/if}} {{#if winner}}winner{{/if}}" data-side="{{index}}">
+        {{#if (and @root.isGM ../setup)}}
+        <input type="text" class="army-name" data-battle-field="name" value="{{name}}">
+        <label>{{localize "PENTRA.Battle.Troops"}} <input type="number" min="0" data-battle-field="troops" value="{{troops}}"></label>
+        <label>{{localize "PENTRA.Battle.Leader"}} <select data-battle-field="leader">{{selectOptions @root.leaders selected=leader}}</select></label>
+        <label class="checkbox"><input type="checkbox" data-battle-field="fortified" {{checked fortified}}> {{localize "PENTRA.Battle.Mod.fortified"}} (+2)</label>
+        <label class="checkbox" data-tooltip="{{localize 'PENTRA.Battle.FearlessHint'}}"><input type="checkbox" data-battle-field="fearless" {{checked fearless}}> {{localize "PENTRA.Battle.Mod.fearless"}} (+2)</label>
+        {{else}}
+        <strong class="army-name">{{name}}{{#if winner}} <i class="fa-solid fa-crown"></i>{{/if}}</strong>
+        <span class="hint">{{localize "PENTRA.Battle.Leader"}}: {{leaderName}}</span>
+        <div class="counter-dial army-dial">
+          {{#if @root.isGM}}<button type="button" class="step-btn" data-action="battleStrength" data-delta="-1" data-tooltip="{{localize 'PENTRA.Battle.Adjust'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+          <span class="counter-value" data-tooltip="{{localize 'PENTRA.Battle.Strength'}}">{{strength}}</span>
+          {{#if @root.isGM}}<button type="button" class="step-btn" data-action="battleStrength" data-delta="1" data-tooltip="{{localize 'PENTRA.Battle.Adjust'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+          <span class="hint">/ {{start}}</span>
+        </div>
+        <span class="progress-bar"><span style="width: {{percent}}%"></span></span>
+        {{#if mods}}<span class="hint">{{mods}}</span>{{/if}}
+        {{#if broken}}<span class="warning"><i class="fa-solid fa-person-running"></i> {{localize "PENTRA.Battle.Broken"}}</span>{{/if}}
+        {{#if resultLabel}}<span class="army-result">{{resultLabel}}{{#if choiceLabel}}: {{choiceLabel}}{{/if}}</span>{{/if}}
+        {{#if @root.isGM}}
+        {{#if needsRoll}}
+        <div class="army-actions">
+          <button type="button" data-action="battleRoll" {{#unless hasLeader}}disabled{{/unless}}><i class="fa-solid fa-dice"></i> {{#if ../isMorale}}{{localize "PENTRA.Battle.MoraleCheck"}}{{else}}{{localize "PENTRA.Battle.ClashCheck"}}{{/if}}</button>
+          <a data-action="battleResult" data-result="success" data-tooltip="{{localize 'PENTRA.Battle.MarkSuccess'}}"><i class="fa-solid fa-check"></i></a>
+          <a data-action="battleResult" data-result="fail" data-tooltip="{{localize 'PENTRA.Battle.MarkFail'}}"><i class="fa-solid fa-xmark"></i></a>
+        </div>
+        {{/if}}
+        {{#if needsChoice}}
+        <div class="army-actions">
+          <button type="button" data-action="battleChoose" data-choice="deal"><i class="fa-solid fa-burst"></i> {{localize "PENTRA.Battle.Choice.deal"}}</button>
+          <button type="button" data-action="battleChoose" data-choice="block"><i class="fa-solid fa-shield"></i> {{localize "PENTRA.Battle.Choice.block"}}</button>
+        </div>
+        {{/if}}
+        {{/if}}
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+
+    {{#if (and @root.isGM setup)}}
+    <button type="button" data-action="battleStart"><i class="fa-solid fa-flag"></i> {{localize "PENTRA.Battle.Start"}}</button>
+    {{/if}}
+  </section>
+  {{else}}
+  <p class="empty hint">{{#if isGM}}{{localize "PENTRA.Battle.EmptyGM"}}{{else}}{{localize "PENTRA.Battle.EmptyPlayer"}}{{/if}}</p>
+  {{/each}}
+  {{#if isGM}}
+  <button type="button" class="add-counter" data-action="battleAdd"><i class="fa-solid fa-plus"></i> {{localize "PENTRA.Battle.Add"}}</button>
+  {{/if}}
+</div>
+{{/if}}
+</div>

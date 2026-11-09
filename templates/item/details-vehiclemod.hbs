@@ -1,0 +1,14 @@
+<section class="item-details">
+  <div class="form-group">
+    <label>{{localize "PENTRA.VehicleMod.Effect"}}</label>
+    <select name="system.mod">{{selectOptions options.vehicleMods selected=system.mod localize=true}}</select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.VehicleMod.LaterCost"}}</label>
+    <div class="form-fields">
+      <select name="system.cost.die">{{selectOptions options.dice selected=system.cost.die}}</select>
+      <select name="system.cost.multiplier">{{selectOptions options.multipliers selected=system.cost.multiplier}}</select>
+    </div>
+  </div>
+  <p class="hint">{{localize "PENTRA.VehicleMod.SheetHint"}}</p>
+</section>

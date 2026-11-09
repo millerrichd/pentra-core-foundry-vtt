@@ -107,7 +107,7 @@ PENTRA.traits = {
   durabilityDie: { label: "PENTRA.Trait.durabilityDie", type: "die", base: 8 },
   edge: { label: "PENTRA.Trait.edge", type: "number", base: 2 },
   evasion: { label: "PENTRA.Trait.evasion", type: "number", base: 9 },
-  health: { label: "PENTRA.Trait.health", type: "number", base: 6 },
+  health: { label: "PENTRA.Trait.health", type: "number", base: 12 },
   initiativeDie: { label: "PENTRA.Trait.initiativeDie", type: "die", base: 6 },
   resourceDie: { label: "PENTRA.Trait.resourceDie", type: "die", base: 6 },
   drainDie: { label: "PENTRA.Trait.drainDie", type: "die", base: 8 }
@@ -139,8 +139,22 @@ PENTRA.weaponCategories = {
 PENTRA.vehicleCategories = {
   air: "PENTRA.VehicleCategory.air",
   land: "PENTRA.VehicleCategory.land",
-  sea: "PENTRA.VehicleCategory.sea"
+  sea: "PENTRA.VehicleCategory.sea",
+  mount: "PENTRA.VehicleCategory.mount"
 };
+
+/** The skill a vehicle's driver rolls, by vehicle type. */
+PENTRA.vehicleSkills = {
+  air: "piloting",
+  land: "driving",
+  sea: "boating",
+  mount: "riding"
+};
+
+/** Firing weapons from a vehicle (driver and passengers) is -1 on top of other penalties. */
+PENTRA.vehicleFirePenalty = -1;
+/** Weapons fired from a vehicle that pushed this round. */
+PENTRA.pushFirePenalty = -2;
 
 /** Item sizes and how many "normal" carry slots each consumes. */
 PENTRA.sizes = {
@@ -224,10 +238,30 @@ PENTRA.statusEffects = [
   { id: "diseased", name: "PENTRA.Status.diseased", img: "icons/svg/biohazard.svg" },
   { id: "restrained", name: "PENTRA.Status.restrained", img: "icons/svg/net.svg" },
   { id: "headWound", name: "PENTRA.Status.headWound", img: "icons/svg/blood.svg" },
+  { id: "legWound", name: "PENTRA.Status.legWound", img: "icons/svg/leg.svg" },
+  { id: "running", name: "PENTRA.Status.running", img: "icons/svg/wingfoot.svg" },
+  { id: "drowning", name: "PENTRA.Status.drowning", img: "icons/svg/waterfall.svg" },
   { id: "unconscious", name: "PENTRA.Status.unconscious", img: "icons/svg/unconscious.svg" },
   { id: "prone", name: "PENTRA.Status.prone", img: "icons/svg/falling.svg" },
   { id: "dead", name: "PENTRA.Status.dead", img: "icons/svg/skull.svg" }
 ];
 
 /** Statuses that impose a flat -2 on all checks. */
-PENTRA.penaltyStatuses = { shaken: -2, headWound: -2 };
+PENTRA.penaltyStatuses = { shaken: -2, headWound: -2, running: -2 };
+
+/** Underwater combat. */
+PENTRA.underwater = {
+  modes: {
+    reduced: "PENTRA.Underwater.Mode.reduced",
+    swing: "PENTRA.Underwater.Mode.swing",
+    full: "PENTRA.Underwater.Mode.full",
+    none: "PENTRA.Underwater.Mode.none"
+  },
+  /** Swinging weapons (swords, clubs, axes) fight the water's friction. */
+  swingPenalty: -2,
+  /** Drowning: -2 to everything except Athletics (swimming for the surface). */
+  drowningPenalty: -2
+};
+
+/** Restrained: -2 to attacks with two-handed weapons (Evasion is also halved, in the data model). */
+PENTRA.restrainedTwoHandedPenalty = -2;

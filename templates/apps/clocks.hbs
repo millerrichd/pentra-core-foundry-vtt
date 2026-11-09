@@ -1,0 +1,56 @@
+<div class="clocks-body">
+  <p class="hint">{{localize "PENTRA.Clock.Hint"}}</p>
+
+  {{! Facility Raid }}
+  <section class="panel clock-panel">
+    <header class="clock-header">
+      <h3><i class="fa-solid fa-building-shield"></i> {{localize "PENTRA.Clock.Facility.Title"}}</h3>
+      <span class="clock-time">{{facility.time}}</span>
+      <a data-action="reset" data-clock="facility" data-tooltip="{{localize 'PENTRA.Clock.Reset'}}"><i class="fa-solid fa-rotate-left"></i></a>
+    </header>
+    <div class="form-group">
+      <label>{{localize "PENTRA.Clock.Facility.DangerDie"}}</label>
+      <select data-clock-field="facility.die" data-dtype="Number">{{selectOptions facility.dice selected=facility.die}}</select>
+    </div>
+    <div class="clock-actions">
+      <button type="button" data-action="facilityAdvance"><i class="fa-solid fa-forward-step"></i> {{localize "PENTRA.Clock.Facility.Advance"}}</button>
+      <button type="button" data-action="facilityRoll"><i class="fa-solid fa-dice"></i> {{localize "PENTRA.Clock.Facility.RollNow"}}</button>
+    </div>
+    <p class="hint">{{facility.nextCheck}} {{localize "PENTRA.Clock.Facility.Hint"}}</p>
+  </section>
+
+  {{! Travel }}
+  <section class="panel clock-panel">
+    <header class="clock-header">
+      <h3><i class="fa-solid fa-route"></i> {{localize "PENTRA.Clock.Travel.Title"}}</h3>
+      <span class="clock-time">{{travel.hours}}h</span>
+      <a data-action="reset" data-clock="travel" data-tooltip="{{localize 'PENTRA.Clock.Reset'}}"><i class="fa-solid fa-rotate-left"></i></a>
+    </header>
+    <div class="form-group">
+      <label>{{localize "PENTRA.Clock.Travel.ModeLabel"}}</label>
+      <select data-clock-field="travel.mode">{{selectOptions travel.modes selected=travel.mode}}</select>
+    </div>
+    <div class="clock-actions">
+      <button type="button" data-action="travelAdvance"><i class="fa-solid fa-forward-step"></i> {{localize "PENTRA.Clock.Travel.Advance"}}</button>
+    </div>
+    <p class="hint">{{localize "PENTRA.Clock.Travel.Hint"}}</p>
+  </section>
+
+  {{! Camp }}
+  <section class="panel clock-panel">
+    <header class="clock-header">
+      <h3><i class="fa-solid fa-campground"></i> {{localize "PENTRA.Clock.Camp.Title"}}</h3>
+      <span class="clock-time">{{camp.hours}}h</span>
+      <a data-action="reset" data-clock="camp" data-tooltip="{{localize 'PENTRA.Clock.Reset'}}"><i class="fa-solid fa-rotate-left"></i></a>
+    </header>
+    <div class="form-group">
+      <label>{{localize "PENTRA.Clock.Camp.SetupLabel"}}</label>
+      <select data-clock-field="camp.setup">{{selectOptions camp.setups selected=camp.setup}}</select>
+    </div>
+    <div class="clock-actions">
+      <button type="button" data-action="campAdvance" data-watches="1"><i class="fa-solid fa-forward-step"></i> {{localize "PENTRA.Clock.Camp.Advance"}}</button>
+      <button type="button" data-action="campAdvance" data-watches="2"><i class="fa-solid fa-moon"></i> {{localize "PENTRA.Clock.Camp.Night"}}</button>
+    </div>
+    <p class="hint">{{localize "PENTRA.Clock.Camp.Hint"}}</p>
+  </section>
+</div>

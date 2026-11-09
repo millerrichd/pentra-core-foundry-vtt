@@ -1,32 +1,39 @@
 {
   "_id": "BjZgBT0aspmB4H55",
-  "_key": "!items!BjZgBT0aspmB4H55",
+  "_key": "!actors!BjZgBT0aspmB4H55",
   "name": "Sedan",
   "type": "vehicle",
-  "img": "icons/svg/city.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
   "system": {
     "description": "<p>A 4-door car that seats 5 uncomfortably, typically two-wheel drive, and works best on finished roads. Dirt roads give it problems.</p>",
-    "category": "land",
-    "speedClass": 2,
-    "evasion": 8,
-    "armor": 2,
-    "handling": 0,
-    "mounts": 0,
-    "mountNotes": "",
     "cost": {
       "die": 8,
       "multiplier": 2
     },
     "legal": true,
+    "category": "land",
+    "speedClass": 2,
     "health": {
-      "value": 5,
-      "max": 5
+      "value": 10,
+      "max": 10
     },
+    "evasion": {
+      "base": 8
+    },
+    "ar": 2,
+    "heavyArmor": false,
     "durability": {
       "value": 6,
       "max": 6
     },
-    "heavyArmor": false
+    "handling": 0,
+    "mounts": 0,
+    "mountNotes": "",
+    "owner": "",
+    "crew": {
+      "driver": "",
+      "passengers": []
+    }
   },
   "effects": [],
   "folder": null,
@@ -39,5 +46,17 @@
     "coreVersion": "14",
     "systemId": "pentra-core-foundry-vtt",
     "systemVersion": "0.1.0"
+  },
+  "items": [],
+  "prototypeToken": {
+    "name": "Sedan",
+    "actorLink": true,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+    },
+    "disposition": 0
   }
 }

@@ -40,8 +40,8 @@
     "size": "small",
     "notes": "<p>Your traditional medium- or large-sized dog. Bites with Martial Arts 1 (1 Wound, odd).</p>",
     "health": {
-      "value": 3,
-      "max": 3
+      "value": 6,
+      "max": 6
     },
     "evasion": {
       "base": 8

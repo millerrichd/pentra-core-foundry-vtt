@@ -1,32 +1,39 @@
 {
   "_id": "B2VXpaHEDItycG2O",
-  "_key": "!items!B2VXpaHEDItycG2O",
+  "_key": "!actors!B2VXpaHEDItycG2O",
   "name": "Sports Car",
   "type": "vehicle",
-  "img": "icons/svg/lightning.svg",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
   "system": {
     "description": "<p>A 2-door car that seats 2; it only works on finished roads, but it is super fast and flashy.</p>",
-    "category": "land",
-    "speedClass": 3,
-    "evasion": 9,
-    "armor": 2,
-    "handling": 1,
-    "mounts": 0,
-    "mountNotes": "",
     "cost": {
       "die": 8,
       "multiplier": 3
     },
     "legal": true,
+    "category": "land",
+    "speedClass": 3,
     "health": {
-      "value": 5,
-      "max": 5
+      "value": 10,
+      "max": 10
     },
+    "evasion": {
+      "base": 9
+    },
+    "ar": 2,
+    "heavyArmor": false,
     "durability": {
       "value": 6,
       "max": 6
     },
-    "heavyArmor": false
+    "handling": 1,
+    "mounts": 0,
+    "mountNotes": "",
+    "owner": "",
+    "crew": {
+      "driver": "",
+      "passengers": []
+    }
   },
   "effects": [],
   "folder": null,
@@ -39,5 +46,17 @@
     "coreVersion": "14",
     "systemId": "pentra-core-foundry-vtt",
     "systemVersion": "0.1.0"
+  },
+  "items": [],
+  "prototypeToken": {
+    "name": "Sports Car",
+    "actorLink": true,
+    "bar1": {
+      "attribute": "health"
+    },
+    "texture": {
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+    },
+    "disposition": 0
   }
 }

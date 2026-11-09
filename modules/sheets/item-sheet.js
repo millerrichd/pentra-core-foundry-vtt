@@ -1,6 +1,6 @@
 import { PENTRA } from "../config.js";
-import { formatDie } from "../rules.js";
-import { PentraFieldKitModel } from "../models.js";
+import { formatDie, VEHICLE_MODS } from "../rules.js";
+import { PentraFieldKitModel, PentraDiseaseModel } from "../models.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
@@ -21,7 +21,7 @@ export class PentraItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
   static PARTS = {
     header: { template: `${TEMPLATES}/item-header.hbs` },
-    details: { template: `${TEMPLATES}/details-gear.hbs` },
+    details: { template: `${TEMPLATES}/details-armor.hbs` },
     description: { template: `${TEMPLATES}/item-description.hbs`, scrollable: [""] }
   };
 
@@ -50,15 +50,23 @@ export class PentraItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         usageDice,
         multipliers: Object.fromEntries([1, 2, 3, 4, 5, 6].map(m => [m, `x${m}`])),
         sizes: labelMap(PENTRA.sizes),
+        creatureSizes: PENTRA.creatureSizes,
+        diseaseTraits: { "": "PENTRA.None", ...Object.fromEntries(PentraDiseaseModel.TRAITS
+          .filter(k => k !== "drainDie" || game.settings.get(SYSTEM, "showDrainDie") || item.system.trait === k)
+          .map(k => [k, PENTRA.traits[k].label])) },
+        diseaseEffects: { checks: "PENTRA.Disease.Effect.checks", attribute: "PENTRA.Disease.Effect.attribute", trait: "PENTRA.Disease.Effect.trait" },
         attributes: { "": "PENTRA.None", ...PENTRA.attributes },
         traits: { "": "PENTRA.None", ...labelMap(PENTRA.traits) },
         increments: PENTRA.increments,
         ranges: PENTRA.rangeBands,
         weaponCategories: PENTRA.weaponCategories,
+        underwaterModes: PENTRA.underwater.modes,
         vehicleCategories: PENTRA.vehicleCategories,
+        vehicleMods: Object.fromEntries(Object.keys(VEHICLE_MODS).map(k => [k, `PENTRA.VehicleMod.Effects.${k}`])),
         attackSkills: Object.fromEntries(PENTRA.attackSkills.map(k => [k, PENTRA.skills[k].label])),
         kitTypes: Object.fromEntries(PentraFieldKitModel.KIT_TYPES.map(k => [k, `PENTRA.KitType.${k}`])),
-        hands: { 0: "PENTRA.Hands.mounted", 1: "PENTRA.Hands.one", 2: "PENTRA.Hands.two" }
+        hands: { 0: "PENTRA.Hands.mounted", 1: "PENTRA.Hands.one", 2: "PENTRA.Hands.two" },
+        weaponSlots: { primary: "PENTRA.Weapon.Slot.primary", backup: "PENTRA.Weapon.Slot.backup", stowed: "PENTRA.Weapon.Slot.stowed" }
       },
       locations: Object.entries(PENTRA.hitLocations).map(([key, l]) => ({ key, label: loc(l.label), checked: item.system.coverage?.[key] })),
       enrichedDescription: await TextEditor.implementation.enrichHTML(item.system.description, { relativeTo: item, secrets: item.isOwner })

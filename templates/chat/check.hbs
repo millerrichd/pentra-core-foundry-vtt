@@ -19,13 +19,24 @@
   </div>
   {{#if edgeGained}}<div class="tag edge"><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Roll.EdgeGained"}} +{{edgeGained}}</div>{{/if}}
   {{#if damage}}{{#if success}}
+  {{#if damage.collision}}
+  <div class="damage-block">
+    <div class="wounds"><strong>{{damage.wounds}}</strong> {{localize "PENTRA.Wounds"}} · {{localize "PENTRA.Vehicle.CollisionEach"}}</div>
+    <div class="hint">{{localize "PENTRA.Vehicle.CollisionHint"}}</div>
+    <div class="card-buttons">
+      <button type="button" data-pentra-action="apply-collision"><i class="fa-solid fa-car-burst"></i> {{localize "PENTRA.Vehicle.ApplyCollision"}}</button>
+    </div>
+  </div>
+  {{else}}
   <div class="damage-block">
     <div class="wounds"><strong>{{damage.wounds}}</strong> {{localize "PENTRA.Wounds"}} · {{damage.locationLabel}}</div>
     <div class="hint">{{localize "PENTRA.Weapon.Damage"}}: {{damage.profile}}</div>
+    {{#if damage.burning}}<div class="hint warning"><i class="fa-solid fa-fire"></i> {{localize "PENTRA.Weapon.SetsOnFire"}}</div>{{/if}}
     <div class="card-buttons">
       <button type="button" data-pentra-action="apply-damage"><i class="fa-solid fa-heart-crack"></i> {{localize "PENTRA.Damage.Apply"}}</button>
       <button type="button" data-pentra-action="apply-damage" data-half="true"><i class="fa-solid fa-car-burst"></i> {{localize "PENTRA.Damage.ApplyHalf"}}</button>
     </div>
   </div>
+  {{/if}}
   {{/if}}{{/if}}
 </div>

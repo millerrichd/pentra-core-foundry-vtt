@@ -16,8 +16,12 @@
       "discord": "turtletopgames"
     }
   ],
-  "esmodules": ["modules/main.js"],
-  "styles": ["css/pentra.css"],
+  "esmodules": [
+    "modules/main.js"
+  ],
+  "styles": [
+    "css/pentra.css"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -28,21 +32,67 @@
   "documentTypes": {
     "Actor": {
       "character": {
-        "htmlFields": ["biography"]
+        "htmlFields": [
+          "biography"
+        ]
       },
       "npc": {
-        "htmlFields": ["notes"]
+        "htmlFields": [
+          "notes"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "description"
+        ]
       }
     },
     "Item": {
-      "ancestry": { "htmlFields": ["description"] },
-      "hindrance": { "htmlFields": ["description"] },
-      "talent": { "htmlFields": ["description"] },
-      "armor": { "htmlFields": ["description"] },
-      "weapon": { "htmlFields": ["description"] },
-      "fieldkit": { "htmlFields": ["description"] },
-      "gear": { "htmlFields": ["description"] },
-      "vehicle": { "htmlFields": ["description"] }
+      "ancestry": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "hindrance": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "weapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "fieldkit": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "vehiclemod": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "disease": {
+        "htmlFields": [
+          "description"
+        ]
+      }
     }
   },
   "packs": [
@@ -52,7 +102,10 @@
       "path": "packs/ancestries",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "hindrances",
@@ -60,7 +113,10 @@
       "path": "packs/hindrances",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "talents",
@@ -68,7 +124,21 @@
       "path": "packs/talents",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "diseases",
+      "label": "Diseases",
+      "path": "packs/diseases",
+      "type": "Item",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "armor",
@@ -76,7 +146,10 @@
       "path": "packs/armor",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "weapons",
@@ -84,7 +157,10 @@
       "path": "packs/weapons",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "field-kits",
@@ -92,15 +168,32 @@
       "path": "packs/field-kits",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "vehicles",
       "label": "Vehicles",
       "path": "packs/vehicles",
+      "type": "Actor",
+      "system": "pentra-core-foundry-vtt",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "vehicle-mods",
+      "label": "Vehicle Modifications",
+      "path": "packs/vehicle-mods",
       "type": "Item",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "npcs",
@@ -108,14 +201,28 @@
       "path": "packs/npcs",
       "type": "Actor",
       "system": "pentra-core-foundry-vtt",
-      "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" }
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
     {
       "name": "Pentra Core",
       "sorting": "m",
-      "packs": ["ancestries", "hindrances", "talents", "armor", "weapons", "field-kits", "vehicles", "npcs"]
+      "packs": [
+        "ancestries",
+        "hindrances",
+        "talents",
+        "diseases",
+        "armor",
+        "weapons",
+        "field-kits",
+        "vehicles",
+        "vehicle-mods",
+        "npcs"
+      ]
     }
   ],
   "grid": {
@@ -124,5 +231,6 @@
     "units": "yd"
   },
   "primaryTokenAttribute": "health",
-  "initiative": "1d6"
+  "initiative": "1d6",
+  "socket": true
 }

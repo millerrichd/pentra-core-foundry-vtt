@@ -2,7 +2,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC"
+      "npc": "NPC",
+      "vehicle": "Vehicle"
     },
     "Item": {
       "ancestry": "Ancestry",
@@ -11,8 +12,9 @@
       "armor": "Armor",
       "weapon": "Weapon",
       "fieldkit": "Field Kit",
-      "gear": "Gear",
-      "vehicle": "Vehicle"
+      "vehicle": "Vehicle",
+      "vehiclemod": "Vehicle Modification",
+      "disease": "Disease"
     }
   },
   "PENTRA": {
@@ -51,28 +53,27 @@
     "LanguageName": "Language",
     "AddLanguage": "Add language",
     "NativeLanguage": "Native",
-    "SkillPoints": "Skill ranks",
-    "SkillPointsHint": "30 at creation, max 3 per skill",
-
     "Sheet": {
       "Character": "Pentra Character Sheet",
       "NPC": "Pentra NPC Sheet",
-      "Item": "Pentra Item Sheet"
+      "Item": "Pentra Item Sheet",
+      "Vehicle": "Pentra Vehicle Sheet"
     },
     "Tab": {
       "skills": "Skills",
       "combat": "Combat",
       "gear": "Gear",
       "traits": "Traits",
-      "biography": "Biography"
+      "biography": "Biography",
+      "downtime": "Downtime"
     },
-
     "Attribute": {
       "charm": "Charm",
       "finesse": "Finesse",
       "intellect": "Intellect",
       "knowledge": "Knowledge",
-      "might": "Might"
+      "might": "Might",
+      "label": "Attribute"
     },
     "Resistance": {
       "fortitude": "Fortitude",
@@ -130,7 +131,6 @@
       "resourceDie": "Resource Die",
       "drainDie": "Drain Die"
     },
-
     "Increment": {
       "odd": "odd",
       "even": "even",
@@ -142,7 +142,8 @@
       "close": "Close",
       "far": "Far",
       "veryFar": "Very Far",
-      "outOfRange": "Out of Range"
+      "outOfRange": "Out of Range",
+      "label": "Range"
     },
     "WeaponCategory": {
       "melee": "Melee",
@@ -152,14 +153,16 @@
     "VehicleCategory": {
       "air": "Air",
       "land": "Land",
-      "sea": "Sea"
+      "sea": "Sea",
+      "mount": "Mount / Animal"
     },
     "Size": {
       "label": "Size",
       "tiny": "Tiny",
       "small": "Small",
       "normal": "Normal",
-      "large": "Large"
+      "large": "Large",
+      "Hint": "Set by ancestry. Attacking something larger: +1 per size (max +4); attacking something smaller: −1 per size."
     },
     "CreatureSize": {
       "tiny": "Tiny",
@@ -173,7 +176,10 @@
       "torso": "Torso",
       "arms": "Arms",
       "legs": "Legs",
-      "head": "Head"
+      "head": "Head",
+      "CheckLabel": "{location} hit: {resistance}",
+      "ArmFail": "{name} drops whatever they're holding in that arm.",
+      "LegFail": "{name} loses one range band of movement (Leg Wound, until fully healed)."
     },
     "Hands": {
       "mounted": "Mounted",
@@ -201,7 +207,10 @@
       "headWound": "Head Wound",
       "unconscious": "Unconscious",
       "prone": "Prone",
-      "dead": "Dead"
+      "dead": "Dead",
+      "legWound": "Leg Wound",
+      "running": "Running",
+      "drowning": "Drowning"
     },
     "Lifestyle": {
       "Pay": "Pay lifestyle",
@@ -227,7 +236,6 @@
       "trauma": "Trauma",
       "other": "Other"
     },
-
     "Roll": {
       "Roll": "Roll",
       "Hint": "Click to roll (Shift-click to skip the dialog)",
@@ -253,7 +261,20 @@
       "VsTN": "vs TN",
       "VsEvasion": "vs Evasion",
       "EdgeGained": "Edge gained",
-      "EdgeSpent": "2 Edge spent"
+      "EdgeSpent": "2 Edge spent",
+      "RangeToTarget": "Range to target",
+      "RangeHint": "Preferred: {preferred}. A weapon fires one band farther (−1) or up to three bands closer (−1, −2, −4). Measured from your token when you have a target.",
+      "FiringInMelee": "Firing in melee",
+      "AlliesOnTarget": "Allies also in melee with the target",
+      "ExtraFoes": "Extra foes in melee with you",
+      "Size": "Size difference",
+      "SizeAuto": "from token sizes",
+      "Surprise": "Attacking from surprise",
+      "Smoke": "Smoke or fog",
+      "Drunk": "Drunk or drugged",
+      "OutOfBands": "{weapon} can't fire at {band}: it reaches only one band past {preferred}.",
+      "CrowdDetected": "Counted from the map: Friendly and Hostile tokens touching you or the target. Dead, unconscious, defeated and hidden tokens don't count. Adjust if the scene says otherwise.",
+      "NotAdjacent": "{target} is not adjacent: {weapon} can only strike a target standing next to you."
     },
     "Damage": {
       "Title": "Damage",
@@ -261,10 +282,11 @@
       "ApplyHalf": "Apply half",
       "NoTarget": "Select or target a token to apply damage to.",
       "NotOwner": "You do not have permission to modify {name}.",
-      "ArmorDegraded": "{name}: rolled {roll} (≤ {range}) — durability drops to {die}.",
-      "ArmorHeld": "{name}: rolled {roll} (> {range}) — durability holds at {die}.",
-      "DeathMove": "Down! Choose a death move: Blaze of Glory or Collapse & Risk a Scar. Count the rounds until stabilized.",
-      "Defeated": "{name} is out of the fight."
+      "ArmorDegraded": "Armor ({names}): rolled {roll} on {die} (≤ {range}) — every piece drops a size: {results}.",
+      "ArmorHeld": "Armor ({names}): rolled {roll} on {die} (> {range}) — durability holds.",
+      "DeathMove": "Down and dying! Rounds are counted until stabilized, healed, or combat ends — or choose Blaze of Glory.",
+      "Defeated": "{name} is out of the fight.",
+      "ShakenNote": "Shaken: −2 to all checks until the end of your next turn."
     },
     "Usage": {
       "Check": "Usage check",
@@ -273,10 +295,9 @@
       "Depleted": "{label} is depleted."
     },
     "Purchase": {
-      "Buy": "Buy with Resource Die",
       "Label": "Purchase: {label}",
       "TooExpensive": "Can't buy {label}: {cost} is more than your Resource Die ({die}).",
-      "Hint": "Buying: if the cost die is higher than your Resource Die you can't buy it; equal rolls 1–2, lower rolls 1, each times the multiplier. Rolling in range drops the Resource Die a size."
+      "Hint": "Gear is bought when it's added to a character: if the cost die is higher than your Resource Die you can't buy it; equal rolls 1–2, lower rolls 1, each times the multiplier. Rolling in range drops the Resource Die a size. The GM can also gift items."
     },
     "Sell": {
       "Title": "Sell",
@@ -288,11 +309,11 @@
     },
     "Edge": {
       "Start": "Start",
-      "NewSessionHint": "New session: reset Edge to its starting value",
       "SessionReset": "{name}'s Edge reset to {edge}.",
       "Support": "Support an ally",
       "SupportHint": "Spend 1 Edge: roll a d6 and add it to an ally's check. Declare before they roll; the same narrative support doesn't work twice.",
-      "NotEnough": "Not enough Edge."
+      "NotEnough": "Not enough Edge.",
+      "GMOnlyReset": "Only the GM can reset Edge (right-click a player in the Players list)."
     },
     "Karma": {
       "Title": "Spending Karma",
@@ -313,14 +334,34 @@
       "RefLearn": "Learn a new skill: 1 Karma, plus a Research check or a teacher with the skill at 3+.",
       "RefTalent": "New talent: 10 × talents owned + 10.",
       "RefHindrance": "Buy off a hindrance: 25 Karma.",
-      "Earning": "Earn: 2 per session, +2 minor arc, +8 major arc, +1–6 GM's discretion. Spend during downtime."
+      "Earning": "Earn: 2 per session, +2 minor arc, +8 major arc, +1–6 GM's discretion. Spend during downtime.",
+      "Earn": "Earn",
+      "EarnHint": "End of session: award Karma (+2 for the session, plus any story arc and your call).",
+      "EarnedHint": "Total Karma earned over the campaign.",
+      "Award": "Award",
+      "Reason": {
+        "session": "Session complete",
+        "misc": "GM's choice"
+      },
+      "Awarded": "{name} earns {amount} Karma",
+      "Arc": {
+        "none": "None",
+        "minor": "Minor story arc",
+        "major": "Major story arc"
+      },
+      "ArcLabel": "Story arc completed",
+      "Total": "Total Karma"
     },
     "Ancestry": {
       "None": "No ancestry",
       "Boost": "Attribute Boost",
       "BoostHint": "Adding this ancestry to a character raises this attribute one rank (d12+0 → d10+2).",
       "DropHint": "Drag an ancestry here from the Ancestries compendium.",
-      "OnlyOne": "A character can only have one ancestry."
+      "OnlyOne": "A character can only have one ancestry.",
+      "ShowDetails": "Show ancestry details",
+      "Remove": "Remove ancestry (reverses its attribute boost)",
+      "BoostEffect": "+1 rank, applied when added",
+      "SizeHint": "Characters of this ancestry are this size. Size sets the attack modifier (smaller vs larger is easier to hit)."
     },
     "Hindrance": {
       "Hint": "Up to two at creation. Hindrances are permanent unless bought off with Karma."
@@ -337,8 +378,22 @@
       "DurabilityUnset": "Set from owner's Durability Die",
       "Layerable": "Can be worn under other armor",
       "Heavy": "Heavy armor (×2 AR)",
-      "Repair": "Repair (Crafting check, needs a Technical Kit)",
-      "Repaired": "{name} repaired to {die}."
+      "Repair": "Repair worn armor to full (Crafting check, Technical Kit, 10 minutes)",
+      "Repaired": "Repaired: {names}.",
+      "OneOuter": "Can't wear {name} while wearing {other}. Only one outer piece of armor at a time; take {other} off first.",
+      "TooManyLayers": "Can't wear {name}: at most {max} pieces of armor can be stacked.",
+      "RepairTitle": "Armor Repair",
+      "RepairFailed": "The repair failed: 10 minutes lost, but the armor isn't damaged and no materials are used.",
+      "RepairHint": "Damage and repair treat worn armor as a whole. A broken piece can only be fixed by salvaging an identical suit (♻).",
+      "NothingToRepair": "All worn armor is already at full durability.",
+      "OnlyBroken": "The only damaged armor is broken — salvage an identical suit to fix it (♻).",
+      "NeedKit": "Repairing armor needs a Technical Kit with uses left.",
+      "Salvage": "Salvage: fix this broken piece using an identical suit (Crafting check)",
+      "SalvageTitle": "Salvage {name}",
+      "Salvaged": "{name} restored to {die}; the donor suit was used up.",
+      "NeedDonor": "Broken {name} can only be fixed by salvaging another {name}.",
+      "NotBroken": "That armor isn't broken; use Repair instead.",
+      "Stacked": "three pieces stacked"
     },
     "Weapon": {
       "Category": "Category",
@@ -348,18 +403,34 @@
       "Hands": "Hands",
       "Heavy": "Heavy weapon",
       "HeavyHint": "Heavy weapons deal double wounds.",
-      "Reload": "Extra actions to reload"
+      "Reload": "Extra actions to reload",
+      "Carried": "Carried as",
+      "Slot": {
+        "primary": "Primary",
+        "backup": "Backup",
+        "stowed": "Stowed"
+      },
+      "SlotHint": "Primary: up to 2 hands' worth (two one-handed or one two-handed). Backup: one weapon. Stowed: owned but not carried.",
+      "CarryRule": "Carry 2 one-handed weapons or 1 two-handed weapon, plus one backup weapon.",
+      "CarrySummary": "hands {hands}/2 · backup {backups}/1",
+      "HandsFull": "Can't carry {name} as a primary weapon: {used} of 2 hands are already in use and it needs {hands}. Stow or move a weapon first.",
+      "OneBackup": "Can't carry {name} as a backup: {other} is already your backup weapon.",
+      "Mounted": "{name} is a mounted weapon and can't be carried — it goes on a vehicle.",
+      "Slotted": "{name} carried as: {slot}.",
+      "StowedAttack": "{name} is stowed. Carry it as Primary or Backup to attack with it.",
+      "Burning": "Burning",
+      "BurningHint": "A hit sets the target on fire: 1 wound at the end of each of their turns until the flames are put out or doused (remove the Burning status).",
+      "SetsOnFire": "Sets the target on fire (Burning) when the damage is applied."
     },
     "Kit": {
       "Type": "Kit type",
       "Usage": "Usage die",
       "UsageHint": "Kits start at the owner's Durability Die and refresh to it during downtime.",
-      "Use": "Usage check (1–2)",
+      "Use": "Usage check (1–2). A Trauma Kit treats wounds instead.",
       "Restock": "Restock ammunition (1–2, +1 per 5 rounds fired)",
       "Refresh": "Refresh all kits to your Durability Die (a day of downtime)",
       "Refreshed": "Kits refreshed to {die}.",
-      "ReloadNote": "{rounds} rounds of combat fired since last restock.",
-      "TraumaNote": "Make a Medicine check first; success heals {wounds} wound(s)."
+      "ReloadNote": "{rounds} rounds of combat fired since last restock."
     },
     "Vehicle": {
       "Category": "Type",
@@ -367,11 +438,76 @@
       "SpeedShort": "Spd",
       "Handling": "Handling",
       "Mounts": "Weapon mounts",
-      "MountNotes": "e.g. 1 forward"
+      "MountNotes": "e.g. 1 forward",
+      "Damage": "Mark 1 wound on the vehicle",
+      "GMHeal": "GM: restore 1 Health",
+      "RepairHint": "Repair to full (Crafting check, needs a Technical Kit)",
+      "RepairTitle": "Vehicle Repair: {name}",
+      "RepairFailed": "The repair failed: time lost, but the vehicle isn't damaged further and no materials are used.",
+      "Repaired": "{name} is repaired to {health} Health and a {die} Durability Die.",
+      "NothingToRepair": "{name} doesn't need repairs.",
+      "NeedKit": "Repairing a vehicle needs a Technical Kit with uses left.",
+      "RepairOnly": "{name}'s Health can only be restored by a repair (Crafting check with a Technical Kit).",
+      "NowActors": "Vehicles are actors now. Drag one from the Vehicles compendium onto the character to buy it.",
+      "DriverSkill": "Driver rolls",
+      "Crew": "Crew",
+      "CrewHint": "Drag characters or NPCs from the sidebar here. Drop on the driver seat to make them the driver.",
+      "Driver": "Driver",
+      "Passenger": "Passenger",
+      "Seat": "Seat",
+      "DropDriver": "Drop a character here to drive",
+      "DropPassenger": "Drop a character here to ride along",
+      "MissingCrew": "A crew member who no longer exists",
+      "MakeDriver": "Make driver",
+      "RemoveCrew": "Get out",
+      "CrewOnlyPeople": "Only characters and NPCs can ride in a vehicle.",
+      "CrewFromWorld": "Put the actor in the world first, then drag it from the Actors sidebar.",
+      "OnlyWeapons": "Only weapons can be mounted on a vehicle.",
+      "Maneuver": "Maneuver",
+      "ManeuverHint": "The driver rolls the vehicle's skill plus its Handling",
+      "Push": "Push",
+      "PushNote": "Push: spend 1 movement and roll. A success moves 2 bands; a failure doesn't move at all. Weapons fired from the vehicle this round are at −2.",
+      "Collide": "Collide",
+      "CollideHint": "Ram another vehicle: target it (the crosshair in the Chase window, or its token on the map), then the driver rolls against its Evasion. In a chase, only on this vehicle's turn and at Impact / Drive-by.",
+      "CollideLabel": "{name} rams {target}",
+      "CollisionHint": "Wounds equal the successes (every). Both vehicles take them; everyone aboard takes half.",
+      "CollisionEach": "to each vehicle, half to everyone aboard",
+      "ApplyCollision": "Apply collision",
+      "CollisionSkipped": "Not applied (you don't own them): {names}. The GM can click Apply collision.",
+      "TargetVehicle": "Target exactly one other vehicle's token to collide with it.",
+      "NoDriver": "{name} has no driver. Drag a character onto the driver seat.",
+      "NotYourDriver": "You don't control {name}, the driver.",
+      "NoCrewYouControl": "Nobody aboard {name} is yours to roll for.",
+      "WhoFires": "Who is firing?",
+      "WhoRepairs": "Who is doing the repair?",
+      "FireTitle": "Fire {weapon}",
+      "FireHint": "Fire: a crew member attacks (−1 for firing from a vehicle)",
+      "FiringFrom": "Firing from {name}",
+      "Weapons": "Mounted weapons",
+      "WeaponsHint": "Drag vehicle weapons here to mount them.",
+      "Repair": "Repair",
+      "NoMechanic": "Only {name}'s owner or crew can repair it, and you don't control any of them.",
+      "Open": "Open vehicle sheet",
+      "GearHint": "Drag a vehicle from the Vehicles compendium onto this sheet to buy it.",
+      "NoOwner": "No owner",
+      "NoOwnerHint": "Drag this vehicle onto a character sheet to buy it or gift it to them.",
+      "AlreadyOwned": "{name} already belongs to {owner}.",
+      "NotYourVehicle": "Only the owner of {name} can sell it.",
+      "NeedGM": "A GM needs to be logged in to hand over or remove vehicles.",
+      "SellRemoves": "The vehicle will be removed from the world.",
+      "Acquired": "{actor} now owns the {name}.",
+      "Sold": "{actor} sold the {name}.",
+      "Wrecked": "{name} is wrecked.",
+      "ArmorDegraded": "Durability {die} rolled {roll} (1–{range}): drops to {result}.",
+      "ArmorHeld": "Durability {die} rolled {roll} (1–{range}): holds.",
+      "Migrated": "Converted {count} vehicle item(s) into vehicle actors with their own sheets.",
+      "ModsOnly": "{name}'s type, cost and stats change only by installing vehicle modifications (from the Vehicle Modifications compendium).",
+      "BaseModel": "Base model (GM)",
+      "BaseModelHint": "The vehicle before modifications. Players can't change these."
     },
     "Carry": {
       "Slots": "Gear slots",
-      "Hint": "6 normal items. 2 small = 1 normal, 4 tiny = 1 normal, 1 large = 2 normal."
+      "Hint": "Field kits: 6 normal-sized items. 2 small = 1 normal, 1 large = 2 normal."
     },
     "Combat": {
       "AttackHint": "Attacks roll against the targeted token's Evasion. Each round re-rolls initiative: every 6 points is one action.",
@@ -379,16 +515,16 @@
     },
     "Death": {
       "Title": "Death Moves",
-      "Hint": "At 0 Health choose: Blaze of Glory (an automatic 12 + skill attack for double wounds, then you die) or Collapse & Risk a Scar.",
-      "Collapse": "Stabilized: roll Death Die",
-      "CheckTitle": "Collapse & Risk a Scar",
-      "Rounds": "Rounds spent unconscious",
+      "Hint": "At 0 Health you start dying: one round is counted at the end of each of your turns until you're stabilized, healed, or combat ends, then the Death Die is rolled against the count. Or choose Blaze of Glory: an automatic 12 + skill attack for double wounds, then you die.",
       "ScarNote": "At or under the rounds spent down: take a scar (lower one attribute a die) and the Death Die shrinks.",
       "Scar": "Scarred! Lower one attribute by a die value (restorable with Karma).",
       "Died": "{name} has died.",
       "Blaze": "Blaze of Glory",
       "BlazeUnarmed": "Blaze of Glory (unarmed)",
-      "BlazeProfile": "Automatic 12 + skill, double wounds"
+      "BlazeProfile": "Automatic 12 + skill, double wounds",
+      "AlreadyDead": "{name} is already dead.",
+      "DeadBanner": "This character has died.",
+      "DeadHint": "Death moves are no longer available. As GM, remove the Dead status from the token HUD to undo this."
     },
     "Rest": {
       "Title": "Recovery",
@@ -414,7 +550,536 @@
       "Drain": {
         "Name": "Show Drain Die",
         "Hint": "Show the Drain Die trait used by genre books with powers or magic."
+      },
+      "RangeRuler": {
+        "Name": "Range bands on rulers",
+        "Hint": "Label ruler and token-drag distances with their range band (Melee, Very Close, Close, Far...) and color the path: green for a normal move (up to Close), orange for a run (up to Far, −2 to actions), red for too far."
       }
+    },
+    "Native": "native",
+    "Creation": {
+      "Title": "Character Creation",
+      "Finish": "Finish Creation",
+      "Attributes": "Attributes",
+      "AttributeHint": "5 points on top of your ancestry's free boost. No attribute may start above d8+4.",
+      "ResistanceHint": "Raise one resistance to d10+2.",
+      "SkillHint": "30 points, no more than 3 in a single skill. Extra languages count; your native language is free at 4.",
+      "NativeHint": "Your native language is known for free at rank 4.",
+      "GMHint": "You're the GM: limits are shown but not enforced for you.",
+      "LockedHint": "Creation finished — raise stats with Karma (Advance).",
+      "Reopen": "Reopen creation",
+      "ReopenHint": "Put this character back into creation mode so the player can rebuild within the limits.",
+      "UseKarma": "Character creation is finished. Raise attributes, resistances, and skills by spending Karma (turn on Advance).",
+      "GMOnlyReopen": "Only the GM can reopen character creation.",
+      "CannotFinish": "Can't finish character creation yet:",
+      "FinishConfirm": "Finish character creation? Afterwards, attributes, resistances, and skills can only be raised by spending Karma.",
+      "GMOverride": "This build breaks the creation limits. As GM you can finish it anyway:",
+      "Unspent": "You still have points to spend:",
+      "Finished": "{name} has finished character creation.",
+      "GMAllowed": "(Allowed because you're the GM.)",
+      "AncestryLocked": "Ancestry can only be changed during character creation. Ask your GM.",
+      "HindranceLocked": "Hindrances are permanent. Buy one off for 25 Karma with the ★ button on the Traits tab.",
+      "Requires": "{name} requires {requires}, which this character doesn't have.",
+      "Cancels": "{name} would cancel out your {hindrance} hindrance, which isn't allowed.",
+      "Error": {
+        "AttributePoints": "Attribute points: {used} of {budget} spent.",
+        "AttributeCap": "No attribute may start above d8+4.",
+        "ResistancePoints": "Only one resistance can be raised at creation.",
+        "ResistanceCap": "Resistances can only be raised to d10+2 at creation.",
+        "SkillPoints": "Skill points: {used} of {budget} spent.",
+        "SkillCap": "No skill above 3 at creation (your native language is 4).",
+        "Hindrances": "You can take at most {max} hindrances.",
+        "Talents": "One talent per hindrance: you can have {max}."
+      },
+      "Warn": {
+        "NoAncestry": "No ancestry chosen yet.",
+        "AttributePoints": "{left} attribute point(s) unspent.",
+        "ResistancePoints": "Resistance raise unspent.",
+        "SkillPoints": "{left} skill point(s) unspent."
+      },
+      "CancelsTalent": "{name} would cancel out your {talent} talent, which isn't allowed.",
+      "RequiredBy": "Can't remove {name}: {dependent} requires it. Remove {dependent} first."
+    },
+    "Raise": "Raise",
+    "Lower": "Lower",
+    "DropHint": "Drag items here from the compendiums to buy them.",
+    "Acquire": {
+      "Title": "Acquire {name}",
+      "Prompt": "How is <strong>{actor}</strong> getting <strong>{name}</strong>?",
+      "Buy": "Roll Resource Die",
+      "Gift": "Gifted by GM",
+      "Odds": "Buying rolls your {die}: on 1–{range} it drops to {next}.",
+      "Free": "This item has no cost.",
+      "TooExpensive": "{cost} is more than your Resource Die ({die}) — you can't buy this.",
+      "GiftHint": "Only the GM can gift items.",
+      "Gifted": "{actor} was given {name} by the GM."
+    },
+    "Medicine": {
+      "Treat": "Treat wounds (Medicine)",
+      "Hint": "Medicine check with a Trauma Kit (10 minutes, armor off). Heals 1 wound at rank 0–3, 2 at 4–5, 3 at 6. Target a token to treat someone else; otherwise you treat yourself.",
+      "Title": "Treat Wounds: {name}",
+      "NeedKit": "Treating wounds needs a Trauma Kit with uses left.",
+      "OneTarget": "Target only one patient at a time.",
+      "FullHealth": "{name} has no wounds to treat.",
+      "Failed": "The treatment didn't take. You can try again (another 10 minutes).",
+      "Healed": "{name} recovers {amount} wound(s) — Health {health}/{max}.",
+      "Apply": "Apply healing",
+      "ApplyHint": "The patient's owner or the GM applies this."
+    },
+    "Dying": {
+      "Label": "Dying",
+      "Rounds": "rounds down",
+      "Banner": "Counting one round at the end of each of your turns until stabilized, healed, or combat ends; then the Death Die is rolled against the count.",
+      "Tracker": "☠ {n}",
+      "Stabilize": "Stabilize (Medicine)",
+      "StabilizeHint": "Target the dying character, then click: a Medicine check (1 action). Success stops their dying count and rolls their Death Die.",
+      "StabilizeTitle": "Stabilize: {name}",
+      "StabilizeFailed": "The bleeding isn't under control yet — try again.",
+      "Stabilized": "Stabilized",
+      "Apply": "Apply stabilization",
+      "TargetOne": "Target the one dying character you're stabilizing.",
+      "NotDying": "{name} isn't dying.",
+      "Ended": "{reason} after {rounds} round(s) down.",
+      "ByStabilize": "Stabilized by {name}",
+      "ByHealing": "Healed",
+      "ByCombatEnd": "Combat ended",
+      "NoRisk": "No rounds were spent down, so there's no risk of a scar.",
+      "NotAdjacent": "{healer} must be next to {name} to stabilize them."
+    },
+    "DurabilityUse": "armor & kits",
+    "DurabilityHint": "Set by hindrances and talents. New armor and field kits start at this die, and repairs and kit refreshes restore to it.",
+    "Downtime": {
+      "Short": "Short Downtime (10 minutes each)",
+      "ShortHint": "Quick activities in the field. Each adds 10 minutes to a Facility Raid clock.",
+      "TreatHint": "Medicine check with a Trauma Kit; target a token to treat someone else.",
+      "Restock": "Restock ammunition",
+      "RestockHint": "Reloading Kit usage check: 1–2, +1 per 5 rounds of combat fired.",
+      "Camp": "Camp Downtime (a night)",
+      "CampHint": "About 6 hours of sleep in the wilderness. You can also do any short downtime activity.",
+      "CampRestHint": "Recover 1 wound naturally.",
+      "City": "City Downtime (a day each)",
+      "CityHint": "Safe in town. Pay for a lifestyle each day, then pick an activity.",
+      "CurrentLifestyle": "Current lifestyle",
+      "DayRestHint": "Sleep all day: recover 2 wounds (+1 with Extreme Luxury).",
+      "Clinic": "Visit a clinic",
+      "ClinicHint": "Restore your Death Die one size toward its maximum.",
+      "ClinicResult": "Death Die restored: {from} → {to}.",
+      "ClinicFull": "{name}'s Death Die is already at its maximum ({die}).",
+      "RefreshKits": "Refresh kits",
+      "RefreshKitsHint": "Spend the day at the market: every field kit refills to your Durability Die.",
+      "Socialize": "Socialize",
+      "SocializeHint": "Social skill check to find leads (Luxury +1, Extreme Luxury +2, applied automatically).",
+      "SocializeNote": "Socialize: on a success you meet someone who can help you find work.",
+      "CityMore": "Also during city downtime: buy and sell on the Gear tab, and train with Karma (Advance on the Skills tab).",
+      "LuxuryRest": "Extreme Luxury: +1 wound.",
+      "NeedReloadingKit": "Restocking ammunition needs a Reloading Kit with uses left.",
+      "NoTraumaKit": "(no Trauma Kit)",
+      "NoTechnicalKit": "(no Technical Kit)",
+      "NoReloadingKit": "(no Reloading Kit)",
+      "Repair": "Repair armor",
+      "RepairHint": "Crafting check with a Technical Kit: all worn, unbroken armor is restored to your Durability Die. Broken armor needs an identical suit to salvage (♻ on the Combat tab)."
+    },
+    "Reward": {
+      "Button": "Reward",
+      "Hint": "Roll a reward (loot, payment) against your Resource Die, the same way selling works.",
+      "Title": "Reward",
+      "Value": "Reward value",
+      "Prompt": "How much is the reward worth? It's rolled against your Resource Die ({die}): worth more and it rises on the top two faces (and can keep rising); worth less and it rises only on the top face per multiplier.",
+      "Roll": "Roll",
+      "FromZero": "Your Resource Die was depleted; any reward brings it back to d4.",
+      "AtMax": "Your Resource Die is already at d12."
+    },
+    "Protected": {
+      "Blocked": "Health, Edge, Karma, and the Death and Resource Dice change through play (damage, healing, rolls, purchases, rewards, Karma spending), not by editing. Ask your GM if something needs fixing."
+    },
+    "Players": {
+      "EdgeTooltip": "{name}: Edge {value} (starts at {start}, max {max})",
+      "ResetEdge": "Reset Edge to starting value",
+      "ResetAllEdge": "New session: reset all players' Edge",
+      "NoCharacters": "No players have a Pentra character assigned (User Configuration → Character)."
+    },
+    "Party": {
+      "Title": "Party",
+      "GMOnly": "Only the GM can open the Party window.",
+      "Members": "Party",
+      "ToggleAll": "Select all / none",
+      "Empty": "No player-owned characters yet.",
+      "AwardKarma": "Award Karma",
+      "AwardSelected": "Award to selected",
+      "ConfirmKarma": "Award <strong>{total}</strong> Karma to each of the {count} selected characters?",
+      "KarmaAwarded": "The party earns {total} Karma each",
+      "RewardResource": "Resource Die Reward",
+      "RewardHint": "Each selected character rolls this reward against their own Resource Die, like selling.",
+      "RollSelected": "Roll for selected",
+      "Session": "Session",
+      "ResetEdge": "Reset Edge for selected",
+      "NoneSelected": "Select at least one character."
+    },
+    "Illegal": "Illegal",
+    "VehicleMod": {
+      "Title": "Modifications",
+      "Effect": "Effect",
+      "Remove": "Remove modification (GM)",
+      "DropHint": "Drag modifications from the Vehicle Modifications compendium here.",
+      "LaterCost": "Cost after purchase",
+      "SheetHint": "Drop this on a vehicle sheet to install it. On an owned vehicle the owner buys it with their Resource Die (or the GM gifts it).",
+      "OnVehicle": "Vehicle modifications go on a vehicle: drag it onto the vehicle's sheet.",
+      "NeedOwner": "Only the GM can modify a vehicle nobody owns.",
+      "GMRemoves": "Only the GM can remove a vehicle modification.",
+      "CostCap": "the vehicle is already at d12x6 R.D. and can't take more modifications.",
+      "SpeedFloor": "Speed Class can't go below 1.",
+      "ArmorCap": "Armor can't exceed {max}.",
+      "Once": "{name} can only be taken once.",
+      "DieCap": "the Durability Die is already d12.",
+      "EvasionCap": "Evasion can only be increased {max} times.",
+      "HandlingCap": "Handling can't exceed +{max}.",
+      "Unknown": "unknown modification.",
+      "Effects": {
+        "speedClass": "Speed Class −1 (cost −2 multipliers)",
+        "armor": "Armor +1 (max 4)",
+        "heavyArmor": "Heavy armor (once)",
+        "durability": "Durability Die +1 size (once)",
+        "evasion": "Evasion +1 (max +3)",
+        "handling": "Handling +1 (max +2)",
+        "health": "Health +2 (once)"
+      }
+    },
+    "Scar": {
+      "Button": "Choose scar",
+      "Choose": "{name} takes a scar: their player chooses one attribute to lower a die.",
+      "Title": "Scar: {name}",
+      "Prompt": "Choose the attribute this scar permanently lowers. Karma can raise it again later.",
+      "Confirm": "Take the scar",
+      "Taken": "{name}'s scar lowers {attribute} from {from} to {to}.",
+      "NonePending": "{name} has no scar to choose.",
+      "NoAttribute": "{name} has no attribute left to lower.",
+      "List": "Scars"
+    },
+    "Run": {
+      "On": "Running (−2)",
+      "Off": "Run",
+      "Hint": "Move past Close, up to Far, this round: −2 to all your actions until the end of your turn. Declare it before acting."
+    },
+    "Move": {
+      "Walk": "Move",
+      "Run": "Run −2",
+      "TooFar": "Too far",
+      "Blocked": "{name} can only move {limit} yd this round (already moved {moved} yd); that move would make {distance} yd.",
+      "Restrained": "{name} is restrained and can't move under their own power. They can try an Athletics check to break free, or the GM can drag them (up to Very Close).",
+      "NowRunning": "{name} is running: −2 to all actions until the end of their turn."
+    },
+    "Poison": {
+      "Cured": "{name} shakes off the poison."
+    },
+    "Project": {
+      "Heading": "Projects",
+      "Title": "Project: {name}",
+      "Unnamed": "Unnamed project",
+      "NamePlaceholder": "What are you making?",
+      "Value": "Value (GM)",
+      "Progress": "Progress",
+      "Days": "Days",
+      "Add": "Start a project",
+      "Remove": "Abandon project",
+      "RemoveConfirm": "Abandon {name}? Its progress is lost.",
+      "Empty": "No projects. Click + to start one; the GM sets its value.",
+      "Hint": "A city downtime day each: a Research check (skipped with blueprints), then Crafting. On a success the progress die grows on its top two faces until it reaches the target (any multiplier adds a die size; d12 with a multiplier needs a 12 to reach the d14). The first day goes from nothing to d4 automatically.",
+      "AwaitingGM": "Waiting for the GM",
+      "Blueprint": "Has blueprints: no research needed",
+      "BlueprintHint": "Blueprints: skip the Research phase",
+      "WorkHint": "Spend a day working on it",
+      "GMOnly": "Only the GM can set a project's value or blueprints, and progress only comes from working on it.",
+      "NeedValue": "{name} has no value yet. The GM sets it on the Downtime tab.",
+      "AlreadyDone": "{name} is already finished.",
+      "NoProgress": "The day's work goes nowhere (no progress, but the day is spent).",
+      "Started": "Work begins: progress is now {die}.",
+      "Advanced": "Progress roll {roll}: {from} → {to}.",
+      "Held": "Progress roll {roll}: stays at {die}.",
+      "ResearchDone": "Research on {name} is complete. Crafting can begin.",
+      "Done": "{name} is finished!",
+      "DayCount": "Days spent so far: {days}.",
+      "Phase": {
+        "research": "Research",
+        "crafting": "Crafting",
+        "done": "Complete"
+      }
+    },
+    "Disease": {
+      "Heading": "Diseases",
+      "Add": "Add a disease (GM): no exposure check until you roll one",
+      "None": "Healthy.",
+      "Hint": "The GM drops a disease on a character to expose them: they roll Fortitude at once, and again every Camp rest or Day of rest. A success throws the disease off.",
+      "CheckHint": "Roll Fortitude against it now (a success cures it)",
+      "Cure": "Remove disease (GM)",
+      "GMOnly": "Only the GM can give a character a disease.",
+      "CantRemove": "A disease goes away by beating it: a Fortitude check each time you rest, or the GM.",
+      "Resisted": "{name} resists {disease}.",
+      "Infected": "{name} catches {disease}: {effect}. They'll roll Fortitude again each time they rest.",
+      "Recovered": "{name} throws off {disease}.",
+      "Lingers": "{disease} keeps its grip on {name} ({effect}).",
+      "Hampers": "Hampers",
+      "Penalty": "Penalty",
+      "DieSteps": "Die steps",
+      "SheetHint": "The rulebook's diseases give −2 to something or lower a die by one size. Dice traits (Initiative, Durability, Death…) use the die steps; checks and number traits (Evasion, Health) use the penalty.",
+      "Effect": {
+        "checks": "All checks",
+        "attribute": "Checks with one attribute",
+        "trait": "A trait"
+      },
+      "Summary": {
+        "checks": "{value} to all checks",
+        "attribute": "{value} to {attribute} checks"
+      }
+    },
+    "Counter": {
+      "Title": "Counters",
+      "GMHint": "Set a counter from 1 to 12 and note the condition that ticks it. Tick it with − / + when the condition happens; every change goes to chat (whispered to you for private counters). At 0 the effect happens.",
+      "NewName": "New counter",
+      "NamePlaceholder": "What is it tracking?",
+      "ConditionPlaceholder": "Condition: when does it tick? (e.g. each failed check)",
+      "Start": "Start",
+      "Public": "Public",
+      "PublicHint": "Players can see it, and its changes are posted to everyone. Unchecked: GM only, changes are whispered to you.",
+      "Repeat": "Repeat",
+      "RepeatHint": "When it reaches 0, it starts again from its starting value (e.g. an earthquake every few turns).",
+      "Up": "Tick up",
+      "Down": "Tick down",
+      "ValueHint": "Current value",
+      "Reset": "Reset to the starting value",
+      "Remove": "Remove counter",
+      "RemoveConfirm": "Remove the counter {name}?",
+      "Add": "Add counter",
+      "EmptyGM": "No counters yet. Add one for a chase, an escape, an environmental effect, or the villain's plan.",
+      "EmptyPlayer": "No counters are visible right now.",
+      "Fired": "Triggered",
+      "Private": "GM only",
+      "Changed": "{from} → {to}",
+      "Triggered": "<strong>{name} reaches 0: it happens!</strong>",
+      "Restarts": "It starts again at {start}.",
+      "ResetTo": "Reset: {from} → {to}"
+    },
+    "Clock": {
+      "Title": "Clocks",
+      "GMOnly": "Only the GM can run the clocks.",
+      "Hint": "Advance a clock as time passes. On each check a usage roll of 1–2 means something happens. Results are whispered to you.",
+      "Reset": "Reset this clock",
+      "Encounter": "Rolled {roll} on the {die}: <strong>an encounter!</strong>",
+      "Quiet": "Rolled {roll} on the {die}: all quiet.",
+      "Facility": {
+        "Title": "Facility Raid",
+        "DangerDie": "Danger die",
+        "Advance": "+10 minutes",
+        "RollNow": "Roll danger die now",
+        "NextCheck": "Next danger roll in {minutes} minutes.",
+        "Hint": "The team gets three 10-minute activities per 30 minutes (search a room, a body, sneak down a corridor…).",
+        "Passed": "{time} in the facility.",
+        "Check": "{time} in the facility: danger roll.",
+        "Happens": "Something happens: guards, a locked gate, a gang… your call.",
+        "Danger": {
+          "d4": "very dangerous",
+          "d6": "dangerous",
+          "d8": "risky",
+          "d10": "guarded",
+          "d12": "not so dangerous"
+        }
+      },
+      "Travel": {
+        "Title": "Travel",
+        "ModeLabel": "Mode of travel",
+        "Advance": "+1 hour",
+        "Hint": "Each hour of travel outside a city: the mode's usage die, and on 1–2 a d4 for the encounter type.",
+        "Hour": "Hour {hours} of travel ({mode}).",
+        "Type": "Encounter type (d4 = {roll}): {type}",
+        "Mode": {
+          "walking": "Walking or horseback",
+          "driving": "Driving",
+          "boating": "Boating",
+          "flying": "Flying"
+        },
+        "Table": {
+          "1": "Creature",
+          "2": "Obstacle",
+          "3": "Treasure"
+        },
+        "TableHint": {
+          "1": "Anything from friendly to hostile, depending on the creature.",
+          "2": "Something in nature blocks or disrupts the journey: a fallen log, or a storm at sea.",
+          "3": "Something small that points to something big: coordinates, a map, a key."
+        },
+        "Variable": {
+          "land": "A 4 on land counts as a creature.",
+          "seaAir": "A 4 by sea or air counts as an obstacle that threatens to derail the trip."
+        }
+      },
+      "Camp": {
+        "Title": "Camp",
+        "SetupLabel": "Watches and shelter",
+        "Advance": "+4 hours",
+        "Night": "Full night (8 hours)",
+        "Hint": "In the wilderness, every 4 hours: on 1–2 something comes to see if you're a tasty snack. A standard night is two checks.",
+        "Watch": "{hours} hours in camp ({setup}).",
+        "Creature": "A creature wanders into camp.",
+        "Setup": {
+          "open": "No watches, out in the open",
+          "trees": "Behind trees, some watches",
+          "bluff": "Behind a bluff, watches all night"
+        }
+      }
+    },
+    "Battle": {
+      "Title": "Battles",
+      "GMHint": "Large-scale combat. Set each army's troop count and leader, then start: the larger force gets an Army Strength Counter of 10, the other in proportion. Each round both leaders roll Leadership (on a success: deal 1 or block 1), then a morale check at −1 per counter lost. A failed morale check breaks the army; one more round is fought as it escapes. PCs can spend Edge (Support) for a side: add the d6 in the roll's Modifier box. Use ✓ / ✗ to record a check made without a leader.",
+      "NewName": "New battle",
+      "SideA": "Attackers",
+      "SideB": "Defenders",
+      "Troops": "Troops",
+      "Leader": "Leader",
+      "NoLeaderOption": "(no leader)",
+      "NoLeader": "Choose a leader for this army first, or mark the result with ✓ / ✗.",
+      "NeedTroops": "Both armies need troops.",
+      "FearlessHint": "Most of the army is fearless creatures (undead, robots).",
+      "PublicHint": "Players can see it, and its results are posted to everyone. Unchecked: GM only, results are whispered to you.",
+      "Start": "Start battle",
+      "Reset": "Back to setup",
+      "Remove": "Remove battle",
+      "RemoveConfirm": "Remove the battle {name}?",
+      "Add": "Add battle",
+      "EmptyGM": "No battles yet. Add one when two forces meet.",
+      "EmptyPlayer": "No battles are visible right now.",
+      "Round": "Round",
+      "RoundTitle": "Round {round}",
+      "Strength": "Army Strength",
+      "Adjust": "Adjust strength (no chat)",
+      "ClashCheck": "Leadership",
+      "MoraleCheck": "Morale",
+      "SupportNote": "Edge support for this side: add the d6 to the Modifier.",
+      "MarkSuccess": "Mark a success (no roll)",
+      "MarkFail": "Mark a failure (no roll)",
+      "Success": "Success",
+      "Failed": "Failed",
+      "Broken": "Broken: escaping",
+      "Choice": {
+        "deal": "Deal 1",
+        "block": "Block 1"
+      },
+      "Mod": {
+        "fortified": "Fortifications",
+        "fearless": "Fearless",
+        "failedMorale": "Failed morale",
+        "losses": "Losses"
+      },
+      "Phase": {
+        "setup": "Setup",
+        "clash": "Clash",
+        "morale": "Morale",
+        "escape": "Escape round",
+        "over": "Over"
+      },
+      "Begins": "<strong>{a}</strong> meets <strong>{b}</strong> in battle.",
+      "Strengths": "Army Strength: {a} {ca}, {b} {cb}.",
+      "SideResult": "{name}: {did}; takes {dmg} → {strength}/{start}.",
+      "Breaks": "<strong>{name} breaks</strong> and tries to escape.",
+      "Holds": "{name} holds.",
+      "EscapeRound": "One more round is fought as they escape.",
+      "Wiped": "<strong>{name} is wiped out</strong>, killed to a man.",
+      "Winner": "{name} wins the battle.",
+      "Draw": "Neither side wins: both ran with equal strength."
+    },
+    "Chase": {
+      "Title": "Chase",
+      "GMHint": "Vehicle combat on the range band chart. Drag vehicle actors onto a lane row; the slowest becomes the anchor (middle row). Begin rolls initiative and gives each vehicle its speed class in movement. Drag a chip to another row to place it, or onto another chase to move it there; the branch button splits it into a new chase. Vehicles are hidden from players unless the eye is open (owners always see their own).",
+      "PlayerHint": "On your vehicle's turn: Move (1 band along your facing), Turn (1 movement), or Push, then End turn to pass to the next vehicle. Use the crosshair to pick a target for attacks and rams.",
+      "NewName": "New chase",
+      "SplitName": "{name}'s chase",
+      "Add": "Add chase",
+      "Remove": "Remove chase",
+      "RemoveConfirm": "Remove the chase {name}?",
+      "EmptyGM": "No chases yet. Add one when vehicles take off after each other.",
+      "EmptyPlayer": "No chases right now.",
+      "DropHere": "Drag vehicle actors onto the lane.",
+      "VehiclesOnly": "Only vehicles can join a chase.",
+      "NoGM": "A GM needs to be connected to move vehicles in a chase.",
+      "Begin": "Begin: roll initiative",
+      "NewRound": "New round",
+      "RoundTitle": "Round {round}: initiative",
+      "MovesLabel": "{n} movement",
+      "MustFly": "<strong>{name}</strong> is flying and didn't use any movement last round: it must use at least 1.",
+      "Initiative": "Initiative (and the die rolled next round)",
+      "Anchor": "Anchor: everyone is placed relative to it, and when it moves everyone else shifts",
+      "MakeAnchor": "Make this the anchor",
+      "Flip": "Flip facing (no movement)",
+      "VisibleHint": "Visible to players",
+      "Split": "Split off into a new chase",
+      "RemoveVehicle": "Remove from the chase",
+      "Rejoin": "Bring back in at Near Escape",
+      "Move": "Move",
+      "MoveHint": "1 movement: one band along its facing",
+      "Turn": "Turn",
+      "TurnHint": "1 movement: face the other way",
+      "PushHint": "1 movement and a handling check: a success moves 2 bands, a failure doesn't move. Weapons fired from it this round are at −2. Once a round.",
+      "MovesHint": "Movement left this round",
+      "Pushed": "Pushed",
+      "PushedHint": "Pushed this round: weapons fired from it are at −2",
+      "PushedPenalty": "Vehicle pushed",
+      "TargetHint": "Target this vehicle for your attacks and rams (from a vehicle in this chase)",
+      "NoMoves": "{name} has no movement left this round.",
+      "AlreadyPushed": "{name} has already pushed this round.",
+      "Escapes": "<strong>{name}</strong> escapes {anchor}.",
+      "Escaped": "Escaped",
+      "NotInChase": "{target} isn't in your chase.",
+      "OutOfReach": "{weapon} can't reach {target} at {band} (it reaches {reach}).",
+      "TooFarToRam": "{target} is at {band}: you can only ram at Impact / Drive-by.",
+      "Top": "top",
+      "Bottom": "bottom",
+      "Band": {
+        "driveBy": "Impact / Drive-by",
+        "veryClose": "Very Close",
+        "close": "Close",
+        "far": "Far",
+        "veryFar": "Very Far",
+        "nearEscape": "Near Escape",
+        "escape": "Escape"
+      },
+      "EndTurn": "End turn",
+      "EndTurnHint": "Done for this round (unused movement is lost): the next vehicle in initiative goes",
+      "CurrentTurn": "This vehicle's turn",
+      "TurnOf": "{name} goes first.",
+      "NotYourTurn": "It isn't {name}'s turn.",
+      "RoundOver": "round over: start a new round",
+      "Ram": "Ram",
+      "RamHint": "Ram a vehicle sharing this row (your chase target if it's here). The driver rolls the vehicle's skill + Handling against its Evasion.",
+      "RamTitle": "{name}: ram",
+      "RamWho": "Ram which vehicle?",
+      "NoneToRam": "There's no vehicle at Impact / Drive-by with {name}."
+    },
+    "Underwater": {
+      "Title": "Underwater",
+      "Toggle": "Underwater: off",
+      "Banner": "Underwater combat",
+      "ToggleHint": "Underwater combat for this whole encounter: weapon ranges drop a band (torpedoes keep theirs, fire weapons fail), swinging weapons −2, swimming Very Close / Close, and breath checks after 30 seconds.",
+      "On": "<strong>This fight is underwater.</strong> Weapon ranges drop a band (torpedoes keep theirs; missiles, rockets and flamethrowers don't work), swinging weapons are at −2, you can only swim Very Close (Close as a run), and without air you start breath checks after 30 seconds.",
+      "Off": "This fight is no longer underwater.",
+      "WeaponLabel": "Underwater",
+      "Mode": {
+        "reduced": "Range drops a band",
+        "swing": "Swinging: range drops a band, −2",
+        "full": "Full range (torpedoes)",
+        "none": "Doesn't work (fire-based)"
+      },
+      "WeaponFails": "{weapon} doesn't work underwater.",
+      "SwingPenalty": "Swinging underwater",
+      "Breath": "Breath",
+      "BreathHint": "Everyone holds their breath for 30 seconds (5 rounds). After that, a breath usage check at the end of each turn from d6; when it runs out you're drowning: −2 to everything but Athletics, and a Death Die usage check each turn until it runs out. You can't be stabilized underwater: get to the surface. A SCUBA kit with air left means no checks.",
+      "BreathNote": "Holding your breath: when this runs out you start drowning.",
+      "DrowningNote": "Drowning: when this runs out, you die. You can't be stabilized underwater; get to the surface.",
+      "DrownDie": "Drowning",
+      "StartsDrowning": "<strong>{name} is out of air and starts drowning.</strong> −2 to everything except Athletics to swim for the surface.",
+      "Surfaced": "{name} surfaces and takes a breath.",
+      "Surface": "Surface",
+      "Holding": "Holding breath: {n} rounds left",
+      "BreathDie": "Breath die {die}",
+      "Drowning": "Drowning!",
+      "OnScuba": "Breathing from {kit} ({die})"
     }
   }
 }

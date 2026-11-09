@@ -1,20 +1,34 @@
 <section class="tab combat-tab {{tab.cssClass}}" data-group="primary" data-tab="combat">
   <div class="combat-summary">
-    <div class="stat"><span class="label">{{localize "PENTRA.Trait.evasion"}}</span><span class="value">{{system.evasion.value}}</span></div>
+    <div class="stat"><span class="label">{{localize "PENTRA.Trait.evasion"}}</span><span class="value">{{system.evasion.value}}</span>{{#if evasionBreakdown}}<span class="detail">= {{evasionBreakdown}}</span>{{/if}}</div>
     {{#each armorByLocation}}
     <div class="stat"><span class="label">{{localize "PENTRA.Armor.ARShort"}} · {{label}}</span><span class="value">{{value}}</span></div>
     {{/each}}
     <div class="stat"><span class="label">{{localize "PENTRA.Trait.initiativeDie"}}</span><span class="value">{{pentraDie system.initiativeDie.value}}</span></div>
+    <div class="stat" data-tooltip="{{localize 'PENTRA.Size.Hint'}}"><span class="label">{{localize "PENTRA.Size.label"}}</span><span class="value">{{sizeLabel}}</span>{{#if ancestry}}<span class="detail">{{ancestry.name}}</span>{{/if}}</div>
+    <div class="stat">
+      <span class="label">{{localize "PENTRA.Status.running"}}</span>
+      <button type="button" class="run-btn {{#if running}}active{{/if}}" data-action="run" data-tooltip="{{localize 'PENTRA.Run.Hint'}}"><i class="fa-solid fa-person-running"></i> {{#if running}}{{localize "PENTRA.Run.On"}}{{else}}{{localize "PENTRA.Run.Off"}}{{/if}}</button>
+    </div>
+    {{#if breath}}
+    <div class="stat breath {{#if breath.drowning}}drowning{{/if}}" data-tooltip="{{localize 'PENTRA.Underwater.BreathHint'}}">
+      <span class="label"><i class="fa-solid fa-water"></i> {{localize "PENTRA.Underwater.Breath"}}</span>
+      <span class="detail">{{breath.status}}</span>
+      {{#if breath.canSurface}}<button type="button" data-action="surface"><i class="fa-solid fa-arrow-up-from-water-pump"></i> {{localize "PENTRA.Underwater.Surface"}}</button>{{/if}}
+    </div>
+    {{/if}}
+    {{#if scars.length}}<div class="stat"><span class="label">{{localize "PENTRA.Scar.List"}}</span><span class="detail">{{#each scars}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span></div>{{/if}}
   </div>
 
   {{! Weapons }}
   <section class="item-section">
     <header class="item-header">
-      <h3>{{localize "TYPES.Item.weapon"}}</h3>
+      <h3>{{localize "TYPES.Item.weapon"}}{{#if weaponCarry}} <span class="carry-summary {{#if weaponCarry.over}}warning{{/if}}" data-tooltip="{{localize 'PENTRA.Weapon.CarryRule'}}">{{weaponCarry.label}}</span>{{/if}}</h3>
       <span class="col">{{localize "PENTRA.Weapon.Skill"}}</span>
       <span class="col">{{localize "PENTRA.Weapon.Damage"}}</span>
       <span class="col">{{localize "PENTRA.Weapon.Range"}}</span>
-      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="weapon" data-tooltip="{{localize 'PENTRA.AddItem'}}"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+      <span class="col">{{localize "PENTRA.Weapon.Carried"}}</span>
+      <span class="controls">{{#if isGM}}<a data-action="itemCreate" data-type="weapon" data-tooltip="{{localize 'PENTRA.AddItem'}}"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
     </header>
     <ol class="item-list">
       <li class="item-row unarmed">
@@ -22,16 +36,17 @@
         <span class="col">{{localize "PENTRA.Skill.martial_arts"}}</span>
         <span class="col">{{martialArts.wounds}} ({{localize (lookup config.increments martialArts.increment)}})</span>
         <span class="col">{{localize "PENTRA.Range.melee"}}</span>
+        <span class="col"></span>
         <span class="controls"></span>
       </li>
       {{#each items.weapon}}
-      <li class="item-row {{#unless system.equipped}}unequipped{{/unless}}" data-item-id="{{id}}" data-drag="true">
+      <li class="item-row draggable {{#unless system.equipped}}unequipped{{/unless}}" data-item-id="{{id}}">
         <a class="item-name rollable" data-action="attack" data-tooltip="{{localize 'PENTRA.Roll.Attack'}}"><img src="{{img}}" alt=""> {{name}}</a>
         <span class="col">{{skillLabel}}</span>
         <span class="col">{{damage}}</span>
         <span class="col">{{rangeLabel}}</span>
+        <span class="col"><select class="slot-select slot-{{system.slot}}" data-item-field="system.slot" data-tooltip="{{localize 'PENTRA.Weapon.SlotHint'}}">{{selectOptions @root.weaponSlots selected=system.slot localize=true}}</select></span>
         <span class="controls">
-          <a data-action="itemToggle" class="{{#if system.equipped}}active{{/if}}" data-tooltip="{{localize 'PENTRA.Equipped'}}"><i class="fa-solid fa-hand"></i></a>
           <a data-action="itemPost" data-tooltip="{{localize 'PENTRA.PostToChat'}}"><i class="fa-solid fa-comment"></i></a>
           <a data-action="itemEdit" data-tooltip="{{localize 'PENTRA.Edit'}}"><i class="fa-solid fa-pen"></i></a>
           {{#if @root.editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Delete'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
@@ -50,11 +65,14 @@
       <span class="col narrow">{{localize "PENTRA.Armor.Coverage"}}</span>
       <span class="col narrow">{{localize "PENTRA.Trait.evasion"}}</span>
       <span class="col">{{localize "PENTRA.Armor.Durability"}}</span>
-      <span class="controls">{{#if editable}}<a data-action="itemCreate" data-type="armor"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+      <span class="controls">
+        <a data-action="repairArmor" data-tooltip="{{localize 'PENTRA.Armor.Repair'}}"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+        {{#if isGM}}<a data-action="itemCreate" data-type="armor"><i class="fa-solid fa-plus"></i></a>{{/if}}
+      </span>
     </header>
     <ol class="item-list">
       {{#each items.armor}}
-      <li class="item-row {{#unless system.equipped}}unequipped{{/unless}} {{#if system.isBroken}}broken{{/if}}" data-item-id="{{id}}" data-drag="true">
+      <li class="item-row draggable {{#unless system.equipped}}unequipped{{/unless}} {{#if system.isBroken}}broken{{/if}}" data-item-id="{{id}}">
         <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
         <span class="col narrow">{{system.ar}}{{#if system.heavy}}×2{{/if}}</span>
         <span class="col narrow">{{coverage}}</span>
@@ -66,30 +84,43 @@
         </span>
         <span class="controls">
           <a data-action="itemToggle" class="{{#if system.equipped}}active{{/if}}" data-tooltip="{{localize 'PENTRA.Worn'}}"><i class="fa-solid fa-shirt"></i></a>
-          <a data-action="repairArmor" data-tooltip="{{localize 'PENTRA.Armor.Repair'}}"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+          {{#if system.isBroken}}<a data-action="salvageArmor" data-tooltip="{{localize 'PENTRA.Armor.Salvage'}}"><i class="fa-solid fa-recycle"></i></a>{{/if}}
           <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
           {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
         </span>
       </li>
       {{/each}}
     </ol>
+    <p class="hint">{{localize "PENTRA.Armor.RepairHint"}}</p>
   </section>
 
   {{! Incapacitation & recovery }}
   <section class="panel death-panel">
     <h3>{{localize "PENTRA.Death.Title"}}</h3>
+    {{#if isDead}}
+    <div class="dead-banner"><i class="fa-solid fa-skull"></i> <strong>{{localize "PENTRA.Death.DeadBanner"}}</strong>
+      <span class="hint">{{localize "PENTRA.Death.DeadHint"}}</span></div>
+    {{else}}
+    {{#if system.dying.active}}
+    <div class="dying-banner">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <strong>{{localize "PENTRA.Dying.Label"}}</strong> — {{localize "PENTRA.Dying.Rounds"}}: <strong>{{system.dying.rounds}}</strong>
+      <span class="hint">{{localize "PENTRA.Dying.Banner"}}</span>
+    </div>
+    {{/if}}
     <p class="hint">{{localize "PENTRA.Death.Hint"}}</p>
     <div class="button-row">
-      <button type="button" data-action="deathCheck"><i class="fa-solid fa-heart-crack"></i> {{localize "PENTRA.Death.Collapse"}}</button>
+      <button type="button" data-action="stabilize" data-tooltip="{{localize 'PENTRA.Dying.StabilizeHint'}}"><i class="fa-solid fa-heart-pulse"></i> {{localize "PENTRA.Dying.Stabilize"}}</button>
       <button type="button" data-action="blaze"><i class="fa-solid fa-fire"></i> {{localize "PENTRA.Death.BlazeUnarmed"}}</button>
-      {{#each items.weapon}}
+      {{#each items.weapon}}{{#if system.equipped}}
       <button type="button" data-action="blaze" data-item-id="{{id}}"><i class="fa-solid fa-fire"></i> {{localize "PENTRA.Death.Blaze"}}: {{name}}</button>
-      {{/each}}
+      {{/if}}{{/each}}
     </div>
+    {{/if}}
     <h3>{{localize "PENTRA.Rest.Title"}}</h3>
     <div class="button-row">
-      <button type="button" data-action="rest" data-amount="1"><i class="fa-solid fa-campground"></i> {{localize "PENTRA.Rest.Camp"}}</button>
-      <button type="button" data-action="rest" data-amount="2"><i class="fa-solid fa-bed"></i> {{localize "PENTRA.Rest.Day"}}</button>
+      <button type="button" data-action="treatWounds" data-tooltip="{{localize 'PENTRA.Medicine.Hint'}}"><i class="fa-solid fa-kit-medical"></i> {{localize "PENTRA.Medicine.Treat"}}</button>
     </div>
+    <p class="hint">{{localize "PENTRA.Medicine.Hint"}}</p>
   </section>
 </section>

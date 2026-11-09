@@ -29,12 +29,22 @@
     <p class="hint">{{localize "PENTRA.Weapon.HeavyHint"}}</p>
   </div>
   <div class="form-group">
+    <label>{{localize "PENTRA.Weapon.Burning"}}</label>
+    <input type="checkbox" name="system.burning" {{checked system.burning}}>
+    <p class="hint">{{localize "PENTRA.Weapon.BurningHint"}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Underwater.WeaponLabel"}}</label>
+    <select name="system.underwater">{{selectOptions options.underwaterModes selected=system.underwater localize=true}}</select>
+  </div>
+  <div class="form-group">
     <label>{{localize "PENTRA.Weapon.Reload"}}</label>
     <input type="number" name="system.reloadActions" value="{{system.reloadActions}}" min="0">
   </div>
   <div class="form-group">
-    <label>{{localize "PENTRA.Equipped"}}</label>
-    <input type="checkbox" name="system.equipped" {{checked system.equipped}}>
+    <label>{{localize "PENTRA.Weapon.Carried"}}</label>
+    <select name="system.slot">{{selectOptions options.weaponSlots selected=system.slot localize=true}}</select>
+    <p class="hint">{{localize "PENTRA.Weapon.CarryRule"}}</p>
   </div>
   {{> "systems/pentra-core-foundry-vtt/templates/item/physical.hbs"}}
 </section>

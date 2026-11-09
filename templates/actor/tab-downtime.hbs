@@ -1,0 +1,107 @@
+<section class="tab downtime-tab {{tab.cssClass}}" data-group="primary" data-tab="downtime">
+
+  {{! Short downtime: 10-minute activities }}
+  <section class="panel downtime-panel">
+    <header class="downtime-header">
+      <h3><i class="fa-solid fa-stopwatch"></i> {{localize "PENTRA.Downtime.Short"}}</h3>
+      <span class="hint">{{localize "PENTRA.Downtime.ShortHint"}}</span>
+    </header>
+    <div class="activity">
+      <button type="button" data-action="treatWounds"><i class="fa-solid fa-kit-medical"></i> {{localize "PENTRA.Medicine.Treat"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.TreatHint"}} {{#unless kits.trauma}}<span class="warning">{{localize "PENTRA.Downtime.NoTraumaKit"}}</span>{{/unless}}</span>
+    </div>
+    <div class="activity">
+      <button type="button" data-action="repairArmor"><i class="fa-solid fa-screwdriver-wrench"></i> {{localize "PENTRA.Downtime.Repair"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.RepairHint"}} {{#unless kits.technical}}<span class="warning">{{localize "PENTRA.Downtime.NoTechnicalKit"}}</span>{{/unless}}</span>
+    </div>
+    <div class="activity">
+      <button type="button" data-action="restockAmmo"><i class="fa-solid fa-box"></i> {{localize "PENTRA.Downtime.Restock"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.RestockHint"}} ({{localize "PENTRA.Combat.RoundsFired"}}: {{system.roundsFired}}) {{#unless kits.reloading}}<span class="warning">{{localize "PENTRA.Downtime.NoReloadingKit"}}</span>{{/unless}}</span>
+    </div>
+  </section>
+
+  {{! Camp downtime }}
+  <section class="panel downtime-panel">
+    <header class="downtime-header">
+      <h3><i class="fa-solid fa-campground"></i> {{localize "PENTRA.Downtime.Camp"}}</h3>
+      <span class="hint">{{localize "PENTRA.Downtime.CampHint"}}</span>
+    </header>
+    <div class="activity">
+      <button type="button" data-action="rest" data-kind="camp"><i class="fa-solid fa-campground"></i> {{localize "PENTRA.Rest.Camp"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.CampRestHint"}}</span>
+    </div>
+  </section>
+
+  {{! City downtime: a day each }}
+  <section class="panel downtime-panel">
+    <header class="downtime-header">
+      <h3><i class="fa-solid fa-city"></i> {{localize "PENTRA.Downtime.City"}}</h3>
+      <span class="hint">{{localize "PENTRA.Downtime.CityHint"}}</span>
+    </header>
+    <div class="activity">
+      <select class="lifestyle-select">{{selectOptions lifestyles selected=(ifThen system.lifestyle system.lifestyle "middle")}}</select>
+      <button type="button" data-action="lifestyle"><i class="fa-solid fa-hotel"></i> {{localize "PENTRA.Lifestyle.Pay"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.CurrentLifestyle"}}: <strong>{{#if currentLifestyle}}{{currentLifestyle}}{{else}}{{localize "PENTRA.None"}}{{/if}}</strong></span>
+    </div>
+    <div class="activity">
+      <button type="button" data-action="rest" data-kind="city"><i class="fa-solid fa-bed"></i> {{localize "PENTRA.Rest.Day"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.DayRestHint"}}</span>
+    </div>
+    <div class="activity">
+      <button type="button" data-action="visitClinic"><i class="fa-solid fa-hospital"></i> {{localize "PENTRA.Downtime.Clinic"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.ClinicHint"}} ({{localize "PENTRA.Trait.deathDie"}} {{pentraDie system.deathDie.value}} / {{pentraDie system.deathDie.max}})</span>
+    </div>
+    <div class="activity">
+      <button type="button" data-action="refreshKits"><i class="fa-solid fa-arrows-rotate"></i> {{localize "PENTRA.Downtime.RefreshKits"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.RefreshKitsHint"}}</span>
+    </div>
+    <div class="activity">
+      <select class="socialize-select">{{selectOptions socialSkills}}</select>
+      <button type="button" data-action="socialize"><i class="fa-solid fa-people-group"></i> {{localize "PENTRA.Downtime.Socialize"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.SocializeHint"}}</span>
+    </div>
+    <p class="hint">{{localize "PENTRA.Downtime.CityMore"}}</p>
+  </section>
+
+  {{! Projects: crafting or researching items, a city downtime day at a time }}
+  <section class="item-section projects">
+    <header class="item-header">
+      <h3><i class="fa-solid fa-hammer"></i> {{localize "PENTRA.Project.Heading"}}</h3>
+      <span class="col project-value">{{localize "PENTRA.Project.Value"}}</span>
+      <span class="col wide">{{localize "PENTRA.Project.Progress"}}</span>
+      <span class="col narrow">{{localize "PENTRA.Project.Days"}}</span>
+      <span class="controls">{{#if editable}}<a data-action="addProject" data-tooltip="{{localize 'PENTRA.Project.Add'}}"><i class="fa-solid fa-plus"></i></a>{{/if}}</span>
+    </header>
+    <ol class="item-list">
+      {{#each projects}}
+      <li class="item-row project-row {{#if done}}done{{/if}}" data-project-id="{{id}}">
+        <span class="item-name"><input type="text" data-project-field="name" value="{{name}}" placeholder="{{localize 'PENTRA.Project.NamePlaceholder'}}" {{#unless @root.editable}}disabled{{/unless}}></span>
+        <span class="col project-value">
+          {{#if @root.isGM}}
+          <select data-project-field="value.die" data-dtype="Number">{{selectOptions @root.projectDice selected=value.die}}</select>
+          <select data-project-field="value.multiplier" data-dtype="Number">{{selectOptions @root.projectMultipliers selected=value.multiplier}}</select>
+          <label class="checkbox" data-tooltip="{{localize 'PENTRA.Project.BlueprintHint'}}"><input type="checkbox" data-project-field="blueprint" {{checked blueprint}}> <i class="fa-solid fa-scroll"></i></label>
+          {{else}}
+          {{#if valueLabel}}{{valueLabel}}{{#if blueprint}} <i class="fa-solid fa-scroll" data-tooltip="{{localize 'PENTRA.Project.Blueprint'}}"></i>{{/if}}{{else}}<em class="hint">{{localize "PENTRA.Project.AwaitingGM"}}</em>{{/if}}
+          {{/if}}
+        </span>
+        <span class="col wide project-progress">
+          {{#if done}}<strong class="success-text"><i class="fa-solid fa-check"></i> {{localize "PENTRA.Project.Phase.done"}}</strong>
+          {{else if targetLabel}}
+          <span class="progress-text">{{phaseLabel}}: <strong>{{progressLabel}}</strong> / {{targetLabel}}</span>
+          <span class="progress-bar"><span style="width: {{percent}}%"></span></span>
+          {{else}}<span class="hint">—</span>{{/if}}
+        </span>
+        <span class="col narrow">{{days}}</span>
+        <span class="controls">
+          {{#if canWork}}<a data-action="workProject" data-tooltip="{{localize 'PENTRA.Project.WorkHint'}}"><i class="fa-solid fa-dice"></i></a>{{/if}}
+          {{#if @root.editable}}<a data-action="removeProject" data-tooltip="{{localize 'PENTRA.Project.Remove'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </li>
+      {{else}}
+      <li class="empty hint">{{localize "PENTRA.Project.Empty"}}</li>
+      {{/each}}
+    </ol>
+    <p class="hint">{{localize "PENTRA.Project.Hint"}}</p>
+  </section>
+</section>

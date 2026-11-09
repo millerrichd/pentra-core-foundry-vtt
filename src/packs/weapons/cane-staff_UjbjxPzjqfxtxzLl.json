@@ -3,12 +3,11 @@
   "_key": "!items!UjbjxPzjqfxtxzLl",
   "name": "Cane/Staff",
   "type": "weapon",
-  "img": "icons/weapons/staves/staff-engraved-wood.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
   "system": {
     "description": "<p>This is a walking stick or cane, usually 3 to 5 feet in length.</p>",
     "heavy": false,
     "reloadActions": 0,
-    "equipped": true,
     "category": "melee",
     "skill": "melee_weapons",
     "wounds": 1,
@@ -20,10 +19,12 @@
     "cost": {
       "die": 4,
       "multiplier": 1
-    }
+    },
+    "slot": "stowed",
+    "underwater": "swing"
   },
   "effects": [],
-  "folder": null,
+  "folder": "8FLLXrO1ouJzcnAB",
   "sort": 0,
   "ownership": {
     "default": 0

@@ -1,0 +1,214 @@
+<div class="vehicle-sheet">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="{{actor.name}}">
+    <div class="header-main">
+      <div class="name-row">
+        <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PENTRA.Name'}}">
+        <span class="vehicle-owner">
+          {{#if owner}}<a data-action="openOwner"><i class="fa-solid fa-key"></i> {{owner.name}}</a>
+          {{else}}<em data-tooltip="{{localize 'PENTRA.Vehicle.NoOwnerHint'}}">{{localize "PENTRA.Vehicle.NoOwner"}}</em>{{/if}}
+        </span>
+      </div>
+      <div class="resource-strip">
+        <div class="resource health">
+          <label>{{localize "PENTRA.Trait.health"}}</label>
+          <div class="resource-value skill-stepper vehicle-health">
+            {{#if editable}}<button type="button" class="step-btn" data-action="stepHealth" data-delta="-1" {{#unless system.health.value}}disabled{{/unless}} data-tooltip="{{localize 'PENTRA.Vehicle.Damage'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+            <span class="pool-value {{#if damaged}}warning{{/if}}">{{system.health.value}}</span>
+            <span class="sep">/</span>
+            <span class="max">{{system.health.max}}</span>
+            {{#if isGM}}<button type="button" class="step-btn" data-action="stepHealth" data-delta="1" {{#unless damaged}}disabled{{/unless}} data-tooltip="{{localize 'PENTRA.Vehicle.GMHeal'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+          </div>
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Trait.evasion"}}</label>
+          <div class="resource-value"><span class="pool-value">{{system.evasion.value}}</span></div>
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Armor.ARShort"}}</label>
+          <div class="resource-value">
+            <span class="pool-value">{{system.ar}}{{#if system.heavyArmor}}×2{{/if}}</span>
+            {{#if system.isBroken}}<span class="hint warning">{{localize "PENTRA.Broken"}}</span>{{/if}}
+          </div>
+          {{#if system.heavyArmor}}<span class="hint">{{localize "PENTRA.Armor.Heavy"}}</span>{{/if}}
+        </div>
+        <div class="resource">
+          <label>{{localize "PENTRA.Vehicle.SpeedShort"}}</label>
+          <div class="resource-value"><span class="pool-value">{{system.speedClass}}</span></div>
+          <span class="hint">{{localize "PENTRA.Vehicle.Handling"}} {{handling}}</span>
+        </div>
+        <div class="resource die">
+          <label>{{localize "PENTRA.Trait.durabilityDie"}}</label>
+          {{#if isGM}}
+          <select name="system.durability.value">{{selectOptions dice selected=system.durability.value}}</select>
+          <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.durability.max}}</span>
+          {{else}}
+          <span class="die-static {{#if system.isBroken}}warning{{/if}}">{{#if system.isBroken}}{{localize "PENTRA.Broken"}}{{else}}{{pentraDie system.durability.value}}{{/if}}</span>
+          <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.durability.max}}</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="vehicle-body">
+    <section class="panel vehicle-stats">
+      <div class="stat-line">
+        <span><strong>{{localize "PENTRA.Vehicle.Category"}}:</strong> {{categoryLabel}}</span>
+        <span><strong>{{localize "PENTRA.Vehicle.DriverSkill"}}:</strong> {{skillLabel}}</span>
+        <span><strong>{{localize "PENTRA.Cost"}}:</strong> {{system.costLabel}}</span>
+        <span><strong>{{localize "PENTRA.Size.label"}}:</strong> {{sizeLabel}}</span>
+        <span>{{#if system.legal}}{{localize "PENTRA.Legal"}}{{else}}<span class="warning">{{localize "PENTRA.Illegal"}}</span>{{/if}}</span>
+      </div>
+      {{#if isGM}}
+      <details class="base-model">
+        <summary>{{localize "PENTRA.Vehicle.BaseModel"}} <span class="hint">{{localize "PENTRA.Vehicle.BaseModelHint"}}</span></summary>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Vehicle.Category"}}</label>
+          <select name="system.category">{{selectOptions categories selected=source.category localize=true}}</select>
+          <label class="checkbox"><input type="checkbox" name="system.legal" {{checked source.legal}}> {{localize "PENTRA.Legal"}}</label>
+        </div>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Cost"}}</label>
+          <select name="system.cost.die">{{selectOptions costDice selected=source.cost.die}}</select>
+          <span>×</span>
+          <input type="number" name="system.cost.multiplier" value="{{source.cost.multiplier}}" min="1" max="6">
+        </div>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Vehicle.Speed"}}</label>
+          <input type="number" name="system.speedClass" value="{{source.speedClass}}" min="0" max="5">
+          <label>{{localize "PENTRA.Vehicle.Handling"}}</label>
+          <input type="number" name="system.handling" value="{{source.handling}}" min="-2" max="2">
+        </div>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Trait.health"}}</label>
+          <input type="number" name="system.health.max" value="{{source.health.max}}" min="0">
+          <label>{{localize "PENTRA.Trait.evasion"}}</label>
+          <input type="number" name="system.evasion.base" value="{{source.evasion.base}}">
+        </div>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Armor.ARShort"}}</label>
+          <input type="number" name="system.ar" value="{{source.ar}}" min="0" max="4">
+          <label class="checkbox"><input type="checkbox" name="system.heavyArmor" {{checked source.heavyArmor}}> {{localize "PENTRA.Armor.Heavy"}}</label>
+          <label>{{localize "PENTRA.Trait.durabilityDie"}}</label>
+          <select name="system.durability.max">{{selectOptions maxDice selected=source.durability.max}}</select>
+        </div>
+        <div class="form-group">
+          <label>{{localize "PENTRA.Vehicle.Mounts"}}</label>
+          <input type="number" name="system.mounts" value="{{source.mounts}}" min="0">
+          <label>{{localize "PENTRA.Size.label"}}</label>
+          <select name="system.size">{{selectOptions sizes selected=source.size localize=true}}</select>
+        </div>
+      </details>
+      {{/if}}
+    </section>
+
+    {{! Modifications }}
+    <section class="item-section">
+      <header class="item-header">
+        <h3>{{localize "PENTRA.VehicleMod.Title"}}</h3>
+        <span class="col">{{localize "PENTRA.VehicleMod.Effect"}}</span>
+        <span class="controls"></span>
+      </header>
+      <ol class="item-list">
+        {{#each mods}}
+        <li class="item-row" data-item-id="{{id}}">
+          <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}}</a>
+          <span class="col">{{effect}}</span>
+          <span class="controls">
+            {{#if @root.isGM}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.VehicleMod.Remove'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </span>
+        </li>
+        {{else}}
+        <li class="empty hint">{{localize "PENTRA.VehicleMod.DropHint"}}</li>
+        {{/each}}
+      </ol>
+    </section>
+
+    {{! Crew }}
+    <section class="item-section crew-section">
+      <header class="item-header">
+        <h3>{{localize "PENTRA.Vehicle.Crew"}}</h3>
+        <span class="hint">{{localize "PENTRA.Vehicle.CrewHint"}}</span>
+      </header>
+      <ol class="item-list crew-list">
+        <li class="item-row crew-seat driver-seat" data-crew-seat="driver" {{#if driver}}data-uuid="{{driver.uuid}}"{{/if}}>
+          <span class="seat-label"><i class="fa-solid fa-car"></i> {{localize "PENTRA.Vehicle.Driver"}}</span>
+          {{#if driver}}
+          <a class="item-name" data-action="crewOpen"><img src="{{driver.img}}" alt=""> {{driver.name}}</a>
+          <span class="col">{{skillLabel}} {{driver.skill}} · {{localize "PENTRA.Vehicle.Handling"}} {{handling}}</span>
+          <span class="controls">
+            {{#if @root.editable}}<a data-action="crewRemove" data-tooltip="{{localize 'PENTRA.Vehicle.RemoveCrew'}}"><i class="fa-solid fa-person-walking-arrow-right"></i></a>{{/if}}
+          </span>
+          {{else}}
+          <span class="empty hint">{{localize "PENTRA.Vehicle.DropDriver"}}</span>
+          {{/if}}
+        </li>
+        {{#each passengers}}
+        <li class="item-row crew-seat" data-crew-seat="passenger" data-uuid="{{uuid}}">
+          <span class="seat-label"><i class="fa-solid fa-user"></i> {{localize "PENTRA.Vehicle.Passenger"}}</span>
+          <a class="item-name" data-action="crewOpen"><img src="{{img}}" alt=""> {{name}}</a>
+          <span class="col"></span>
+          <span class="controls">
+            {{#if @root.editable}}
+            <a data-action="crewDrive" data-tooltip="{{localize 'PENTRA.Vehicle.MakeDriver'}}"><i class="fa-solid fa-arrow-up"></i></a>
+            <a data-action="crewRemove" data-tooltip="{{localize 'PENTRA.Vehicle.RemoveCrew'}}"><i class="fa-solid fa-person-walking-arrow-right"></i></a>
+            {{/if}}
+          </span>
+        </li>
+        {{/each}}
+        <li class="item-row crew-seat drop-zone" data-crew-seat="passenger">
+          <span class="empty hint"><i class="fa-solid fa-plus"></i> {{localize "PENTRA.Vehicle.DropPassenger"}}</span>
+        </li>
+        {{#each missingCrew}}
+        <li class="item-row crew-seat missing" data-uuid="{{this}}">
+          <span class="empty hint">{{localize "PENTRA.Vehicle.MissingCrew"}}</span>
+          <span class="controls">{{#if @root.editable}}<a data-action="crewRemove"><i class="fa-solid fa-xmark"></i></a>{{/if}}</span>
+        </li>
+        {{/each}}
+      </ol>
+      <div class="vehicle-actions">
+        <button type="button" data-action="maneuver" data-tooltip="{{localize 'PENTRA.Vehicle.ManeuverHint'}}"><i class="fa-solid fa-route"></i> {{localize "PENTRA.Vehicle.Maneuver"}}</button>
+        <button type="button" data-action="push" data-tooltip="{{localize 'PENTRA.Vehicle.PushNote'}}"><i class="fa-solid fa-gauge-high"></i> {{localize "PENTRA.Vehicle.Push"}}</button>
+        <button type="button" data-action="collide" data-tooltip="{{localize 'PENTRA.Vehicle.CollideHint'}}"><i class="fa-solid fa-car-burst"></i> {{localize "PENTRA.Vehicle.Collide"}}</button>
+        <button type="button" data-action="repair" data-tooltip="{{localize 'PENTRA.Vehicle.RepairHint'}}"><i class="fa-solid fa-wrench"></i> {{localize "PENTRA.Vehicle.Repair"}}</button>
+        {{#if canSell}}<button type="button" data-action="sell"><i class="fa-solid fa-coins"></i> {{localize "PENTRA.Sell.Title"}}</button>{{/if}}
+      </div>
+    </section>
+
+    {{! Mounted weapons }}
+    <section class="item-section">
+      <header class="item-header">
+        <h3>{{localize "PENTRA.Vehicle.Weapons"}} <span class="carry-summary {{#if mountsOver}}warning{{/if}}">{{mountsUsed}} / {{system.mounts}}</span></h3>
+        <span class="col">{{localize "PENTRA.Weapon.Damage"}}</span>
+        <span class="col">{{localize "PENTRA.Range.label"}}</span>
+        <span class="controls"></span>
+      </header>
+      <ol class="item-list">
+        {{#each weapons}}
+        <li class="item-row draggable" data-item-id="{{id}}">
+          <a class="item-name rollable" data-action="fire" data-tooltip="{{localize 'PENTRA.Vehicle.FireHint'}}"><img src="{{img}}" alt=""> {{name}}</a>
+          <span class="col">{{damage}}</span>
+          <span class="col">{{range}}</span>
+          <span class="controls">
+            <a data-action="fire" data-tooltip="{{localize 'PENTRA.Vehicle.FireHint'}}"><i class="fa-solid fa-crosshairs"></i></a>
+            <a data-action="itemEdit" data-tooltip="{{localize 'PENTRA.Edit'}}"><i class="fa-solid fa-pen"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Delete'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </span>
+        </li>
+        {{else}}
+        <li class="empty hint">{{localize "PENTRA.Vehicle.WeaponsHint"}}</li>
+        {{/each}}
+      </ol>
+      <div class="form-group">
+        <label>{{localize "PENTRA.Vehicle.MountNotes"}}</label>
+        <input type="text" name="system.mountNotes" value="{{system.mountNotes}}" placeholder="{{localize 'PENTRA.Vehicle.MountNotes'}}">
+      </div>
+    </section>
+
+    <section class="notes">
+      <h3>{{localize "PENTRA.Description"}}</h3>
+      <prose-mirror name="system.description" value="{{system.description}}" toggled>{{{enrichedDescription}}}</prose-mirror>
+    </section>
+  </div>
+</div>

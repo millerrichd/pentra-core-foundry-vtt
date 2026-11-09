@@ -1,11 +1,12 @@
 <div class="pentra roll-dialog">
+  {{#if note}}<p class="hint">{{note}}</p>{{/if}}
   <div class="form-group">
     <label>{{#if isAttack}}{{localize "PENTRA.Roll.TargetEvasion"}}{{else}}{{localize "PENTRA.Roll.TargetNumber"}}{{/if}}</label>
     <input type="number" name="tn" value="{{tn}}">
   </div>
   <div class="form-group">
     <label>{{localize "PENTRA.Roll.Modifier"}}</label>
-    <input type="number" name="modifier" value="0" autofocus>
+    <input type="number" name="modifier" value="{{modifier}}" autofocus>
   </div>
   <div class="form-group">
     <label>{{localize "PENTRA.Roll.AdvantageLabel"}}</label>
@@ -36,15 +37,39 @@
   </div>
   {{#if isRanged}}
   <div class="form-group">
+    <label>{{localize "PENTRA.Roll.RangeToTarget"}}</label>
+    <select name="band">{{selectOptions bands selected=band localize=true}}</select>
+  </div>
+  <p class="hint">{{localize "PENTRA.Roll.RangeHint" preferred=preferredLabel}}</p>
+  <div class="form-group">
     <label>{{localize "PENTRA.Roll.Aim"}} (+2)</label>
     <input type="checkbox" name="aim">
   </div>
+  {{else}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.AlliesOnTarget"}} (+1)</label>
+    <input type="number" name="allies" value="{{allies}}" min="0">
+  </div>
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.ExtraFoes"}} (−1)</label>
+    <input type="number" name="foes" value="{{foes}}" min="0">
+  </div>
+  {{#if crowdDetected}}<p class="hint">{{localize "PENTRA.Roll.CrowdDetected"}}</p>{{/if}}
   {{/if}}
-  {{/if}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Size"}}</label>
+    <select name="size">{{selectOptions sizeChoices selected=size}}</select>
+  </div>
+  <div class="form-group checkboxes">
+    <label class="checkbox"><input type="checkbox" name="surprise"> {{localize "PENTRA.Roll.Surprise"}} (+2)</label>
+    <label class="checkbox"><input type="checkbox" name="smoke"> {{localize "PENTRA.Roll.Smoke"}} (−2)</label>
+    <label class="checkbox"><input type="checkbox" name="drunk"> {{localize "PENTRA.Roll.Drunk"}} (−2)</label>
+  </div>
   <div class="form-group">
     <label>{{localize "PENTRA.Roll.Push"}} (−2)</label>
     <input type="checkbox" name="push">
   </div>
+  {{/if}}
   {{#if penalty.notes.length}}
   <p class="hint"><i class="fa-solid fa-triangle-exclamation"></i> {{localize "PENTRA.Roll.AutoPenalties"}}: {{#each penalty.notes}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
   {{/if}}

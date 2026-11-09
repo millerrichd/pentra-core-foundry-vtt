@@ -3,26 +3,56 @@
   <div class="header-main">
     <div class="name-row">
       <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PENTRA.Name'}}">
-      <span class="ancestry-tag">{{#if ancestry}}{{ancestry.name}}{{else}}<em>{{localize "PENTRA.Ancestry.None"}}</em>{{/if}}</span>
+      <span class="ancestry-tag">
+        {{#if ancestry}}
+        <a class="ancestry-link" data-action="toggleAncestry" data-tooltip="{{localize 'PENTRA.Ancestry.ShowDetails'}}">
+          <i class="fa-solid {{#if showAncestry}}fa-caret-down{{else}}fa-caret-right{{/if}}"></i> {{ancestry.name}}
+        </a>
+        {{else}}
+        <em data-tooltip="{{localize 'PENTRA.Ancestry.DropHint'}}">{{localize "PENTRA.Ancestry.None"}}</em>
+        {{/if}}
+      </span>
     </div>
+
+    {{#if (and ancestry showAncestry)}}
+    <div class="ancestry-panel" data-item-id="{{ancestry.id}}">
+      <div class="ancestry-panel-header">
+        <img src="{{ancestry.img}}" alt="">
+        <strong>{{ancestry.name}}</strong>
+        <span class="controls">
+          <a data-action="itemEdit" data-tooltip="{{localize 'PENTRA.Edit'}}"><i class="fa-solid fa-pen"></i></a>
+          <a data-action="itemPost" data-tooltip="{{localize 'PENTRA.PostToChat'}}"><i class="fa-solid fa-comment"></i></a>
+          {{#if editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Ancestry.Remove'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </span>
+      </div>
+      <div class="ancestry-boost">
+        <span class="label">{{localize "PENTRA.Ancestry.Boost"}}:</span>
+        {{#if ancestry.boostLabel}}<strong>{{ancestry.boostLabel}}</strong> <span class="hint">({{localize "PENTRA.Ancestry.BoostEffect"}})</span>
+        {{else}}<em>{{localize "PENTRA.None"}}</em>{{/if}}
+      </div>
+      {{#if ancestry.description}}<div class="ancestry-description">{{{ancestry.description}}}</div>{{/if}}
+    </div>
+    {{/if}}
 
     <div class="resource-strip">
       <div class="resource health">
         <label>{{localize "PENTRA.Trait.health"}}</label>
         <div class="resource-value">
-          <input type="number" name="system.health.value" value="{{system.health.value}}" min="0">
+          {{#if isGM}}<input type="number" name="system.health.value" value="{{system.health.value}}" min="0">{{else}}<span class="pool-value">{{system.health.value}}</span>{{/if}}
           <span class="sep">/</span><span class="max">{{system.health.max}}</span>
         </div>
+        {{#if isDead}}<span class="dead-tag"><i class="fa-solid fa-skull"></i> {{localize "PENTRA.Status.dead"}}</span>{{/if}}
+        {{#if pendingScars}}<button type="button" class="scar-btn" data-action="takeScar" data-tooltip="{{localize 'PENTRA.Scar.Choose' name=actor.name}}"><i class="fa-solid fa-user-injured"></i> {{localize "PENTRA.Scar.Button"}}</button>{{/if}}
+        {{#if system.dying.active}}<span class="dying-tag" data-tooltip="{{localize 'PENTRA.Dying.Banner'}}"><i class="fa-solid fa-heart-pulse"></i> {{localize "PENTRA.Dying.Label"}} · {{system.dying.rounds}}</span>{{/if}}
       </div>
 
       <div class="resource edge">
         <label>{{localize "PENTRA.Trait.edge"}}</label>
         <div class="resource-value">
-          <input type="number" name="system.edge.value" value="{{system.edge.value}}" min="0" max="6">
+          {{#if isGM}}<input type="number" name="system.edge.value" value="{{system.edge.value}}" min="0" max="6">{{else}}<span class="pool-value">{{system.edge.value}}</span>{{/if}}
           <span class="sep">/</span><span class="max">6</span>
         </div>
         <div class="resource-actions">
-          <button type="button" class="icon-btn" data-action="newSession" data-tooltip="{{localize 'PENTRA.Edge.NewSessionHint'}}"><i class="fa-solid fa-rotate"></i></button>
           <button type="button" class="icon-btn" data-action="support" data-tooltip="{{localize 'PENTRA.Edge.SupportHint'}}"><i class="fa-solid fa-handshake-angle"></i></button>
         </div>
         <span class="hint">{{localize "PENTRA.Edge.Start"}} {{system.edge.start}}</span>
@@ -31,45 +61,41 @@
       <div class="resource karma">
         <label>{{localize "PENTRA.Trait.karma"}}</label>
         <div class="resource-value">
-          <input type="number" name="system.karma.value" value="{{system.karma.value}}" min="0">
+          {{#if isGM}}<input type="number" name="system.karma.value" value="{{system.karma.value}}" min="0">{{else}}<span class="pool-value">{{system.karma.value}}</span>{{/if}}
         </div>
-        <span class="hint">{{localize "PENTRA.Karma.Earned"}} <input class="inline-num" type="number" name="system.karma.earned" value="{{system.karma.earned}}" min="0"></span>
+        {{#if isGM}}<div class="resource-actions">
+          <button type="button" class="reward-btn" data-action="earnKarma" data-tooltip="{{localize 'PENTRA.Karma.EarnHint'}}"><i class="fa-solid fa-star"></i> {{localize "PENTRA.Karma.Earn"}}</button>
+        </div>{{/if}}
+        <span class="hint" data-tooltip="{{localize 'PENTRA.Karma.EarnedHint'}}">{{localize "PENTRA.Karma.Earned"}} {{system.karma.earned}}</span>
       </div>
 
       <div class="resource die">
         <label>{{localize "PENTRA.Trait.deathDie"}}</label>
-        <select name="system.deathDie.value">{{selectOptions dice.deathDie selected=system.deathDie.value}}</select>
+        {{#if isGM}}<select name="system.deathDie.value">{{selectOptions dice.deathDie selected=system.deathDie.value}}</select>{{else}}<span class="die-static">{{pentraDie system.deathDie.value}}</span>{{/if}}
         <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.deathDie.max}}</span>
       </div>
 
       <div class="resource die">
         <label>{{localize "PENTRA.Trait.resourceDie"}}</label>
-        <select name="system.resourceDie.value">{{selectOptions dice.resourceDie selected=system.resourceDie.value}}</select>
+        {{#if isGM}}<select name="system.resourceDie.value">{{selectOptions dice.resourceDie selected=system.resourceDie.value}}</select>{{else}}<span class="die-static">{{pentraDie system.resourceDie.value}}</span>{{/if}}
+        {{#if isGM}}<button type="button" class="reward-btn" data-action="reward" data-tooltip="{{localize 'PENTRA.Reward.Hint'}}"><i class="fa-solid fa-sack-dollar"></i> {{localize "PENTRA.Reward.Button"}}</button>{{/if}}
         <span class="hint">{{localize "PENTRA.Start"}} {{pentraDie system.resourceDie.start}}</span>
+      </div>
+
+      <div class="resource die" data-tooltip="{{localize 'PENTRA.DurabilityHint'}}">
+        <label>{{localize "PENTRA.Trait.durabilityDie"}}</label>
+        <span class="die-static">{{pentraDie system.durabilityDie.value}}</span>
+        <span class="hint">{{localize "PENTRA.DurabilityUse"}}</span>
       </div>
 
       {{#if showDrain}}
       <div class="resource die">
         <label>{{localize "PENTRA.Trait.drainDie"}}</label>
-        <select name="system.drainDie.value">{{selectOptions dice.drainDie selected=system.drainDie.value}}</select>
+        {{#if isGM}}<select name="system.drainDie.value">{{selectOptions dice.drainDie selected=system.drainDie.value}}</select>{{else}}<span class="die-static">{{pentraDie system.drainDie.value}}</span>{{/if}}
         <span class="hint">{{localize "PENTRA.Max"}} {{pentraDie system.drainDie.max}}</span>
       </div>
       {{/if}}
     </div>
 
-    <div class="derived-strip">
-      {{#each traitBlock}}
-      <div class="derived" {{#if hint}}data-tooltip="{{hint}}"{{/if}}>
-        <span class="label">{{label}}</span>
-        <span class="value">{{value}}</span>
-      </div>
-      {{/each}}
-      <div class="derived">
-        <span class="label">{{localize "PENTRA.Armor.ARShort"}}</span>
-        <span class="value armor-locs">
-          {{#each armorByLocation}}<span data-tooltip="{{label}}">{{value}}</span>{{/each}}
-        </span>
-      </div>
-    </div>
   </div>
 </header>

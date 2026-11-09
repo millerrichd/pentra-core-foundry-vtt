@@ -67,7 +67,11 @@
           {{#each attr.skills as |skill|}}
           <div class="skill {{#if skill.trained}}trained{{/if}}">
             <a class="rollable skill-name" data-action="roll" data-type="skill" data-key="{{skill.key}}">{{skill.label}}</a>
-            <input type="number" name="system.skills.{{skill.key}}" value="{{skill.value}}" min="0" max="6">
+            <span class="skill-stepper">
+              {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="-1" {{#unless skill.canLower}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Lower'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
+              <span class="skill-value">{{skill.value}}</span>
+              {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="1" {{#unless skill.canRaise}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Raise'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+            </span>
           </div>
           {{/each}}
         {{/each}}
@@ -87,7 +91,7 @@
           <span class="controls"></span>
         </li>
         {{#each items.weapon}}
-        <li class="item-row" data-item-id="{{id}}" data-drag="true">
+        <li class="item-row draggable" data-item-id="{{id}}">
           <a class="item-name rollable" data-action="attack"><img src="{{img}}" alt=""> {{name}}</a>
           <span class="col">{{damage}}</span>
           <span class="controls">
@@ -107,7 +111,7 @@
       </header>
       <ol class="item-list">
         {{#each items.armor}}
-        <li class="item-row {{#unless system.equipped}}unequipped{{/unless}}" data-item-id="{{id}}" data-drag="true">
+        <li class="item-row draggable {{#unless system.equipped}}unequipped{{/unless}}" data-item-id="{{id}}">
           <a class="item-name" data-action="itemEdit"><img src="{{img}}" alt=""> {{name}} <span class="hint">AR {{system.ar}} ({{coverage}})</span></a>
           <span class="col"><select data-item-field="system.durability" data-dtype="Number">{{selectOptions @root.dice.usage selected=system.durability}}</select></span>
           <span class="controls">
@@ -121,7 +125,11 @@
 
     {{#if items.fieldkit.length}}
     <section class="item-section">
-      <header class="item-header"><h3>{{localize "TYPES.Item.fieldkit"}}</h3></header>
+      <header class="item-header">
+        <h3>{{localize "TYPES.Item.fieldkit"}}</h3>
+        <span class="col">{{localize "PENTRA.Kit.Usage"}}</span>
+        <span class="controls"></span>
+      </header>
       <ol class="item-list">
         {{#each items.fieldkit}}
         <li class="item-row" data-item-id="{{id}}">

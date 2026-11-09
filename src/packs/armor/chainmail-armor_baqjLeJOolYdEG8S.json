@@ -1,0 +1,40 @@
+{
+  "_id": "baqjLeJOolYdEG8S",
+  "_key": "!items!baqjLeJOolYdEG8S",
+  "name": "Chainmail Armor",
+  "type": "armor",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_medieval_armor@512.webp",
+  "system": {
+    "description": "<p>Chain rings woven to form long dress tunics that cover the upper legs, very heavy but durable. Medieval.</p>",
+    "legal": true,
+    "ar": 3,
+    "coverage": {
+      "torso": true,
+      "arms": true,
+      "legs": true,
+      "head": false
+    },
+    "evasion": -2,
+    "size": "large",
+    "cost": {
+      "die": 8,
+      "multiplier": 1
+    },
+    "layerable": false,
+    "heavy": false,
+    "durability": null,
+    "equipped": false
+  },
+  "effects": [],
+  "folder": "ZE6Kujzpn7pBm2iy",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14",
+    "systemId": "pentra-core-foundry-vtt",
+    "systemVersion": "0.1.0"
+  }
+}
