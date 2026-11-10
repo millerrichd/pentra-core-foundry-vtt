@@ -137,8 +137,8 @@ function meleeCrowd(myToken, target) {
  * fire at most one band past their preferred band. Only checked when both tokens are on the map.
  * @returns {string|null}  A warning to show, or null if the attack can go ahead.
  */
-function reachProblem(actor, { weapon, unarmed, target }) {
-  const myToken = tokenFor(actor);
+function reachProblem(actor, { weapon, unarmed, target, fromToken = null }) {
+  const myToken = fromToken ?? tokenFor(actor);
   if (!myToken || !target || myToken === target) return null;
   const ranged = !unarmed && weapon && weapon.system.category !== "melee";
   if (!ranged) {
@@ -292,7 +292,13 @@ async function promptCheck(actor, { label, tn, isAttack, canSpendEdge, penalty, 
  *   `skipDialog`, `options` (pre-filled dialog values), `label` (card title), `tn` (default target number),
  *   `extraModifiers` ([{label, value}] always applied, e.g. vehicle handling), `targetToken` (overrides the user's
  *   target), `collision` (a vehicle ramming: wounds count every success), and `messageMode` (e.g. "gm" to keep
- *   the card between the GM and the roller).
+ *   the card between the GM and the roller), and `fromToken` (measure range and melee from this token instead of the
+ *   actor's own, e.g. a remotely operated drone).
+ *
+ * Extension point: just before the dice are rolled, `Hooks.callAll("pentraRollCheck", actor, ctx)` lets modules
+ * (genre books) adjust the check. Listeners may change `ctx.modifier` (pushing a matching line onto `ctx.parts`),
+ * `ctx.skillValue`, `ctx.advantages` / `ctx.disadvantages` (sources; they still cancel and never stack) and
+ * `ctx.woundBonus` (extra base wounds on an attack). `ctx.rangeCover` is the range and cover penalty already applied.
  */
 export async function rollCheck(actor, spec) {
   const desc = describeCheck(actor, spec);
@@ -319,7 +325,7 @@ export async function rollCheck(actor, spec) {
 
   // Attacks: the measured range band and the size difference, which the dialog lets the player override.
   const isRanged = isAttack && !spec.unarmed && spec.weapon && spec.weapon.system.category !== "melee";
-  const myToken = isAttack ? tokenFor(actor) : null;
+  const myToken = isAttack ? (spec.fromToken ?? tokenFor(actor)) : null;
   // Underwater: fire-based weapons don't work, swinging weapons fight the water (-2), and ranges drop a band.
   const underwater = isAttack && actorUnderwater(actor);
   const preferred = isAttack && spec.weapon ? preferredRange(actor, spec.weapon) : null;
@@ -339,7 +345,7 @@ export async function rollCheck(actor, spec) {
   if (isAttack) {
     const problem = chase && targetVehicle
       ? chaseProblem(chase, spec, target)
-      : reachProblem(actor, { weapon: spec.weapon, unarmed: spec.unarmed, target });
+      : reachProblem(actor, { weapon: spec.weapon, unarmed: spec.unarmed, target, fromToken: spec.fromToken });
     if (problem) {
       ui.notifications.warn(problem);
       return null;
@@ -384,17 +390,20 @@ export async function rollCheck(actor, spec) {
     modifier += m.value;
     parts.push(`${m.label} ${m.value > 0 ? "+" : ""}${m.value}`);
   }
+  let rangeCover = 0;
   if (isAttack) {
     const locMod = PENTRA.hitLocations[opts.location]?.modifier ?? 0;
     if (locMod) { modifier += locMod; parts.push(`${loc(PENTRA.hitLocations[opts.location].label)} ${locMod}`); }
     for (const k of ["cover", "light"]) {
       const v = Number(opts[k]) || 0;
       if (v) { modifier += v; parts.push(`${loc(PENTRA.situationalModifiers[k].options[v])} ${v}`); }
+      if (k === "cover") rangeCover += v;
     }
     if (opts.aim) { modifier += 2; parts.push(`${loc("PENTRA.Roll.Aim")} +2`); }
     const add = (value, label) => { if (value) { modifier += value; parts.push(`${label} ${value > 0 ? "+" : ""}${value}`); } };
     if (isRanged && opts.band && RANGE_BANDS.includes(opts.band)) {
       const { range, inMelee } = rangePenalty(preferred, opts.band) ?? { range: 0, inMelee: 0 };
+      rangeCover += range;
       add(range, `${loc("PENTRA.Roll.RangeToTarget")}: ${loc(PENTRA.rangeBands[opts.band])}`);
       add(inMelee, loc("PENTRA.Roll.FiringInMelee"));
     }
@@ -408,10 +417,19 @@ export async function rollCheck(actor, spec) {
     if (opts.drunk) add(-2, loc("PENTRA.Roll.Drunk"));
   }
 
+  // Extension point for modules (see the doc comment above).
+  const ctx = {
+    spec, desc, opts, isAttack, isRanged, rangeCover, modifier, parts,
+    skillValue: desc.skillValue, advantages: 0, disadvantages: 0, woundBonus: 0
+  };
+  Hooks.callAll("pentraRollCheck", actor, ctx);
+  modifier = Number(ctx.modifier) || 0;
+  desc.skillValue = Number(ctx.skillValue) || 0;
+
   // Advantage: dialog choice plus optionally spending 2 Edge, which counts as one more source of advantage.
   const choice = Number(opts.advantage) || 0;
   const spendEdge = isCharacter && opts.spendEdge && actor.system.edge.value >= 2;
-  const adv = netAdvantage((choice > 0 ? 1 : 0) + (spendEdge ? 1 : 0), choice < 0 ? 1 : 0);
+  const adv = netAdvantage((choice > 0 ? 1 : 0) + (spendEdge ? 1 : 0) + ctx.advantages, (choice < 0 ? 1 : 0) + ctx.disadvantages);
 
   let formula = `1d${desc.die} + ${desc.bonus}`;
   if (desc.skillValue) formula += ` + ${desc.skillValue}`;
@@ -439,6 +457,7 @@ export async function rollCheck(actor, spec) {
     const profile = spec.unarmed
       ? { ...martialArtsDamage(desc.skillValue), heavy: false }
       : { wounds: spec.weapon.system.wounds, increment: spec.weapon.system.increment, heavy: spec.weapon.system.heavy };
+    profile.wounds += Number(ctx.woundBonus) || 0;
     const wounds = countWounds({ base: profile.wounds, increment: profile.increment, tn, total: roll.total, heavy: profile.heavy });
     damage = {
       wounds,
@@ -559,6 +578,8 @@ export async function applyWounds(actor, wounds, location = "torso", { direct = 
 
   // Arm and leg hits that wound (and don't drop the target) call for a resistance check.
   if (!direct && taken > 0 && health > 0) await locationEffect(actor, location);
+  // Extension point: modules can react to a hit (e.g. armor that isn't an armor item making its own usage check).
+  Hooks.callAll("pentraWoundsApplied", actor, { wounds, location, ar, taken, health, direct });
   return message;
 }
 
@@ -1176,6 +1197,8 @@ export async function rest(actor, kind) {
   await announce(actor, loc(kind === "camp" ? "PENTRA.Rest.Camp" : "PENTRA.Rest.Day"), lines);
   // Sleeping: each disease gets another Fortitude check.
   for (const disease of actor.items.filter(i => i.type === "disease")) await diseaseCheck(actor, disease, "sleep");
+  // Extension point: modules can recover their own pools on a night's sleep.
+  Hooks.callAll("pentraRest", actor, kind);
 }
 
 /* -------------------------------------------------------------------------- */

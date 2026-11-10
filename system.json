@@ -2,7 +2,7 @@
   "id": "pentra-core-foundry-vtt",
   "title": "Pentra: Five-Dice Engine Core",
   "description": "The core system for Pentra: Five-Dice Engine — a universal, classless, levelless roleplaying system built on d4 through d12.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "compatibility": {
     "minimum": "14",
     "verified": "14"

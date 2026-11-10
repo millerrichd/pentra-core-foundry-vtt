@@ -1,6 +1,6 @@
 {
   "name": "pentra-core-foundry-vtt",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Pentra: Five-Dice Engine core system for Foundry VTT",
   "private": true,
   "type": "module",

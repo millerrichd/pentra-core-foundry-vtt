@@ -74,6 +74,19 @@ These are places where the rulebook is ambiguous or contradicts itself. Each one
 - **Flamethrower** (core, ahead of the PDF): Very Close, Shooting, 2 Wounds (even), d8x2 R.D. Its **Burning** trait sets the target on fire when the damage is applied; it doesn't work underwater.
 - **Chase push** is once a round, and the −2 to hit lasts for the rest of that round whether the check succeeded or not.
 
+## Extension hooks for setting modules
+
+Setting modules (Edgeliner, Sentius, …) extend the core through these hooks:
+
+| Hook | Called | Listener can |
+| --- | --- | --- |
+| `pentraRollCheck(actor, ctx)` | In `rollCheck`, just before the dice roll | Change `ctx.modifier` (push a line onto `ctx.parts`), `ctx.skillValue`, `ctx.advantages` / `ctx.disadvantages`, `ctx.woundBonus`. `ctx.rangeCover` is the range + cover penalty already applied. |
+| `pentraWoundsApplied(actor, { wounds, location, ar, taken, health, direct })` | At the end of `applyWounds` | React to a hit |
+| `pentraRest(actor, kind)` | At the end of a Camp / Day of rest | Recover the module's own pools |
+| `pentraNeedsAir(actor)` | Before an underwater breath check | Return `false` for someone who doesn't need air |
+
+`rollCheck` also takes `fromToken`, to measure range and melee from another token (e.g. a remote drone).
+
 ## Project layout
 
 ```

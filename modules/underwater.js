@@ -71,6 +71,12 @@ export function onRenderCombatTrackerUnderwater(app, html) {
 /** A SCUBA kit with air left (usage die above 0) means breathing normally. */
 const scubaKit = actor => actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "scuba" && i.system.usage > 0);
 
+/**
+ * Does this actor need air at all? Extension point: a module returns false from
+ * `Hooks.call("pentraNeedsAir", actor)` for someone who doesn't breathe, or breathes water (no breath checks).
+ */
+const needsAir = actor => Hooks.call("pentraNeedsAir", actor) !== false;
+
 /** This actor's breath in this combat: rounds under, the breath die, and (NPCs) the drowning die. */
 export function breathState(actor, combat = game.combat) {
   const flag = actor.getFlag(SYSTEM, "breath");
@@ -84,7 +90,7 @@ export function breathState(actor, combat = game.combat) {
  */
 export async function breathCheck(actor, combat) {
   if (!isUnderwater(combat) || !actor || actor.type === "vehicle" || actor.statuses.has("dead")) return;
-  if (scubaKit(actor)) return;
+  if (scubaKit(actor) || !needsAir(actor)) return;
   const state = breathState(actor, combat);
   state.rounds += 1;
   const save = () => actor.setFlag(SYSTEM, "breath", state);
@@ -132,7 +138,7 @@ export async function surface(actor) {
 
 /** Breath readout for the character sheet (null when not underwater). */
 export function breathContext(actor) {
-  if (!actorUnderwater(actor) || actor.type === "vehicle") return null;
+  if (!actorUnderwater(actor) || actor.type === "vehicle" || !needsAir(actor)) return null;
   const state = breathState(actor);
   const scuba = scubaKit(actor);
   const left = Math.max(BREATH.holdRounds - state.rounds, 0);
