@@ -3,7 +3,7 @@
   "_key": "!items!IAadDlkNFrpu6nuJ",
   "name": "Lethe Fever",
   "type": "disease",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease_orange@512.webp",
   "system": {
     "description": "<p>Named after the river of forgetting. Facts you've known for years drift just out of reach, and street names blur together. Spread by coughing in close quarters.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
     "effect": "attribute",

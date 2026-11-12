@@ -3,7 +3,7 @@
   "_key": "!items!DfoHWmTUrQqB9RW1",
   "name": "Reloading Kit",
   "type": "fieldkit",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit_orange@512.webp",
   "system": {
     "description": "<p>Routine ammunition and weapon maintenance. After combat, make a usage check with range 1–2, plus 1 for every 5 rounds of combat fired.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "reloading",

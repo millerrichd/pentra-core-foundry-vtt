@@ -3,7 +3,7 @@
   "_key": "!items!bgPEkDARyQiE4MKU",
   "name": "Baton/Club",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon_orange@512.webp",
   "system": {
     "description": "<p>This is a simple club or baton you can use to defend yourself.</p>",
     "heavy": false,

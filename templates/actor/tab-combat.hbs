@@ -54,7 +54,9 @@
       </li>
       {{/each}}
     </ol>
-    <p class="hint">{{localize "PENTRA.Combat.AttackHint"}} · {{localize "PENTRA.Combat.RoundsFired"}}: <input class="inline-num" type="number" name="system.roundsFired" value="{{system.roundsFired}}" min="0"></p>
+    <p class="hint">{{localize "PENTRA.Combat.AttackHint"}} · {{localize "PENTRA.Combat.RoundsFired"}}: <input class="inline-num" type="number" name="system.roundsFired" value="{{system.roundsFired}}" min="0">
+      ({{localize "PENTRA.Combat.ReloadsUsed"}}: {{reloadsUsed}})
+      {{#if editable}}<a data-action="resetRoundsFired" data-tooltip="{{localize 'PENTRA.Combat.ResetRoundsFired'}}"><i class="fa-solid fa-rotate-left"></i></a>{{/if}}</p>
   </section>
 
   {{! Armor }}

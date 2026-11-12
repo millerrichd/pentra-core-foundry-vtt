@@ -3,7 +3,7 @@
   "_key": "!items!ogKEQtDV3AYXpPFZ",
   "name": "Disguise Kit",
   "type": "fieldkit",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit_orange@512.webp",
   "system": {
     "description": "<p>Appearance alteration and identity-support material.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "disguise",

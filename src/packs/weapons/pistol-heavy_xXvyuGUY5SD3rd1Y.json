@@ -3,7 +3,7 @@
   "_key": "!items!xXvyuGUY5SD3rd1Y",
   "name": "Pistol, Heavy",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This pistol is designed for one-handed use. The heavy model deals acceptable damage to lightly and medium-armored people.</p>",
     "heavy": false,

@@ -3,7 +3,7 @@
   "_key": "!items!uoRgt9wA7U1SkVQG",
   "name": "SCUBA Kit",
   "type": "fieldkit",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit_orange@512.webp",
   "system": {
     "description": "<p>Equipment to handle underwater trips, from air to fins.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "scuba",

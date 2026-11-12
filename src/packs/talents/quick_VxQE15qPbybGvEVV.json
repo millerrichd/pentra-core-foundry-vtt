@@ -3,7 +3,7 @@
   "_key": "!items!VxQE15qPbybGvEVV",
   "name": "Quick",
   "type": "talent",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent_orange@512.webp",
   "system": {
     "description": "<p>Your default Evasion is increased from 9 to 11.</p>",
     "trait": "evasion",

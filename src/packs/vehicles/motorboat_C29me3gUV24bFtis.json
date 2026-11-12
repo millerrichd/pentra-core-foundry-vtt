@@ -3,7 +3,7 @@
   "_key": "!actors!C29me3gUV24bFtis",
   "name": "Motorboat",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water_orange@512.webp",
   "system": {
     "description": "<p>A medium boat with a high-speed propeller motor that drives the boat through the water. Seats 4 comfortably.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_water_orange@512.webp"
     },
     "disposition": 0
   }

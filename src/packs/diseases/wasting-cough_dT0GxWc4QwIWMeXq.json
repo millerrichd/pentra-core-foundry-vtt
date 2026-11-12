@@ -3,7 +3,7 @@
   "_key": "!items!dT0GxWc4QwIWMeXq",
   "name": "Wasting Cough",
   "type": "disease",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease_orange@512.webp",
   "system": {
     "description": "<p>A rattling cough that won't let you eat or sleep properly. The weight falls off, and you can't take the punishment you used to. Spread through the air in crowded rooms.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
     "effect": "trait",

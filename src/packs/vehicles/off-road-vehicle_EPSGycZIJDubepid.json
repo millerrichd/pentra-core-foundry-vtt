@@ -3,7 +3,7 @@
   "_key": "!actors!EPSGycZIJDubepid",
   "name": "Off-road Vehicle",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp",
   "system": {
     "description": "<p>Your standard high-wheel car designed to travel dirt or worse trails in the wilderness. It seats 4 comfortably and isn't the fastest, but it will go where others cannot.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp"
     },
     "disposition": 0
   }

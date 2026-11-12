@@ -3,7 +3,7 @@
   "_key": "!items!UjbjxPzjqfxtxzLl",
   "name": "Cane/Staff",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon_orange@512.webp",
   "system": {
     "description": "<p>This is a walking stick or cane, usually 3 to 5 feet in length.</p>",
     "heavy": false,

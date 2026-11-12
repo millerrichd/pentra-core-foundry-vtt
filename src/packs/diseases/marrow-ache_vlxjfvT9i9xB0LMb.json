@@ -3,7 +3,7 @@
   "_key": "!items!vlxjfvT9i9xB0LMb",
   "name": "Marrow Ache",
   "type": "disease",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease_orange@512.webp",
   "system": {
     "description": "<p>A deep ache in the long bones that saps strength from every lift, swing and climb. Carried by rats and their fleas in old sewers and warehouses.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
     "effect": "attribute",

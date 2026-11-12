@@ -3,7 +3,7 @@
   "_key": "!items!uetFUeUzQN5xZ5fX",
   "name": "Rifle, Medium",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This rifle is designed for two-handed use. The medium model is designed to punch through light armor.</p>",
     "heavy": false,

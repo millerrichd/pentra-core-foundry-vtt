@@ -64,8 +64,12 @@ test("edge gain on min or max faces", () => {
 test("misc tables", () => {
   assert.deepEqual(R.martialArtsDamage(5), { wounds: 2, increment: "even" });
   assert.equal(R.medicineHealing(4), 2);
-  assert.equal(R.reloadRange(4), 2);
-  assert.equal(R.reloadRange(10), 4);
+  assert.equal(R.reloadRange(0), 0);
+  assert.equal(R.reloadRange(5), 0);
+  assert.equal(R.reloadRange(6), 1);
+  assert.equal(R.reloadRange(11), 1);
+  assert.equal(R.reloadRange(12), 2);
+  assert.equal(R.reloadRange(18), 3);
   assert.deepEqual(R.parseCoverage("AT"), { torso: true, arms: true, legs: false, head: false });
   assert.deepEqual(R.saleValue({ costDie: 6, multiplier: 2 }), { die: 6, multiplier: 1 });
   assert.deepEqual(R.saleValue({ costDie: 6 }), { die: 4, multiplier: 1 });

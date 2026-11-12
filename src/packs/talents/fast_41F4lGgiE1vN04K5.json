@@ -3,7 +3,7 @@
   "_key": "!items!41F4lGgiE1vN04K5",
   "name": "Fast",
   "type": "talent",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent_orange@512.webp",
   "system": {
     "description": "<p>Your default Initiative Die is increased from d6 to d8.</p>",
     "trait": "initiativeDie",

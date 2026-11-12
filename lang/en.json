@@ -427,10 +427,11 @@
       "Usage": "Usage die",
       "UsageHint": "Kits start at the owner's Durability Die and refresh to it during downtime.",
       "Use": "Usage check (1–2). A Trauma Kit treats wounds instead.",
-      "Restock": "Restock ammunition (1–2, +1 per 5 rounds fired)",
+      "Restock": "Restock ammunition: one check per reload (6 shots), range = number of reloads",
       "Refresh": "Refresh all kits to your Durability Die (a day of downtime)",
       "Refreshed": "Kits refreshed to {die}.",
-      "ReloadNote": "{rounds} rounds of combat fired since last restock."
+      "ReloadNote": "Reload {n} of {reloads} ({rounds} shots fired): drops on 1–{reloads}.",
+      "NoReloadNeeded": "{rounds} shots fired — not a full reload (6 shots), so no Reloading Kit check. Shots fired reset to 0."
     },
     "Vehicle": {
       "Category": "Type",
@@ -511,7 +512,9 @@
     },
     "Combat": {
       "AttackHint": "Attacks roll against the targeted token's Evasion. Each round re-rolls initiative: every 6 points is one action.",
-      "RoundsFired": "Rounds fired"
+      "RoundsFired": "Shots fired",
+      "ReloadsUsed": "Reloads",
+      "ResetRoundsFired": "Reset shots fired to 0 (no Reloading Kit check)"
     },
     "Death": {
       "Title": "Death Moves",
@@ -653,7 +656,7 @@
       "ShortHint": "Quick activities in the field. Each adds 10 minutes to a Facility Raid clock.",
       "TreatHint": "Medicine check with a Trauma Kit; target a token to treat someone else.",
       "Restock": "Restock ammunition",
-      "RestockHint": "Reloading Kit usage check: 1–2, +1 per 5 rounds of combat fired.",
+      "RestockHint": "Every 6 shots fired is one reload. For each reload, the Reloading Kit makes a usage check with a range equal to the number of reloads (2 reloads = two checks at 1–2).",
       "Camp": "Camp Downtime (a night)",
       "CampHint": "About 6 hours of sleep in the wilderness. You can also do any short downtime activity.",
       "CampRestHint": "Recover 1 wound naturally.",

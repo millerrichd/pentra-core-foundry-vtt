@@ -3,7 +3,7 @@
   "_key": "!items!mpZe8epl44td1kyg",
   "name": "Rockets/Torpedoes, Heavy",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_weapon_orange@512.webp",
   "system": {
     "description": "<p>These are fire-and-forget, non-guided weapons designed to deliver their payload.</p><p>Takes 1 mount spot. Bought separately from the vehicle; reloads at a hangar or garage but still requires a Reloading Kit.</p>",
     "heavy": true,

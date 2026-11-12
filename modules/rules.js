@@ -143,9 +143,17 @@ export function martialArtsDamage(rank) {
   return PENTRA.martialArts[clamp(rank, 0, PENTRA.maxSkill)];
 }
 
-/** Usage range for restocking ammunition: 1-2, plus 1 per 5 rounds of combat fired. */
+/** Shots per reload (core p. 21: "six shots before you need to reload"). */
+export const SHOTS_PER_RELOAD = 6;
+
+/** Reloads made: one for every full six shots fired. */
+export function reloadsUsed(roundsFired) {
+  return Math.floor(Math.max(0, Number(roundsFired) || 0) / SHOTS_PER_RELOAD);
+}
+
+/** Reloading Kit usage range: equal to the number of reloads made (core p. 21). One check is made per reload. */
 export function reloadRange(roundsFired) {
-  return 2 + Math.floor((Number(roundsFired) || 0) / 5);
+  return reloadsUsed(roundsFired);
 }
 
 /** Parse an armor coverage code like "ALTH" into a location set. */

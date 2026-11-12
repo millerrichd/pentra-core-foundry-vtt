@@ -3,7 +3,7 @@
   "_key": "!actors!1uysA2lli1SbQFIB",
   "name": "Jet Engine Plane",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp",
   "system": {
     "description": "<p>A fighter jet that seats 1 or 2 pilots and is used primarily for combat; it can be hard to land and disguise.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp"
     },
     "disposition": 0
   }

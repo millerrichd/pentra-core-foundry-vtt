@@ -3,7 +3,7 @@
   "_key": "!items!UffUQn0DYEhGaMgr",
   "name": "Body Armor",
   "type": "armor",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor_orange@512.webp",
   "system": {
     "description": "<p>This is a full suit of body armor, designed for mobility over damage reduction. Modern.</p>",
     "legal": false,

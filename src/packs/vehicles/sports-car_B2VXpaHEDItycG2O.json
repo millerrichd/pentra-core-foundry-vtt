@@ -3,7 +3,7 @@
   "_key": "!actors!B2VXpaHEDItycG2O",
   "name": "Sports Car",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp",
   "system": {
     "description": "<p>A 2-door car that seats 2; it only works on finished roads, but it is super fast and flashy.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp"
     },
     "disposition": 0
   }

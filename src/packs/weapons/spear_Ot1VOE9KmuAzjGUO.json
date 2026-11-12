@@ -3,7 +3,7 @@
   "_key": "!items!Ot1VOE9KmuAzjGUO",
   "name": "Spear",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon_orange@512.webp",
   "system": {
     "description": "<p>A stick with a point at the end, usually made of metal, but could be made of straight wood.</p>",
     "heavy": false,

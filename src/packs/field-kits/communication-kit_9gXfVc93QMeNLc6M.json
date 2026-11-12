@@ -3,7 +3,7 @@
   "_key": "!items!9gXfVc93QMeNLc6M",
   "name": "Communication Kit",
   "type": "fieldkit",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit_orange@512.webp",
   "system": {
     "description": "<p>This is a cellphone and computer used for communication and data manipulation.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "communication",

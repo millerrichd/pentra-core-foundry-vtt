@@ -3,7 +3,7 @@
   "_key": "!items!JNvkqalLugbvbGHe",
   "name": "Human",
   "type": "ancestry",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_ancestry@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_ancestry_orange@512.webp",
   "system": {
     "description": "<p>We are different from one another, but the same. As a people, we are curious and adaptable, and inherently social creatures.</p><p><strong>Features:</strong> Attribute Boost: Charm.</p>",
     "attributeBoost": "charm",

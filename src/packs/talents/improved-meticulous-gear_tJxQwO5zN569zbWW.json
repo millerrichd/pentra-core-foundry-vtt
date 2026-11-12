@@ -3,7 +3,7 @@
   "_key": "!items!tJxQwO5zN569zbWW",
   "name": "Improved Meticulous Gear",
   "type": "talent",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_talent_orange@512.webp",
   "system": {
     "description": "<p>Your starting Durability Die is increased from d10 to d12.</p><p><strong>Requires:</strong> Meticulous Gear.</p>",
     "trait": "durabilityDie",

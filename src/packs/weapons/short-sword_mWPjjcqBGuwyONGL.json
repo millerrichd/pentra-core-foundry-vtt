@@ -3,7 +3,7 @@
   "_key": "!items!mWPjjcqBGuwyONGL",
   "name": "Short Sword",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_melee_weapon_orange@512.webp",
   "system": {
     "description": "<p>A sword whose blade is about forearm length; it sits between a knife and a long sword.</p>",
     "heavy": false,

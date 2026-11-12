@@ -3,7 +3,7 @@
   "_key": "!actors!PEbuL4PENXkoBjdP",
   "name": "Single Propeller Plane",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp",
   "system": {
     "description": "<p>This small, 2-seat propeller plane is used for dusting crops and escaping cities.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp"
     },
     "disposition": 0
   }

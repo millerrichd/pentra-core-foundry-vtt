@@ -3,7 +3,7 @@
   "_key": "!items!EW6sXRQG7NRj3xTF",
   "name": "Black Lung",
   "type": "disease",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_disease_orange@512.webp",
   "system": {
     "description": "<p>Soot and spores settle in the lungs and stay there. The body has less left to give when it's pushed to the brink. Contracted in mines, foundries and burned-out districts.</p><p><em>Resist with Fortitude on exposure and again each time you sleep; a success throws it off.</em></p>",
     "effect": "trait",

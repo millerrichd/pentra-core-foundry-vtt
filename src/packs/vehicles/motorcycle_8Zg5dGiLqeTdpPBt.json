@@ -3,7 +3,7 @@
   "_key": "!actors!8Zg5dGiLqeTdpPBt",
   "name": "Motorcycle",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp",
   "system": {
     "description": "<p>Off-road or street-legal bike that comfortably seats 1, but can accommodate a second.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_ground_orange@512.webp"
     },
     "disposition": 0
   }

@@ -1,5 +1,5 @@
 import { PENTRA } from "../config.js";
-import { formatDie, formatAttribute, karmaCostAttribute, karmaCostSkill, karmaCostTalent, reloadRange, projectTarget } from "../rules.js";
+import { formatDie, formatAttribute, karmaCostAttribute, karmaCostSkill, karmaCostTalent, reloadsUsed, projectTarget } from "../rules.js";
 import * as Rolls from "../rolls.js";
 import { CREATION, nativeIndex } from "../creation.js";
 import { PURCHASED_TYPES } from "../documents.js";
@@ -236,16 +236,10 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (!item) return;
     // Using a Trauma Kit means treating wounds (Medicine check, then the kit's usage check).
     if (item.system.kitType === "trauma") return Rolls.treatWounds(this.actor);
-    let range = 2;
-    let note;
-    if (item.system.kitType === "reloading" && this.actor.type === "character") {
-      const rounds = this.actor.system.roundsFired;
-      range = reloadRange(rounds);
-      note = game.i18n.format("PENTRA.Kit.ReloadNote", { rounds });
-      await this.actor.update({ "system.roundsFired": 0 });
-    }
+    // Using a Reloading Kit means restocking ammunition (1–N, N = reloads used), which clears the rounds fired.
+    if (item.system.kitType === "reloading" && this.actor.type === "character") return Rolls.restockAmmo(this.actor, item);
     return Rolls.rollUsage({
-      actor: this.actor, label: item.name, die: item.system.usage, range, note,
+      actor: this.actor, label: item.name, die: item.system.usage, range: 2,
       onReduce: next => item.update({ "system.usage": next })
     });
   }
@@ -340,6 +334,7 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
       blaze: PentraCharacterSheet.#onBlaze,
       rest: PentraCharacterSheet.#onRest,
       restockAmmo: PentraCharacterSheet.#onRestockAmmo,
+      resetRoundsFired: PentraCharacterSheet.#onResetRoundsFired,
       reward: PentraCharacterSheet.#onReward,
       earnKarma: PentraCharacterSheet.#onEarnKarma,
       visitClinic: PentraCharacterSheet.#onVisitClinic,
@@ -443,6 +438,7 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
     context.lifestyles = Object.fromEntries(Object.entries(PENTRA.lifestyles).map(([k, v]) => [k, `${loc(v.label)} (${formatDie(v.die)})`]));
     context.currentLifestyle = sys.lifestyle ? loc(PENTRA.lifestyles[sys.lifestyle].label) : null;
     context.socialSkills = Object.fromEntries(PENTRA.socialSkills.map(k => [k, `${loc(PENTRA.skills[k].label)} (${sys.skills[k]})`]));
+    context.reloadsUsed = reloadsUsed(sys.roundsFired);
     context.kits = {
       reloading: this.actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "reloading"),
       technical: this.actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "technical"),
@@ -642,6 +638,11 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
 
   static #onRestockAmmo() {
     return Rolls.restockAmmo(this.actor);
+  }
+
+  /** Clear the rounds-fired count without a Reloading Kit check (e.g. ammo restocked some other way). */
+  static #onResetRoundsFired() {
+    return this.actor.update({ "system.roundsFired": 0 });
   }
 
   static #onVisitClinic() {

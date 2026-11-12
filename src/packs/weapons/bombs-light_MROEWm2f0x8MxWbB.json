@@ -3,7 +3,7 @@
   "_key": "!items!MROEWm2f0x8MxWbB",
   "name": "Bombs, Light",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_weapon@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_weapon_orange@512.webp",
   "system": {
     "description": "<p>Bombs are designed to drop from a plane on unsuspecting targets. Works at the Impact / Fly-by range band.</p><p>Takes 1 mount spot. Bought separately from the vehicle; reloads at a hangar or garage but still requires a Reloading Kit.</p>",
     "heavy": true,

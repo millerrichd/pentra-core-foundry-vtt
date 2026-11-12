@@ -3,7 +3,7 @@
   "_key": "!items!mecFHKz66DIwGy94",
   "name": "Shotgun, Heavy",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This shotgun is designed for two-handed use. The heavy model is designed for crowd control.</p>",
     "heavy": false,

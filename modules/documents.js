@@ -29,7 +29,7 @@ export const PROTECTED_FIELDS = [
 ];
 
 /** The system's own icons (assets/), used as default art for new items and vehicles. */
-const ICON = name => `systems/pentra-core-foundry-vtt/assets/noun_${name}@512.webp`;
+const ICON = name => `systems/pentra-core-foundry-vtt/assets/noun_${name}_orange@512.webp`;
 const ITEM_ICONS = {
   ancestry: "ancestry", hindrance: "hindrance", talent: "talent", armor: "modern_armor", fieldkit: "field_kit",
   vehiclemod: "vehicle_modifications", disease: "disease", vehicle: "vehicle_ground"

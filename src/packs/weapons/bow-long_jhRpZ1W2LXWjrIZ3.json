@@ -3,7 +3,7 @@
   "_key": "!items!jhRpZ1W2LXWjrIZ3",
   "name": "Bow, Long",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This bow is designed for two-handed use. It's silent compared to guns.</p>",
     "heavy": false,

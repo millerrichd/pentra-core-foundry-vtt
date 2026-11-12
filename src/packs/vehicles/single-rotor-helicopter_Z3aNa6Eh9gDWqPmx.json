@@ -3,7 +3,7 @@
   "_key": "!actors!Z3aNa6Eh9gDWqPmx",
   "name": "Single Rotor Helicopter",
   "type": "vehicle",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp",
   "system": {
     "description": "<p>A small helicopter that seats 4 comfortably, designed for short distances.</p>",
     "cost": {
@@ -55,7 +55,7 @@
       "attribute": "health"
     },
     "texture": {
-      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air@512.webp"
+      "src": "systems/pentra-core-foundry-vtt/assets/noun_vehicle_air_orange@512.webp"
     },
     "disposition": 0
   }

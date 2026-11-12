@@ -3,7 +3,7 @@
   "_key": "!items!2mzm9JsIgvl5Doox",
   "name": "Pistol, Medium",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This pistol is designed for one-handed use. The medium model does acceptable damage to lightly armored people.</p>",
     "heavy": false,

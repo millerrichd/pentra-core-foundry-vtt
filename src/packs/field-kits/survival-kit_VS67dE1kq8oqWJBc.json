@@ -3,7 +3,7 @@
   "_key": "!items!VS67dE1kq8oqWJBc",
   "name": "Survival Kit",
   "type": "fieldkit",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_field_kit_orange@512.webp",
   "system": {
     "description": "<p>Shelter, fire, food/water basics, and navigation.</p><p>All kits use the owner's Durability Die as their starting usage die.</p>",
     "kitType": "survival",

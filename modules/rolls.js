@@ -806,13 +806,13 @@ export async function sell(actor, { label, costDie, multiplier = 1 }) {
 
 /**
  * A reward (loot, payment) worth a die and multiplier, rolled against the Resource Die like a sale
- * but without the sale markdown.
+ * but without the sale markdown. Modules can retitle it (e.g. selling something at a set price).
  */
-export async function reward(actor, { die, multiplier = 1 }) {
+export async function reward(actor, { die, multiplier = 1, title, valueLabel }) {
   return raiseResourceDie(actor, {
     value: { die, multiplier },
-    title: loc("PENTRA.Reward.Title"),
-    valueLabel: loc("PENTRA.Reward.Value")
+    title: title ?? loc("PENTRA.Reward.Title"),
+    valueLabel: valueLabel ?? loc("PENTRA.Reward.Value")
   });
 }
 
@@ -1161,17 +1161,32 @@ export async function repairVehicle(actor, vehicle) {
 /*  Downtime                                                                  */
 /* -------------------------------------------------------------------------- */
 
-/** Short downtime: restock ammunition with a Reloading Kit (1–2, +1 per 5 rounds of combat fired). */
-export async function restockAmmo(actor) {
-  const kit = actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "reloading" && i.system.usage > 0);
+/**
+ * After combat, restock ammunition (core p. 21): every six shots fired is one reload, and for each reload the
+ * Reloading Kit makes a usage check with a range equal to the number of reloads. Either way the next combat
+ * starts with a full load, so the shot count is cleared.
+ */
+export async function restockAmmo(actor, kit) {
+  kit ??= actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "reloading" && i.system.usage > 0);
   if (!kit) return ui.notifications.warn(loc("PENTRA.Downtime.NeedReloadingKit"));
   const rounds = actor.system.roundsFired ?? 0;
-  const result = await rollUsage({
-    actor, label: kit.name, die: kit.system.usage, range: reloadRange(rounds),
-    note: fmt("PENTRA.Kit.ReloadNote", { rounds }),
-    onReduce: next => kit.update({ "system.usage": next })
-  });
-  if (result) await actor.update({ "system.roundsFired": 0 });
+  const reloads = reloadRange(rounds);
+  if (reloads <= 0) {
+    if (rounds > 0) await actor.update({ "system.roundsFired": 0 });
+    return ui.notifications.info(fmt("PENTRA.Kit.NoReloadNeeded", { rounds }));
+  }
+  let die = kit.system.usage;
+  let result = null;
+  for (let i = 1; i <= reloads && die > 0; i++) {
+    result = await rollUsage({
+      actor, label: kit.name, die, range: reloads,
+      note: fmt("PENTRA.Kit.ReloadNote", { rounds, reloads, n: i }),
+      onReduce: next => kit.update({ "system.usage": next })
+    });
+    if (!result) break;
+    die = result.die;
+  }
+  await actor.update({ "system.roundsFired": 0 });
   return result;
 }
 

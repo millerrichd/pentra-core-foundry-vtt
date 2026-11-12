@@ -16,7 +16,7 @@
     </div>
     <div class="activity">
       <button type="button" data-action="restockAmmo"><i class="fa-solid fa-box"></i> {{localize "PENTRA.Downtime.Restock"}}</button>
-      <span class="hint">{{localize "PENTRA.Downtime.RestockHint"}} ({{localize "PENTRA.Combat.RoundsFired"}}: {{system.roundsFired}}) {{#unless kits.reloading}}<span class="warning">{{localize "PENTRA.Downtime.NoReloadingKit"}}</span>{{/unless}}</span>
+      <span class="hint">{{localize "PENTRA.Downtime.RestockHint"}} ({{localize "PENTRA.Combat.RoundsFired"}}: {{system.roundsFired}}, {{localize "PENTRA.Combat.ReloadsUsed"}}: {{reloadsUsed}}) {{#unless kits.reloading}}<span class="warning">{{localize "PENTRA.Downtime.NoReloadingKit"}}</span>{{/unless}}</span>
     </div>
   </section>
 

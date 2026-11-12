@@ -3,7 +3,7 @@
   "_key": "!items!0sqcI856xUFx7EeB",
   "name": "Crossbow, Medium",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This crossbow is designed for two-handed use. It's silent compared to guns and packs a decent punch. 1 extra action to reload.</p>",
     "heavy": false,

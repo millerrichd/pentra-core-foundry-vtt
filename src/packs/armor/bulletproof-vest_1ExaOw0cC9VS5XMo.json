@@ -3,7 +3,7 @@
   "_key": "!items!1ExaOw0cC9VS5XMo",
   "name": "Bulletproof Vest",
   "type": "armor",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_modern_armor_orange@512.webp",
   "system": {
     "description": "<p>An armored vest that protects the vitals in the torso. Is wearable under a Leather Jacket or Leather Long Coat.</p><p>Modern.</p>",
     "legal": true,

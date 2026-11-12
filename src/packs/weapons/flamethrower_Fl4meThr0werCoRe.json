@@ -3,7 +3,7 @@
   "_key": "!items!Fl4meThr0werCoRe",
   "name": "Flamethrower",
   "type": "weapon",
-  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons@512.webp",
+  "img": "systems/pentra-core-foundry-vtt/assets/noun_range_weapons_orange@512.webp",
   "system": {
     "description": "<p>This flamethrower shoots jets of flame at the target. It uses a propane-style tank to supply fuel. It is designed for two hands.</p>",
     "heavy": false,
