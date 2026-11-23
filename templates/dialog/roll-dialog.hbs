@@ -1,19 +1,33 @@
 <div class="pentra roll-dialog">
   {{#if note}}<p class="hint">{{note}}</p>{{/if}}
+  {{#if useDifficulty}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Difficulty"}}</label>
+    <select name="difficulty">{{selectOptions difficulties selected=difficulty}}</select>
+  </div>
+  <p class="hint">{{#if isResistance}}{{localize "PENTRA.Difficulty.ResistanceHint"}}{{else}}{{localize "PENTRA.Difficulty.Hint"}}{{/if}}</p>
+  {{else}}
   <div class="form-group">
     <label>{{#if isAttack}}{{localize "PENTRA.Roll.TargetEvasion"}}{{else}}{{localize "PENTRA.Roll.TargetNumber"}}{{/if}}</label>
     <input type="number" name="tn" value="{{tn}}">
   </div>
+  {{/if}}
   <div class="form-group">
     <label>{{localize "PENTRA.Roll.Modifier"}}</label>
     <input type="number" name="modifier" value="{{modifier}}" autofocus>
   </div>
+  {{#unless isResistance}}
+  <div class="form-group">
+    <label>{{localize "PENTRA.Roll.Assistance"}} (+0 … +{{maxAssistance}})</label>
+    <input type="number" name="assist" value="0" min="0" max="{{maxAssistance}}">
+  </div>
+  {{/unless}}
   <div class="form-group">
     <label>{{localize "PENTRA.Roll.AdvantageLabel"}}</label>
     <select name="advantage">
       <option value="0" selected>{{localize "PENTRA.Roll.Normal"}}</option>
-      <option value="1">{{localize "PENTRA.Roll.Advantage"}} (+d6)</option>
-      <option value="-1">{{localize "PENTRA.Roll.Disadvantage"}} (−d6)</option>
+      <option value="1">{{localize "PENTRA.Roll.Advantage"}} (+½d6)</option>
+      <option value="-1">{{localize "PENTRA.Roll.Disadvantage"}} (−½d6)</option>
     </select>
   </div>
   {{#if canSpendEdge}}

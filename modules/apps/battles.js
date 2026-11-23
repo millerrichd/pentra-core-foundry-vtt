@@ -11,7 +11,7 @@
  *  both ran, the one with more strength left. An army at 0 strength before it gets away is wiped out.
  *
  * Fortifications and fearless creatures (undead, robots) give +2. PCs supporting a side spend Edge (Support on their
- * sheet) and the GM adds the d6 in the roll dialog's Modifier box.
+ * sheet) and the GM enters their skill ranks (max +6) in the roll dialog's Assistance box.
  */
 import { rollCheck } from "../rolls.js";
 import { armyCounters, armyModifiers, battleWinner, clashDamage } from "../rules.js";

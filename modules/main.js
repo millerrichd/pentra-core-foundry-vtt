@@ -12,6 +12,7 @@ import { PentraCharacterSheet, PentraNPCSheet } from "./sheets/actor-sheet.js";
 import { PentraItemSheet } from "./sheets/item-sheet.js";
 import { PentraVehicleSheet } from "./sheets/vehicle-sheet.js";
 import * as Vehicles from "./vehicles.js";
+import { registerTransferSocket } from "./transfer.js";
 import { registerRulers } from "./rulers.js";
 import { registerGMTools } from "./gm-tools.js";
 import { PentraPartyApp } from "./apps/party.js";
@@ -94,6 +95,7 @@ Hooks.once("i18nInit", () => {
 Hooks.once("ready", async () => {
   Vehicles.registerVehicleSocket();
   registerChaseSocket();
+  registerTransferSocket();
   // One-time: vehicles used to be items; turn them into vehicle actors.
   if (game.user.isActiveGM && !game.settings.get(SYSTEM, "vehiclesMigrated")) {
     await Vehicles.migrateVehicleItems();
@@ -130,11 +132,6 @@ registerGMTools();
 /* -------------------------------------------------------------------------- */
 
 function registerSettings() {
-  game.settings.register(SYSTEM, "targetNumber", {
-    name: "PENTRA.Settings.TargetNumber.Name",
-    hint: "PENTRA.Settings.TargetNumber.Hint",
-    scope: "world", config: true, type: Number, default: PENTRA.defaultTN
-  });
   game.settings.register(SYSTEM, "rerollInitiative", {
     name: "PENTRA.Settings.Reroll.Name",
     hint: "PENTRA.Settings.Reroll.Hint",
@@ -150,6 +147,17 @@ function registerSettings() {
   registerClockSetting();
   game.settings.register(SYSTEM, "vehiclesMigrated", {
     scope: "world", config: false, type: Boolean, default: false
+  });
+  game.settings.register(SYSTEM, "lifestyleOptional", {
+    name: "PENTRA.Settings.LifestyleOptional.Name",
+    hint: "PENTRA.Settings.LifestyleOptional.Hint",
+    scope: "world", config: true, restricted: true, type: Boolean, default: false,
+    // Open character sheets update their City Downtime hint.
+    onChange: () => {
+      for (const app of foundry.applications.instances.values()) {
+        if (app.document?.documentName === "Actor") app.render();
+      }
+    }
   });
   game.settings.register(SYSTEM, "showDrainDie", {
     name: "PENTRA.Settings.Drain.Name",
@@ -195,7 +203,7 @@ function onRenderChatMessage(message, html) {
           const actors = damageRecipients(message);
           if (!actors.length) return ui.notifications.warn(game.i18n.localize("PENTRA.Damage.NoTarget"));
           const half = button.dataset.half === "true";
-          const wounds = half ? Math.floor(damage.wounds / 2) : damage.wounds;
+          const wounds = half ? Math.ceil(damage.wounds / 2) : damage.wounds;
           for (const actor of actors) {
             if (!actor.isOwner) {
               ui.notifications.warn(game.i18n.format("PENTRA.Damage.NotOwner", { name: actor.name }));

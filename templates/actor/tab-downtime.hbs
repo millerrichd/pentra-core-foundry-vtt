@@ -36,13 +36,15 @@
   <section class="panel downtime-panel">
     <header class="downtime-header">
       <h3><i class="fa-solid fa-city"></i> {{localize "PENTRA.Downtime.City"}}</h3>
-      <span class="hint">{{localize "PENTRA.Downtime.CityHint"}}</span>
+      <span class="hint">{{#if lifestyleOptional}}{{localize "PENTRA.Downtime.CityHintOptional"}}{{else if useLifestyles}}{{localize "PENTRA.Downtime.CityHint"}}{{else}}{{localize "PENTRA.Downtime.CityHintNoLifestyle"}}{{/if}}</span>
     </header>
+    {{#if useLifestyles}}
     <div class="activity">
-      <select class="lifestyle-select">{{selectOptions lifestyles selected=(ifThen system.lifestyle system.lifestyle "middle")}}</select>
+      <select class="lifestyle-select" data-remember="lifestyle">{{selectOptions lifestyles selected=(ifThen system.lifestyle system.lifestyle "middle")}}</select>
       <button type="button" data-action="lifestyle"><i class="fa-solid fa-hotel"></i> {{localize "PENTRA.Lifestyle.Pay"}}</button>
       <span class="hint">{{localize "PENTRA.Downtime.CurrentLifestyle"}}: <strong>{{#if currentLifestyle}}{{currentLifestyle}}{{else}}{{localize "PENTRA.None"}}{{/if}}</strong></span>
     </div>
+    {{/if}}
     <div class="activity">
       <button type="button" data-action="rest" data-kind="city"><i class="fa-solid fa-bed"></i> {{localize "PENTRA.Rest.Day"}}</button>
       <span class="hint">{{localize "PENTRA.Downtime.DayRestHint"}}</span>
@@ -56,9 +58,15 @@
       <span class="hint">{{localize "PENTRA.Downtime.RefreshKitsHint"}}</span>
     </div>
     <div class="activity">
-      <select class="socialize-select">{{selectOptions socialSkills}}</select>
+      <select class="socialize-select" data-remember="socialize">{{selectOptions socialSkills}}</select>
       <button type="button" data-action="socialize"><i class="fa-solid fa-people-group"></i> {{localize "PENTRA.Downtime.Socialize"}}</button>
       <span class="hint">{{localize "PENTRA.Downtime.SocializeHint"}}</span>
+    </div>
+    <div class="activity">
+      <select class="gig-skill-select" data-remember="gigSkill">{{selectOptions gigSkills}}</select>
+      <select class="gig-difficulty-select" data-remember="gigDifficulty">{{selectOptions gigDifficulties}}</select>
+      <button type="button" data-action="workGig"><i class="fa-solid fa-briefcase"></i> {{localize "PENTRA.Downtime.Gig"}}</button>
+      <span class="hint">{{localize "PENTRA.Downtime.GigHint"}}</span>
     </div>
     <p class="hint">{{localize "PENTRA.Downtime.CityMore"}}</p>
   </section>

@@ -5,7 +5,7 @@
  *  - Attributes: 5 points on top of the ancestry's free boost; none may start above d8+4 (rank 2).
  *  - Resistances: raise one to d10+2 (1 point, rank cap 1).
  *  - Skills: 30 points, no more than 3 in a single skill. Languages are Knowledge skills and count,
- *    except one native language known for free at rank 4.
+ *    except one native language known for free at rank 4, and any language a setting grants for free.
  *  - Up to 2 hindrances; one talent per hindrance taken.
  */
 export const CREATION = {
@@ -55,9 +55,9 @@ export function creationBudget(system, { ancestryBoost = null, hindrances = 0, t
   const languages = system.languages ?? [];
   const native = nativeIndex(languages);
   const skillEntries = Object.entries(system.skills ?? {});
-  const langEntries = languages.map((l, i) => [`language:${i}`, l.value ?? 0, i === native]);
+  const langEntries = languages.map((l, i) => [`language:${i}`, l.value ?? 0, i === native, !!l.free]);
   const skillUsed = skillEntries.reduce((n, [, v]) => n + v, 0)
-    + langEntries.filter(([, , isNative]) => !isNative).reduce((n, [, v]) => n + v, 0);
+    + langEntries.filter(([, , isNative, free]) => !isNative && !free).reduce((n, [, v]) => n + v, 0);
   const skillOverCap = [
     ...skillEntries.filter(([, v]) => v > CREATION.maxSkill).map(([k]) => k),
     ...langEntries.filter(([, v, isNative]) => v > (isNative ? CREATION.nativeLanguageRank : CREATION.maxSkill)).map(([k]) => k)

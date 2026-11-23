@@ -51,7 +51,7 @@ test("The Face derives the rulebook's trait values", () => {
   assert.equal(face.edge.start, 4);
   assert.equal(face.resourceDie.start, 8);
   assert.equal(face.durabilityDie.value, 8);
-  assert.equal(face.evasion.value, 9);
+  assert.equal(face.evasion.value, 12);
   assert.equal(face.health.max, 12);
   assert.equal(face.talentCount, 2);
   assert.deepEqual(face.armor, { torso: 1, arms: 0, legs: 0, head: 0 });
@@ -70,12 +70,12 @@ test("armor: evasion penalties, heavy AR, broken armor, 3-piece stacking", () =>
   ]);
   assert.equal(c.armor.torso, 1 + 2, "heavy doubles; broken gives nothing");
   assert.equal(c.armor.arms, 1);
-  assert.equal(c.evasion.value, 9 - 1 - 1, "-1 from jacket, -1 for stacking three pieces");
+  assert.equal(c.evasion.value, 12 - 1 - 1, "-1 from jacket, -1 for stacking three pieces");
 });
 
 test("talent and hindrance numeric traits", () => {
   const c = character([trait("hindrance", "evasion", -2), trait("talent", "health", 2), trait("hindrance", "edge", -2)]);
-  assert.equal(c.evasion.value, 7);
+  assert.equal(c.evasion.value, 10);
   assert.equal(c.health.max, 14);
   assert.equal(c.edge.start, 0);
 });
@@ -85,11 +85,29 @@ test("carry slots count field kits by size", () => {
     item("fieldkit", { size: "normal", quantity: 1 }),
     item("fieldkit", { size: "large", quantity: 2 }),
     item("fieldkit", { size: "small", quantity: 2 }),
-    item("armor", { equipped: false, evasion: 0, ar: 1, coverage: {} }),
-    item("weapon", {})
+    item("weapon", { size: "large", slot: "primary" })
   ]);
   assert.equal(c.carry.used, 1 + 4 + 1);
   assert.equal(c.carry.over, false);
+});
+
+test("carry slots count unworn armor by size, not worn armor", () => {
+  const c = character([
+    item("fieldkit", { size: "normal", quantity: 1 }),
+    item("armor", { size: "large", equipped: false, evasion: 0, ar: 3, coverage: {} }),
+    item("armor", { size: "normal", equipped: true, evasion: 0, ar: 1, coverage: {} })
+  ]);
+  assert.equal(c.carry.used, 1 + 2);
+});
+
+test("carry slots count stowed weapons by size, not primary or backup ones", () => {
+  const c = character([
+    item("weapon", { size: "large", slot: "stowed" }),
+    item("weapon", { size: "small", slot: "stowed" }),
+    item("weapon", { size: "normal", slot: "primary" }),
+    item("weapon", { size: "normal", slot: "backup" })
+  ]);
+  assert.equal(c.carry.used, 2 + 0.5);
 });
 
 test("NPC evasion includes armor", () => {
@@ -155,4 +173,16 @@ test("character size comes from ancestry (default Medium)", () => {
 test("a disease that lowers a trait shifts it (Initiative Die d6 → d4)", () => {
   const sick = character([item("disease", { trait: "initiativeDie", traitDelta: -1 })]);
   assert.equal(sick.initiativeDie.value, 4);
+});
+
+test("restrained halves Evasion, rounded up", () => {
+  const m = Object.create(PentraNPCModel.prototype);
+  Object.assign(m, {
+    attributes: { charm: { rank: 0 }, finesse: { rank: 0 }, intellect: { rank: 0 }, knowledge: { rank: 0 }, might: { rank: 0 } },
+    resistances: { fortitude: { rank: 0 }, mind: { rank: 0 }, reflex: { rank: 0 } },
+    evasion: { base: 11 },
+    parent: { items: [], statuses: new Set(["restrained"]) }
+  });
+  m.prepareDerivedData();
+  assert.equal(m.evasion.value, 6);
 });

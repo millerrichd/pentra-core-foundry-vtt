@@ -8,7 +8,8 @@ import {
   attributeStep, countWounds, edgeFromDice, netAdvantage, stepDie, formatDie, martialArtsDamage,
   purchaseRange, saleValue, saleThreshold, formatCost, medicineHealing, reloadRange,
   RANGE_BANDS, bandForDistance, rangePenalty, allowedBands, sizeModifier, formatAttribute,
-  projectTarget, nextProjectProgress, projectRollAdvances, CHASE_BANDS, chaseReach, underwaterRange
+  projectTarget, nextProjectProgress, projectRollAdvances, CHASE_BANDS, chaseReach, underwaterRange, meleeReaches,
+  skillBonus, difficultyUnlocked, assistanceBonus, ADVANTAGE_TERM, DISADVANTAGE_TERM
 } from "./rules.js";
 
 const SYSTEM = "pentra-core-foundry-vtt";
@@ -20,8 +21,15 @@ const { FormDataExtended } = foundry.applications.ux;
 const loc = key => game.i18n.localize(key);
 const fmt = (key, data) => game.i18n.format(key, data);
 
+/** The Routine target number (core v0.7). Harder tiers are picked in the roll dialog. */
 export function defaultTN() {
-  return game.settings.get(SYSTEM, "targetNumber") ?? PENTRA.defaultTN;
+  return PENTRA.defaultTN;
+}
+
+/** Difficulty choices for the roll dialog: every tier, or only Routine and Stressed for a resistance. */
+function difficultyChoices(rank, resistance) {
+  const keys = resistance ? PENTRA.resistanceDifficulties : Object.keys(PENTRA.difficulties);
+  return Object.fromEntries(keys.map(k => [k, `${loc(PENTRA.difficulties[k].label)} (${PENTRA.difficulties[k].tn})`]));
 }
 
 /**
@@ -142,7 +150,12 @@ function reachProblem(actor, { weapon, unarmed, target, fromToken = null }) {
   if (!myToken || !target || myToken === target) return null;
   const ranged = !unarmed && weapon && weapon.system.category !== "melee";
   if (!ranged) {
-    return adjacent(myToken, target) ? null : fmt("PENTRA.Roll.NotAdjacent", {
+    if (adjacent(myToken, target)) return null;
+    // A melee weapon with reach (range set past Melee) strikes out to its band.
+    const reach = !unarmed && weapon ? weapon.system.range : "melee";
+    const band = reach !== "melee" ? measuredBand(myToken, target) : null;
+    if (band && meleeReaches(band, reach)) return null;
+    return fmt("PENTRA.Roll.NotAdjacent", {
       weapon: unarmed || !weapon ? loc("PENTRA.Unarmed") : weapon.name, target: target.name
     });
   }
@@ -250,11 +263,15 @@ function describeCheck(actor, spec) {
 /**
  * Show the roll dialog. Returns null if cancelled.
  */
-async function promptCheck(actor, { label, tn, isAttack, canSpendEdge, penalty, weapon, preferred, modifier = 0, note, band, size, crowd }) {
+async function promptCheck(actor, { label, tn, isAttack, canSpendEdge, penalty, weapon, preferred, modifier = 0, note, band, size, crowd,
+  useDifficulty = false, difficulty = "routine", skillRank = 0, isResistance = false }) {
   preferred ??= weapon?.system.range;
   const signed = n => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : "±0");
   const content = await renderTemplate(`${TEMPLATES}/dialog/roll-dialog.hbs`, {
     tn, isAttack, canSpendEdge, penalty, modifier, note,
+    useDifficulty, difficulty, isResistance,
+    difficulties: useDifficulty ? difficultyChoices(skillRank, isResistance) : null,
+    maxAssistance: PENTRA.maxAssistance,
     band: band ?? preferred ?? "melee",
     bands: Object.fromEntries((weapon ? allowedBands(preferred) : RANGE_BANDS).map(b => [b, PENTRA.rangeBands[b]])),
     preferredLabel: weapon ? loc(PENTRA.rangeBands[preferred] ?? "") : "",
@@ -315,6 +332,8 @@ export async function rollCheck(actor, spec) {
   const target = spec.targetToken ?? (isAttack ? chaseTargetFor(shooterVehicle) ?? singleTarget() : null);
   const targetEvasion = target?.actor?.system.evasion?.value;
   let tn = spec.tn ?? (Number.isNumeric(targetEvasion) ? targetEvasion : defaultTN());
+  // Non-combat checks without a set target number pick a difficulty tier (Routine 9 … Near Impossible 21).
+  const useDifficulty = !isAttack && spec.tn == null && !spec.collision;
 
   // Always-on modifiers: those passed in, plus -1 for firing a ranged weapon from a vehicle.
   const extra = [...(spec.extraModifiers ?? [])];
@@ -364,7 +383,7 @@ export async function rollCheck(actor, spec) {
   }
 
   let opts = {
-    tn, modifier: 0, advantage: 0, spendEdge: false, location: "torso", cover: 0, light: 0, aim: false, push: false,
+    tn, difficulty: "routine", assist: 0, modifier: 0, advantage: 0, spendEdge: false, location: "torso", cover: 0, light: 0, aim: false, push: false,
     band: autoBand, size: autoSize, allies: crowd?.allies ?? 0, foes: crowd?.foes ?? 0, surprise: false, smoke: false, drunk: false,
     ...(spec.options ?? {})
   };
@@ -373,7 +392,8 @@ export async function rollCheck(actor, spec) {
       label: desc.label, tn, isAttack, penalty,
       modifier: opts.modifier, note: spec.note,
       canSpendEdge: isCharacter && actor.system.edge.value >= 2,
-      weapon: spec.weapon, preferred, band: autoBand, size: autoSize, crowd
+      weapon: spec.weapon, preferred, band: autoBand, size: autoSize, crowd,
+      useDifficulty, difficulty: opts.difficulty, skillRank: desc.skillValue, isResistance: desc.isResistance
     });
     if (!result) return null;
     opts = { ...opts, ...result };
@@ -385,6 +405,9 @@ export async function rollCheck(actor, spec) {
   if (modifier) parts.push(`${loc("PENTRA.Roll.Modifier")} ${modifier > 0 ? "+" : ""}${modifier}`);
   if (penalty.total) { modifier += penalty.total; parts.push(...penalty.notes); }
   if (opts.push) { modifier -= 2; parts.push(`${loc("PENTRA.Roll.Push")} -2`); }
+  // Assistance from allies who spent Edge: their skill ranks, to a combined +6. Only advantage adds to a resistance.
+  const assist = desc.isResistance ? 0 : assistanceBonus(opts.assist);
+  if (assist) { modifier += assist; parts.push(`${loc("PENTRA.Roll.Assistance")} +${assist}`); }
   for (const m of extra) {
     if (!m.value) continue;
     modifier += m.value;
@@ -431,14 +454,32 @@ export async function rollCheck(actor, spec) {
   const spendEdge = isCharacter && opts.spendEdge && actor.system.edge.value >= 2;
   const adv = netAdvantage((choice > 0 ? 1 : 0) + (spendEdge ? 1 : 0) + ctx.advantages, (choice < 0 ? 1 : 0) + ctx.disadvantages);
 
+  // Target number: the chosen difficulty tier (a resistance only allows Routine or Stressed); otherwise the number given.
+  let difficultyLabel = null;
+  if (useDifficulty) {
+    const key = PENTRA.difficulties[opts.difficulty] ? opts.difficulty : "routine";
+    const d = PENTRA.difficulties[key];
+    if (!difficultyUnlocked(key, desc.skillValue, { resistance: desc.isResistance })) {
+      ui.notifications.warn(desc.isResistance
+        ? fmt("PENTRA.Difficulty.ResistanceOnly", { name: loc(d.label) })
+        : fmt("PENTRA.Difficulty.Locked", { name: loc(d.label), tn: d.tn, label: desc.label }));
+      return null;
+    }
+    tn = d.tn;
+    difficultyLabel = loc(d.label);
+  } else {
+    tn = Number(opts.tn) || tn;
+  }
+
+  // Skill adds its rank. Advantage adds a d6; disadvantage subtracts a d6.
+  const bonus = skillBonus(desc.skillValue);
   let formula = `1d${desc.die} + ${desc.bonus}`;
-  if (desc.skillValue) formula += ` + ${desc.skillValue}`;
+  if (bonus) formula += ` + ${bonus}`;
   if (modifier) formula += ` ${modifier > 0 ? "+" : "-"} ${Math.abs(modifier)}`;
-  if (adv > 0) formula += " + 1d6";
-  else if (adv < 0) formula += " - 1d6";
+  if (adv > 0) formula += ` + ${ADVANTAGE_TERM}`;
+  else if (adv < 0) formula += ` - ${DISADVANTAGE_TERM}`;
 
   const roll = await new Roll(formula).evaluate();
-  tn = Number(opts.tn) || tn;
   const success = roll.total >= tn;
 
   // Edge: gained when any die shows its min or max face.
@@ -485,9 +526,9 @@ export async function rollCheck(actor, spec) {
   const attrLabel = loc(desc.isResistance ? PENTRA.resistances[desc.attrKey] : PENTRA.attributes[desc.attrKey]);
   const content = await renderTemplate(`${TEMPLATES}/chat/check.hbs`, {
     label: desc.label,
-    subtitle: desc.skillKey || spec.type === "language" ? `${attrLabel} d${desc.die}+${desc.bonus} · ${loc("PENTRA.Skill.label")} ${desc.skillValue}` : `d${desc.die}+${desc.bonus}`,
+    subtitle: desc.skillKey || spec.type === "language" ? `${attrLabel} d${desc.die}+${desc.bonus} · ${loc("PENTRA.Skill.label")} ${desc.skillValue} (+${bonus})` : `d${desc.die}+${desc.bonus}`,
     rollHTML: await roll.render(),
-    tn, success, isAttack: isAttack || !!spec.collision,
+    tn, difficultyLabel, success, isAttack: isAttack || !!spec.collision,
     targetName: target?.name,
     advantage: adv > 0 ? loc("PENTRA.Roll.Advantage") : adv < 0 ? loc("PENTRA.Roll.Disadvantage") : null,
     spentEdge: spendEdge,
@@ -656,13 +697,13 @@ async function damageVehicle(vehicle, { wounds, ar, taken, health, direct = fals
 }
 
 /**
- * A collision: both vehicles take the wounds, and everyone aboard either one takes half (rounded down).
+ * A collision: both vehicles take the wounds, and everyone aboard either one takes half (rounded up).
  * Applies to whatever the current user owns; anything else is listed so the GM can apply it.
  */
 export async function applyCollision(damage, targetActor) {
   const rammer = fromUuidSync(damage.vehicleUuid);
   const vehicles = [rammer, targetActor].filter(a => a?.type === "vehicle");
-  const half = Math.floor(damage.wounds / 2);
+  const half = Math.ceil(damage.wounds / 2);
   const crew = new Set(vehicles.flatMap(v => v.system.aboard));
   const skipped = [];
   for (const v of vehicles) {
@@ -875,17 +916,37 @@ async function raiseResourceDie(actor, { value, title, valueLabel }) {
 /*  Misc character actions                                                    */
 /* -------------------------------------------------------------------------- */
 
-/** Spend 1 Edge to support an ally: roll a d6 to add to their check. */
+/**
+ * Spend 1 Edge to assist an ally: pick the skill you help with, and its rank is added to their check. Several
+ * helpers can assist, to a combined maximum of +6 (entered in the roll dialog).
+ */
 export async function supportAlly(actor) {
   if (actor.system.edge.value < 1) return ui.notifications.warn(loc("PENTRA.Edge.NotEnough"));
-  await actor.update({ "system.edge.value": actor.system.edge.value - 1 }, { pentraMechanic: true });
-  const roll = await new Roll("1d6").evaluate();
-  const content = await renderTemplate(`${TEMPLATES}/chat/simple.hbs`, {
-    title: loc("PENTRA.Edge.Support"),
-    subtitle: loc("PENTRA.Edge.SupportHint"),
-    rollHTML: await roll.render()
+  const skills = Object.entries(PENTRA.skills)
+    .map(([key, s]) => ({ key, label: loc(s.label), rank: actor.system.skills[key] ?? 0 }))
+    .filter(s => s.rank > 0)
+    .sort((a, b) => b.rank - a.rank || a.label.localeCompare(b.label));
+  if (!skills.length) return ui.notifications.warn(loc("PENTRA.Edge.NoSkillToAssist"));
+  const options = skills.map(s => `<option value="${s.key}">${s.label} (${s.rank})</option>`).join("");
+  const key = await DialogV2.wait({
+    window: { title: loc("PENTRA.Edge.Support"), icon: "fa-solid fa-handshake-angle" },
+    content: `<p class="hint">${loc("PENTRA.Edge.SupportHint")}</p>
+      <div class="form-group"><label>${loc("PENTRA.Edge.AssistSkill")}</label><select name="skill">${options}</select></div>`,
+    rejectClose: false,
+    buttons: [{
+      action: "assist", label: "PENTRA.Edge.Assist", icon: "fa-solid fa-handshake-angle", default: true,
+      callback: (event, button) => button.form.elements.skill.value
+    }]
   });
-  return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }), content });
+  const skill = skills.find(s => s.key === key);
+  if (!skill) return null;
+  if (actor.system.edge.value < 1) return ui.notifications.warn(loc("PENTRA.Edge.NotEnough"));
+  await actor.update({ "system.edge.value": actor.system.edge.value - 1 }, { pentraMechanic: true });
+  const content = await renderTemplate(`${TEMPLATES}/chat/simple.hbs`, {
+    title: fmt("PENTRA.Edge.AssistTitle", { bonus: skillBonus(skill.rank) }),
+    subtitle: fmt("PENTRA.Edge.AssistSubtitle", { skill: skill.label, rank: skill.rank, max: PENTRA.maxAssistance })
+  });
+  return ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }), content });
 }
 
 /**
@@ -1033,12 +1094,12 @@ export async function stabilize(healer) {
   });
 }
 
-/** Blaze of Glory: an automatic 12 + skill attack dealing double wounds. */
+/** Blaze of Glory: an automatic 12 + skill bonus attack dealing double wounds. */
 export async function blazeOfGlory(actor, weapon) {
   if (actor.statuses.has("dead")) return ui.notifications.warn(fmt("PENTRA.Death.AlreadyDead", { name: actor.name }));
   const skillKey = weapon ? weapon.system.skill : "martial_arts";
   const skill = actor.system.skills[skillKey] ?? 0;
-  const total = 12 + skill;
+  const total = 12 + skillBonus(skill);
   const target = singleTarget();
   const problem = reachProblem(actor, { weapon, unarmed: !weapon, target });
   if (problem) return ui.notifications.warn(problem);
@@ -1050,7 +1111,7 @@ export async function blazeOfGlory(actor, weapon) {
   const damage = { wounds, location: "torso", locationLabel: loc(PENTRA.hitLocations.torso.label), profile: loc("PENTRA.Death.BlazeProfile") };
   const content = await renderTemplate(`${TEMPLATES}/chat/check.hbs`, {
     label: `${loc("PENTRA.Death.Blaze")}: ${weapon?.name ?? loc("PENTRA.Unarmed")}`,
-    subtitle: `12 + ${skill}`, total, tn, success: true, isAttack: true, targetName: target?.name, damage
+    subtitle: `12 + ${skillBonus(skill)}`, total, tn, success: true, isAttack: true, targetName: target?.name, damage
   });
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }), content,
@@ -1193,7 +1254,10 @@ export async function restockAmmo(actor, kit) {
 /** City downtime: a day at a clinic restores the Death Die one size, up to its maximum. */
 export async function visitClinic(actor) {
   const { value, max } = actor.system.deathDie;
-  if (value >= max) return ui.notifications.info(fmt("PENTRA.Downtime.ClinicFull", { name: actor.name, die: formatDie(max) }));
+  if (value >= max) {
+    ui.notifications.info(fmt("PENTRA.Downtime.ClinicFull", { name: actor.name, die: formatDie(max) }));
+    return null;
+  }
   const next = Math.min(stepDie(value, 1), max);
   await actor.update({ "system.deathDie.value": next }, { pentraMechanic: true });
   return announce(actor, loc("PENTRA.Downtime.Clinic"), [fmt("PENTRA.Downtime.ClinicResult", { from: formatDie(value), to: formatDie(next) })]);
@@ -1214,6 +1278,7 @@ export async function rest(actor, kind) {
   for (const disease of actor.items.filter(i => i.type === "disease")) await diseaseCheck(actor, disease, "sleep");
   // Extension point: modules can recover their own pools on a night's sleep.
   Hooks.callAll("pentraRest", actor, kind);
+  return true;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1232,10 +1297,11 @@ export function shiftTraitPool(actor, trait, delta) {
       return actor.update({ "system.health.value": Math.max(sys.health.value + delta, 0) }, { pentraMechanic: true });
     case "edge":
       return actor.update({ "system.edge.value": Math.clamp(sys.edge.value + delta, 0, PENTRA.maxEdge) }, { pentraMechanic: true });
-    case "deathDie":
-    case "resourceDie":
-    case "drainDie": {
+    default: {
+      // Any die trait the character stores a current value for: the Death, Resource and Drain Dice, and those a
+      // setting module adds (e.g. a Survival Die).
       const path = `system.${trait}.value`;
+      if (PENTRA.traits[trait]?.type !== "die" || !Number.isNumeric(foundry.utils.getProperty(actor, path))) return;
       return actor.update({ [path]: stepDie(foundry.utils.getProperty(actor, path), delta) }, { pentraMechanic: true });
     }
   }
@@ -1293,6 +1359,28 @@ export async function payLifestyle(actor, key) {
   return true;
 }
 
+/**
+ * City downtime: each activity takes the day, so the day's lifestyle must be paid first, and doing the activity
+ * (pass or fail) uses it up. If the activity doesn't happen (a dialog is closed, nothing to do) the lifestyle stays.
+ * Setting modules wrap their own city activities in this too.
+ * @param {Actor} actor
+ * @param {() => Promise<any>} activity  Resolves to something truthy if the day was spent, or null/false/undefined
+ */
+export async function cityActivity(actor, activity) {
+  // Settings without lifestyles (Z-World) just do the activity.
+  if (!PENTRA.useLifestyles) return activity();
+  // The GM can turn the requirement off (world setting): a paid lifestyle still applies its bonuses and is used up.
+  const required = !game.settings.get(SYSTEM, "lifestyleOptional");
+  if (required && !actor.system.lifestyle) {
+    ui.notifications.warn(fmt("PENTRA.Downtime.NeedLifestyle", { name: actor.name }));
+    return null;
+  }
+  const result = await activity();
+  if (!result) return result ?? null;
+  if (actor.system.lifestyle) await actor.update({ "system.lifestyle": "" });
+  return result;
+}
+
 /** City downtime: Socialize with a social skill; Luxury lifestyles add +1/+2. */
 export async function socialize(actor, skill) {
   const bonus = { luxury: 1, extremeLuxury: 2 }[actor.system.lifestyle] ?? 0;
@@ -1301,6 +1389,26 @@ export async function socialize(actor, skill) {
     options: { modifier: bonus },
     note: loc("PENTRA.Downtime.SocializeNote")
   });
+}
+
+/**
+ * City downtime: Work a Gig. A skill check against a chosen difficulty; on a success the pay is a Resource Die
+ * reward set by that difficulty (Routine d4 … Near Impossible d10x2).
+ */
+export async function workGig(actor, skill, difficulty) {
+  const tier = PENTRA.difficulties[difficulty];
+  const pay = PENTRA.gigRewards[difficulty];
+  if (!tier || !pay || !PENTRA.skills[skill]) return null;
+  const msg = await rollCheck(actor, {
+    type: "skill", key: skill, tn: tier.tn,
+    label: fmt("PENTRA.Downtime.GigLabel", { skill: loc(PENTRA.skills[skill].label), difficulty: loc(tier.label) }),
+    note: fmt("PENTRA.Downtime.GigNote", { reward: formatCost(pay.die, pay.multiplier) })
+  });
+  if (!msg) return null;
+  if (msg.getFlag(SYSTEM, "success")) {
+    await reward(actor, { ...pay, title: loc("PENTRA.Downtime.GigPaid") });
+  }
+  return msg;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1316,17 +1424,23 @@ export async function socialize(actor, skill) {
 export async function workOnProject(actor, projectId) {
   const projects = foundry.utils.deepClone(actor.system._source.projects);
   const project = projects.find(p => p.id === projectId);
-  if (!project) return;
+  if (!project) return null;
   const name = project.name || loc("PENTRA.Project.Unnamed");
   const target = projectTarget(project.value);
-  if (!target) return ui.notifications.warn(fmt("PENTRA.Project.NeedValue", { name }));
-  if (project.phase === "done") return ui.notifications.info(fmt("PENTRA.Project.AlreadyDone", { name }));
+  if (!target) {
+    ui.notifications.warn(fmt("PENTRA.Project.NeedValue", { name }));
+    return null;
+  }
+  if (project.phase === "done") {
+    ui.notifications.info(fmt("PENTRA.Project.AlreadyDone", { name }));
+    return null;
+  }
   if (project.phase === "research" && project.blueprint) project.phase = "crafting";
 
   const skill = project.phase === "research" ? "research" : "crafting";
   const phaseLabel = loc(`PENTRA.Project.Phase.${project.phase}`);
   const msg = await rollCheck(actor, { type: "skill", key: skill, label: `${name}: ${phaseLabel}` });
-  if (!msg) return;
+  if (!msg) return null;
 
   project.days += 1;
   const lines = [];

@@ -32,6 +32,7 @@
         <span class="controls">
           <a data-action="itemUsage" data-tooltip="{{#if isReloading}}{{localize 'PENTRA.Kit.Restock'}}{{else}}{{localize 'PENTRA.Kit.Use'}}{{/if}}"><i class="fa-solid fa-dice"></i></a>
           <a data-action="itemSell" data-tooltip="{{localize 'PENTRA.Sell.Title'}}"><i class="fa-solid fa-coins"></i></a>
+          <a data-action="itemGive" data-tooltip="{{localize 'PENTRA.Transfer.GiveTo'}}"><i class="fa-solid fa-hand-holding"></i></a>
           {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
         </span>
       </li>
@@ -58,6 +59,7 @@
         <span class="controls">
           <a data-action="itemToggle" class="{{#if system.equipped}}active{{/if}}" data-tooltip="{{localize 'PENTRA.Worn'}}"><i class="fa-solid fa-shirt"></i></a>
           <a data-action="itemSell" data-tooltip="{{localize 'PENTRA.Sell.Title'}}"><i class="fa-solid fa-coins"></i></a>
+          <a data-action="itemGive" data-tooltip="{{localize 'PENTRA.Transfer.GiveTo'}}"><i class="fa-solid fa-hand-holding"></i></a>
           {{#if @root.editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Delete'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
         </span>
       </li>
@@ -85,6 +87,7 @@
         <span class="col"><select class="slot-select slot-{{system.slot}}" data-item-field="system.slot" data-tooltip="{{localize 'PENTRA.Weapon.SlotHint'}}">{{selectOptions @root.weaponSlots selected=system.slot localize=true}}</select></span>
         <span class="controls">
           <a data-action="itemSell" data-tooltip="{{localize 'PENTRA.Sell.Title'}}"><i class="fa-solid fa-coins"></i></a>
+          <a data-action="itemGive" data-tooltip="{{localize 'PENTRA.Transfer.GiveTo'}}"><i class="fa-solid fa-hand-holding"></i></a>
           {{#if @root.editable}}<a data-action="itemDelete" data-tooltip="{{localize 'PENTRA.Delete'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
         </span>
       </li>

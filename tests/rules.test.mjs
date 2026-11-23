@@ -272,3 +272,43 @@ test("underwater: ranges drop a band, torpedoes keep theirs, fire weapons fail",
   assert.deepEqual(R.moveLimits(false, true), { walk: 3, run: 6 }, "swim Very Close / Close");
   assert.deepEqual(R.moveLimits(false), { walk: 6, run: 12 });
 });
+
+import { meleeReaches } from "../modules/rules.js";
+
+test("melee weapons reach Melee; a reach weapon reaches its band too", () => {
+  assert.ok(meleeReaches("melee", "melee"));
+  assert.ok(!meleeReaches("veryClose", "melee"));
+  assert.ok(meleeReaches("veryClose", "veryClose"));
+  assert.ok(meleeReaches("melee", "veryClose"));
+  assert.ok(!meleeReaches("close", "veryClose"));
+  assert.ok(!meleeReaches("outOfRange", undefined));
+});
+
+import { skillBonus, difficultyUnlocked, difficultyForTN, assistanceBonus } from "../modules/rules.js";
+
+test("skill bonus is the full skill rank (core v0.7)", () => {
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6].map(skillBonus), [0, 1, 2, 3, 4, 5, 6]);
+});
+
+test("target numbers run 9 to 30 in steps of 3, open to any rank; resistances stay Routine or Stressed", async () => {
+  const { PENTRA } = await import("../modules/config.js");
+  assert.deepEqual(Object.values(PENTRA.difficulties).map(d => d.tn), [9, 12, 15, 18, 21, 24, 27, 30]);
+  for (const key of Object.keys(PENTRA.difficulties)) assert.ok(difficultyUnlocked(key, 0), key);
+  assert.ok(difficultyUnlocked("stressed", 0, { resistance: true }));
+  assert.ok(!difficultyUnlocked("challenging", 6, { resistance: true }));
+  assert.equal(difficultyForTN(27), "extraordinary");
+  assert.equal(difficultyForTN(30), "nearImpossible");
+});
+
+test("assistance is capped at +6", () => {
+  assert.deepEqual([0, 1, 3, 6, 9, -1].map(assistanceBonus), [0, 1, 3, 6, 6, 0]);
+});
+
+test("selling or a reward raises the Resource Die on its top faces, times the multiplier", () => {
+  const t = (saleDie, saleMultiplier, resourceDie) => R.saleThreshold({ saleDie, saleMultiplier, resourceDie });
+  assert.equal(t(4, 1, 6), 6);   // worth less: the maximum
+  assert.equal(t(4, 2, 6), 5);   // worth less, x2: top two
+  assert.equal(t(8, 1, 6), 5);   // worth the same or more: top two
+  assert.equal(t(10, 2, 8), 5);  // worth more, x2: top four
+  assert.equal(t(6, 6, 6), 1);   // more faces than the die has: any roll
+});

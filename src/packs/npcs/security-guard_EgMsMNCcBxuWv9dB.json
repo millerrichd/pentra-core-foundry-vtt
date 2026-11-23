@@ -46,7 +46,7 @@
       "max": 6
     },
     "evasion": {
-      "base": 7
+      "base": 9
     },
     "initiativeDie": {
       "value": 6

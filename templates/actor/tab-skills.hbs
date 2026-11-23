@@ -74,7 +74,7 @@
           <a class="rollable skill-name" data-action="roll" data-type="skill" data-key="{{skill.key}}">{{skill.label}}</a>
           <span class="skill-stepper">
             {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="-1" {{#unless skill.canLower}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Lower'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}
-            <span class="skill-value">{{skill.value}}</span>
+            <span class="skill-value" data-tooltip="{{skill.tip}}">{{skill.value}}</span>
             {{#if skill.canStep}}<button type="button" class="step-btn" data-action="stepSkill" data-key="{{skill.key}}" data-delta="1" {{#unless skill.canRaise}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Raise'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
           </span>
           {{#if @root.editMode}}{{#unless @root.creation.active}}{{#if skill.karmaCost}}
@@ -92,7 +92,9 @@
           <a class="rollable" data-action="roll" data-type="language" data-key="{{lang.index}}"><i class="fa-solid fa-language"></i></a>
           <input type="text" class="lang-name" name="system.languages.{{lang.index}}.name" value="{{lang.name}}" placeholder="{{localize 'PENTRA.LanguageName'}}">
           {{#if lang.isNative}}<span class="native-tag" data-tooltip="{{localize 'PENTRA.Creation.NativeHint'}}">{{localize "PENTRA.Native"}}</span>{{/if}}
+          {{#if lang.free}}<span class="native-tag" data-tooltip="{{localize 'PENTRA.Creation.FreeHint'}}">{{localize "PENTRA.FreeLanguage"}}</span>{{/if}}
           <input type="hidden" name="system.languages.{{lang.index}}.native" value="{{lang.native}}" data-dtype="Boolean">
+          <input type="hidden" name="system.languages.{{lang.index}}.free" value="{{lang.free}}" data-dtype="Boolean">
           <input type="hidden" name="system.languages.{{lang.index}}.value" value="{{lang.value}}">
           <span class="skill-stepper">
             {{#if lang.canStep}}<button type="button" class="step-btn" data-action="stepLanguage" data-index="{{lang.index}}" data-delta="-1" {{#unless lang.canLower}}disabled{{/unless}} aria-label="{{localize 'PENTRA.Lower'}}"><i class="fa-solid fa-minus"></i></button>{{/if}}

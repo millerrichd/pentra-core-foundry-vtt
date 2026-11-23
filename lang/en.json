@@ -81,6 +81,7 @@
       "reflex": "Reflex"
     },
     "Skill": {
+      "BonusTip": "+{bonus} to checks",
       "label": "Skill",
       "animal_handling": "Animal Handling",
       "deception": "Deception",
@@ -236,11 +237,27 @@
       "trauma": "Trauma",
       "other": "Other"
     },
+    "Difficulty": {
+      "routine": "Routine",
+      "stressed": "Stressed",
+      "challenging": "Challenging",
+      "advanced": "Advanced",
+      "hardcore": "Hardcore",
+      "exceptional": "Exceptional",
+      "extraordinary": "Extraordinary",
+      "nearImpossible": "Near Impossible",
+      "Hint": "Target numbers run from Routine (9) to Near Impossible (30) in steps of 3. Anyone can attempt any of them.",
+      "ResistanceHint": "Resistances are only ever Routine (9) or Stressed (12), and only advantage can be added to them.",
+      "Locked": "{label}: {name} (TN {tn}) isn't available for this check.",
+      "ResistanceOnly": "Resistance checks can only be Routine or Stressed, not {name}."
+    },
     "Roll": {
       "Roll": "Roll",
       "Hint": "Click to roll (Shift-click to skip the dialog)",
       "DialogTitle": "Roll: {label}",
-      "DialogHint": "Advantage and disadvantage never stack and cancel one-for-one. Spending 2 Edge counts as one source of advantage.",
+      "DialogHint": "Advantage adds a d6; disadvantage subtracts a d6. They never stack and cancel one-for-one. Spending 2 Edge counts as one source of advantage.",
+      "Difficulty": "Difficulty",
+      "Assistance": "Assistance",
       "TargetNumber": "Target Number",
       "TargetEvasion": "Target's Evasion",
       "Modifier": "Modifier",
@@ -311,7 +328,12 @@
       "Start": "Start",
       "SessionReset": "{name}'s Edge reset to {edge}.",
       "Support": "Support an ally",
-      "SupportHint": "Spend 1 Edge: roll a d6 and add it to an ally's check. Declare before they roll; the same narrative support doesn't work twice.",
+      "SupportHint": "Spend 1 Edge to assist an ally: add your skill rank to their check; all helpers together add at most +6. Declare before they roll; the same narrative support doesn't work twice.",
+      "AssistSkill": "Skill you help with",
+      "Assist": "Assist (1 Edge)",
+      "AssistTitle": "Assistance +{bonus}",
+      "AssistSubtitle": "{skill} ({rank}). Add it in the ally's roll dialog under Assistance (combined maximum +{max}).",
+      "NoSkillToAssist": "You need at least 1 rank in a skill to assist.",
       "NotEnough": "Not enough Edge.",
       "GMOnlyReset": "Only the GM can reset Edge (right-click a player in the Players list)."
     },
@@ -325,7 +347,14 @@
       "Spent": "{name} spent {cost} Karma: {description}",
       "NotEnough": "That costs {cost} Karma; you have {karma}.",
       "AtMax": "Already at maximum.",
-      "LearnNote": "requires a successful Research check or a teacher with 3+",
+      "LearnTitle": "Learn {skill}",
+      "LearnPrompt": "Learning {skill} costs <strong>{cost}</strong> Karma (you have {karma}). How are you learning it?<br><strong>Teacher</strong>: someone with the skill at 3+ teaches you; the Karma buys the rank.<br><strong>Research</strong>: a Research check; the Karma is spent even if the check fails.",
+      "LearnTeacher": "Teacher (3+)",
+      "LearnResearch": "Research check",
+      "LearnTaught": "taught",
+      "LearnCheck": "Research: learning {skill}",
+      "Learned": "{name} spent {cost} Karma and learned {skill} (rank 1) through research.",
+      "LearnFailed": "{name} spent {cost} Karma researching {skill} but failed to learn it.",
       "BuyOff": "buying off {name}",
       "BuyOffHint": "Buy off for 25 Karma",
       "NextTalent": "Next talent costs",
@@ -410,7 +439,7 @@
         "backup": "Backup",
         "stowed": "Stowed"
       },
-      "SlotHint": "Primary: up to 2 hands' worth (two one-handed or one two-handed). Backup: one weapon. Stowed: owned but not carried.",
+      "SlotHint": "Primary: up to 2 hands' worth (two one-handed or one two-handed). Backup: one weapon. Stowed: packed in your gear, using gear slots by size.",
       "CarryRule": "Carry 2 one-handed weapons or 1 two-handed weapon, plus one backup weapon.",
       "CarrySummary": "hands {hands}/2 · backup {backups}/1",
       "HandsFull": "Can't carry {name} as a primary weapon: {used} of 2 hands are already in use and it needs {hands}. Stow or move a weapon first.",
@@ -506,9 +535,20 @@
       "BaseModel": "Base model (GM)",
       "BaseModelHint": "The vehicle before modifications. Players can't change these."
     },
+    "Transfer": {
+      "GiveTo": "Give to…",
+      "GiveTitle": "Give {item}",
+      "To": "Give to",
+      "Give": "Give",
+      "Hint": "The item moves as it is (durability, usage, enchantments): nobody buys it and no copy is made. You can also drag gear from one character's sheet to another's.",
+      "Moved": "{item} goes from {from} to {to}.",
+      "NotYours": "You don't own either side of this hand-over, so {item} stays where it is.",
+      "NeedGM": "A GM must be connected to hand gear to a character you don't own.",
+      "NoOne": "There's no one to give this to."
+    },
     "Carry": {
       "Slots": "Gear slots",
-      "Hint": "Field kits: 6 normal-sized items. 2 small = 1 normal, 1 large = 2 normal."
+      "Hint": "Field kits, unworn armor and stowed weapons: 6 normal-sized items. 2 small = 1 normal, 1 large = 2 normal."
     },
     "Combat": {
       "AttackHint": "Attacks roll against the targeted token's Evasion. Each round re-rolls initiative: every 6 points is one action.",
@@ -542,13 +582,13 @@
       "Actions": "{n} act."
     },
     "Settings": {
-      "TargetNumber": {
-        "Name": "Default Target Number",
-        "Hint": "The standard target number for non-combat checks (rulebook default 9)."
-      },
       "Reroll": {
         "Name": "Re-roll initiative each round",
         "Hint": "Everyone re-rolls their (shifting) initiative die at the start of each new round, per the core rules."
+      },
+      "LifestyleOptional": {
+        "Name": "Disable the requirement for Lifestyle on City Downtime activities",
+        "Hint": "City Downtime activities no longer need a lifestyle paid for that day first. A lifestyle can still be paid for its bonuses (Luxury Socialize, Extreme Luxury rest)."
       },
       "Drain": {
         "Name": "Show Drain Die",
@@ -560,6 +600,7 @@
       }
     },
     "Native": "native",
+    "FreeLanguage": "granted",
     "Creation": {
       "Title": "Character Creation",
       "Finish": "Finish Creation",
@@ -568,6 +609,7 @@
       "ResistanceHint": "Raise one resistance to d10+2.",
       "SkillHint": "30 points, no more than 3 in a single skill. Extra languages count; your native language is free at 4.",
       "NativeHint": "Your native language is known for free at rank 4.",
+      "FreeHint": "Granted by the setting: it costs no creation points.",
       "GMHint": "You're the GM: limits are shown but not enforced for you.",
       "LockedHint": "Creation finished — raise stats with Karma (Advance).",
       "Reopen": "Reopen creation",
@@ -661,8 +703,11 @@
       "CampHint": "About 6 hours of sleep in the wilderness. You can also do any short downtime activity.",
       "CampRestHint": "Recover 1 wound naturally.",
       "City": "City Downtime (a day each)",
-      "CityHint": "Safe in town. Pay for a lifestyle each day, then pick an activity.",
+      "CityHint": "Safe in town. Each day: pay for a lifestyle, then pick one activity (it uses the lifestyle up, pass or fail).",
+      "CityHintOptional": "Safe in town. Each day, pick one activity. A lifestyle is optional: pay for one to get its bonuses (it's used up by the next activity).",
+      "CityHintNoLifestyle": "Holed up somewhere safe. Each day, pick one activity.",
       "CurrentLifestyle": "Current lifestyle",
+      "NeedLifestyle": "{name} needs to pay for today's lifestyle before a city activity.",
       "DayRestHint": "Sleep all day: recover 2 wounds (+1 with Extreme Luxury).",
       "Clinic": "Visit a clinic",
       "ClinicHint": "Restore your Death Die one size toward its maximum.",
@@ -673,6 +718,11 @@
       "Socialize": "Socialize",
       "SocializeHint": "Social skill check to find leads (Luxury +1, Extreme Luxury +2, applied automatically).",
       "SocializeNote": "Socialize: on a success you meet someone who can help you find work.",
+      "Gig": "Work a Gig",
+      "GigHint": "Work a skill for a paycheck: a check against the difficulty you choose; on a success, a Resource Die reward set by that difficulty.",
+      "GigLabel": "Work a Gig: {skill} ({difficulty})",
+      "GigNote": "Work a Gig: on a success you are paid a {reward} reward.",
+      "GigPaid": "Gig pay",
       "CityMore": "Also during city downtime: buy and sell on the Gear tab, and train with Karma (Advance on the Skills tab).",
       "LuxuryRest": "Extreme Luxury: +1 wound.",
       "NeedReloadingKit": "Restocking ammunition needs a Reloading Kit with uses left.",
@@ -687,7 +737,7 @@
       "Hint": "Roll a reward (loot, payment) against your Resource Die, the same way selling works.",
       "Title": "Reward",
       "Value": "Reward value",
-      "Prompt": "How much is the reward worth? It's rolled against your Resource Die ({die}): worth more and it rises on the top two faces (and can keep rising); worth less and it rises only on the top face per multiplier.",
+      "Prompt": "How much is the reward worth? It's rolled against your Resource Die ({die}): worth the same or more and it rises on the top two faces (and can keep rising while still worth more); worth less and it rises only on the top face. Either way, times the multiplier.",
       "Roll": "Roll",
       "FromZero": "Your Resource Die was depleted; any reward brings it back to d4.",
       "AtMax": "Your Resource Die is already at d12."
@@ -931,7 +981,7 @@
     },
     "Battle": {
       "Title": "Battles",
-      "GMHint": "Large-scale combat. Set each army's troop count and leader, then start: the larger force gets an Army Strength Counter of 10, the other in proportion. Each round both leaders roll Leadership (on a success: deal 1 or block 1), then a morale check at −1 per counter lost. A failed morale check breaks the army; one more round is fought as it escapes. PCs can spend Edge (Support) for a side: add the d6 in the roll's Modifier box. Use ✓ / ✗ to record a check made without a leader.",
+      "GMHint": "Large-scale combat. Set each army's troop count and leader, then start: the larger force gets an Army Strength Counter of 10, the other in proportion. Each round both leaders roll Leadership (on a success: deal 1 or block 1), then a morale check at −1 per counter lost. A failed morale check breaks the army; one more round is fought as it escapes. PCs can spend Edge (Support) for a side: add their skill ranks (max +6) in the roll's Assistance box. Use ✓ / ✗ to record a check made without a leader.",
       "NewName": "New battle",
       "SideA": "Attackers",
       "SideB": "Defenders",
@@ -955,7 +1005,7 @@
       "Adjust": "Adjust strength (no chat)",
       "ClashCheck": "Leadership",
       "MoraleCheck": "Morale",
-      "SupportNote": "Edge support for this side: add the d6 to the Modifier.",
+      "SupportNote": "Edge support for this side: enter the assistance (max +6) in the Assistance box.",
       "MarkSuccess": "Mark a success (no roll)",
       "MarkFail": "Mark a failure (no roll)",
       "Success": "Success",

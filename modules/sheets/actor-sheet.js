@@ -1,10 +1,11 @@
 import { PENTRA } from "../config.js";
-import { formatDie, formatAttribute, karmaCostAttribute, karmaCostSkill, karmaCostTalent, reloadsUsed, projectTarget } from "../rules.js";
+import { formatDie, formatAttribute, karmaCostAttribute, karmaCostSkill, karmaCostTalent, reloadsUsed, projectTarget, skillBonus, formatCost } from "../rules.js";
 import * as Rolls from "../rolls.js";
 import { CREATION, nativeIndex } from "../creation.js";
 import { PURCHASED_TYPES } from "../documents.js";
 import { KARMA_SESSION, KARMA_ARCS } from "../apps/party.js";
 import * as Vehicles from "../vehicles.js";
+import { transferable, transferItem, giveDialog } from "../transfer.js";
 import * as Underwater from "../underwater.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -13,6 +14,19 @@ const { TextEditor } = foundry.applications.ux;
 const SYSTEM = "pentra-core-foundry-vtt";
 const TEMPLATES = `systems/${SYSTEM}/templates/actor`;
 const loc = key => game.i18n.localize(key);
+
+/**
+ * Downtime dropdowns (`select[data-remember]`) keep their last choice per character, in this browser, so a re-render
+ * after rolling doesn't send them back to the top of the list.
+ */
+const REMEMBER_KEY = `${SYSTEM}.downtimeChoices`;
+const remembered = (() => {
+  try { return JSON.parse(globalThis.localStorage?.getItem(REMEMBER_KEY) ?? "{}") ?? {}; } catch { return {}; }
+})();
+function rememberChoice(actorId, name, value) {
+  (remembered[actorId] ??= {})[name] = value;
+  try { globalThis.localStorage?.setItem(REMEMBER_KEY, JSON.stringify(remembered)); } catch { /* storage unavailable */ }
+}
 
 /** Die choices for selects. */
 const dieOptions = (dice, { zero = false } = {}) =>
@@ -37,6 +51,7 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
       itemToggle: PentraActorSheetBase.#onItemToggle,
       itemUsage: PentraActorSheetBase.#onItemUsage,
       itemSell: PentraActorSheetBase.#onItemSell,
+      itemGive: PentraActorSheetBase.#onItemGive,
       itemPost: PentraActorSheetBase.#onItemPost,
       repairArmor: PentraActorSheetBase.#onRepairArmor,
       salvageArmor: PentraActorSheetBase.#onSalvageArmor,
@@ -94,12 +109,20 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
         over: hands > 2 || backups > 1
       };
     }
-    context.martialArts = PENTRA.martialArts[sys.skills.martial_arts];
+    const unarmed = PENTRA.martialArts[sys.skills.martial_arts];
+    const woundWord = game.i18n.localize(unarmed.wounds === 1 ? "PENTRA.Wound" : "PENTRA.Wounds");
+    context.martialArts = {
+      ...unarmed,
+      label: `${unarmed.wounds} ${woundWord} (${game.i18n.localize(PENTRA.increments[unarmed.increment])})`
+    };
     if (actor.type === "character") context.vehicles = this._prepareVehicles();
     return context;
   }
 
   _prepareSkills(attribute) {
+    const skillTip = value => {
+      return game.i18n.format("PENTRA.Skill.BonusTip", { bonus: skillBonus(value) });
+    };
     const sys = this.actor.system;
     const skills = [];
     for (const [key, s] of Object.entries(PENTRA.skills)) {
@@ -107,7 +130,7 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
       const value = sys.skills[key];
       if (!this._editMode && !value && this.actor.type === "npc") continue;
       skills.push({
-        key, value, label: loc(s.label), karmaCost: karmaCostSkill(value), trained: value > 0,
+        key, value, label: loc(s.label), karmaCost: karmaCostSkill(value), trained: value > 0, tip: skillTip(value),
         canStep: this.isEditable, canRaise: this.isEditable && value < PENTRA.maxSkill, canLower: this.isEditable && value > 0
       });
     }
@@ -167,6 +190,13 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @override */
   _onRender(context, options) {
     super._onRender(context, options);
+    // Downtime dropdowns: restore the last choice, and remember new ones.
+    for (const select of this.element.querySelectorAll("select[data-remember]")) {
+      const name = select.dataset.remember;
+      const saved = remembered[this.actor.id]?.[name];
+      if (saved != null && [...select.options].some(o => o.value === saved)) select.value = saved;
+      select.addEventListener("change", () => rememberChoice(this.actor.id, name, select.value));
+    }
     // Inline editing of embedded item fields (e.g. quantity, usage die) from the actor sheet.
     for (const input of this.element.querySelectorAll("[data-item-field]")) {
       input.addEventListener("change", event => {
@@ -294,6 +324,21 @@ class PentraActorSheetBase extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (vehicle) return Vehicles.sellVehicle(vehicle);
   }
 
+  /**
+   * Gear dragged here from another character's or NPC's sheet changes hands: it moves (no purchase, no copy).
+   * Anything else (compendium, sidebar, reordering on this sheet) is handled as before.
+   * @override
+   */
+  async _onDropItem(event, item) {
+    if (item?.parent && transferable(item, this.actor)) return transferItem(item, this.actor);
+    return super._onDropItem(event, item);
+  }
+
+  static #onItemGive(event, target) {
+    const item = this._getItem(target);
+    if (item) return giveDialog(item);
+  }
+
   /** Dropping a vehicle on a character buys it (or the GM gifts it). @override */
   async _onDropActor(event, actor) {
     if (actor?.type !== "vehicle" || this.actor.type !== "character" || !this.isEditable) return null;
@@ -339,6 +384,7 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
       earnKarma: PentraCharacterSheet.#onEarnKarma,
       visitClinic: PentraCharacterSheet.#onVisitClinic,
       socialize: PentraCharacterSheet.#onSocialize,
+      workGig: PentraCharacterSheet.#onWorkGig,
       treatWounds: PentraCharacterSheet.#onTreatWounds,
       stabilize: PentraCharacterSheet.#onStabilize,
       toggleAncestry: PentraCharacterSheet.#onToggleAncestry,
@@ -437,7 +483,14 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
     this._prepareCreation(context);
     context.lifestyles = Object.fromEntries(Object.entries(PENTRA.lifestyles).map(([k, v]) => [k, `${loc(v.label)} (${formatDie(v.die)})`]));
     context.currentLifestyle = sys.lifestyle ? loc(PENTRA.lifestyles[sys.lifestyle].label) : null;
+    context.useLifestyles = PENTRA.useLifestyles;
+    context.lifestyleOptional = PENTRA.useLifestyles && game.settings.get(SYSTEM, "lifestyleOptional");
     context.socialSkills = Object.fromEntries(PENTRA.socialSkills.map(k => [k, `${loc(PENTRA.skills[k].label)} (${sys.skills[k]})`]));
+    context.gigSkills = Object.fromEntries(Object.entries(PENTRA.skills)
+      .map(([k, s]) => [k, `${loc(s.label)} (${sys.skills[k] ?? 0})`])
+      .sort((a, b) => a[1].localeCompare(b[1])));
+    context.gigDifficulties = Object.fromEntries(Object.entries(PENTRA.gigRewards).map(([k, pay]) =>
+      [k, `${loc(PENTRA.difficulties[k].label)} (${PENTRA.difficulties[k].tn}): ${formatCost(pay.die, pay.multiplier)}`]));
     context.reloadsUsed = reloadsUsed(sys.roundsFired);
     context.kits = {
       reloading: this.actor.items.find(i => i.type === "fieldkit" && i.system.kitType === "reloading"),
@@ -646,16 +699,23 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
   }
 
   static #onVisitClinic() {
-    return Rolls.visitClinic(this.actor);
+    return Rolls.cityActivity(this.actor, () => Rolls.visitClinic(this.actor));
+  }
+
+  static #onWorkGig() {
+    const skill = this.element.querySelector("select.gig-skill-select")?.value;
+    const difficulty = this.element.querySelector("select.gig-difficulty-select")?.value ?? "routine";
+    if (!skill) return;
+    return Rolls.cityActivity(this.actor, () => Rolls.workGig(this.actor, skill, difficulty));
   }
 
   static #onSocialize() {
     const skill = this.element.querySelector("select.socialize-select")?.value ?? "persuasion";
-    return Rolls.socialize(this.actor, skill);
+    return Rolls.cityActivity(this.actor, () => Rolls.socialize(this.actor, skill));
   }
 
   static #onRefreshKits() {
-    return this.actor.refreshKits();
+    return Rolls.cityActivity(this.actor, () => this.actor.refreshKits());
   }
 
   /** Projects as display rows. */
@@ -713,7 +773,8 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
   }
 
   static #onWorkProject(event, target) {
-    return Rolls.workOnProject(this.actor, target.closest("[data-project-id]")?.dataset.projectId);
+    const id = target.closest("[data-project-id]")?.dataset.projectId;
+    return Rolls.cityActivity(this.actor, () => Rolls.workOnProject(this.actor, id));
   }
 
   static #onTakeScar() {
@@ -738,7 +799,10 @@ export class PentraCharacterSheet extends PentraActorSheetBase {
   /** Downtime recovery: camp (1 wound) or a day of rest (2 wounds). */
   /** Camp rest (1 wound) or a day of city rest (2 wounds, +1 with Extreme Luxury). */
   static #onRest(event, target) {
-    return Rolls.rest(this.actor, target.dataset.kind);
+    const kind = target.dataset.kind;
+    // A Day of rest is a city activity (it takes the day's lifestyle); a Camp rest isn't.
+    if (kind === "city") return Rolls.cityActivity(this.actor, () => Rolls.rest(this.actor, kind));
+    return Rolls.rest(this.actor, kind);
   }
 }
 

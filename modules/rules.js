@@ -88,10 +88,13 @@ export function saleValue({ costDie, multiplier = 1 }) {
   return { die: stepDie(costDie, -1), multiplier: 1 };
 }
 
-/** Lowest face that counts as a success when selling to raise the Resource Die. */
+/**
+ * Lowest face that counts as a success when selling to raise the Resource Die: the maximum when the value is lower
+ * than the die, the top two when it is equal or greater, either times the multiplier (never below 1).
+ */
 export function saleThreshold({ saleDie, saleMultiplier = 1, resourceDie }) {
-  if (saleDie >= resourceDie) return resourceDie - 1;
-  return resourceDie - (saleMultiplier - 1);
+  const faces = (saleDie >= resourceDie ? 2 : 1) * Math.max(1, saleMultiplier);
+  return Math.max(1, resourceDie - faces + 1);
 }
 
 /** Karma to raise an attribute/resistance from `rank` to `rank+1`: 2x the next bonus. */
@@ -113,6 +116,39 @@ export function karmaCostTalent(talentCount) {
 
 /** Karma to buy off a hindrance. */
 export const KARMA_BUY_OFF_HINDRANCE = 25;
+
+/** Skill bonus on a check (core v0.7): the full skill rank. */
+export function skillBonus(rank) {
+  return clamp(Number(rank) || 0, 0, PENTRA.maxSkill);
+}
+
+/**
+ * Is a difficulty open to this check? Any skill rank can attempt any tier (core v0.7); resistances only allow Routine
+ * and Stressed. `rank` is kept so callers don't change.
+ * @param {string} key   Difficulty key (PENTRA.difficulties)
+ * @param {number} rank  Skill rank (0 for attribute checks)
+ * @param {{resistance?: boolean}} [opts]
+ */
+export function difficultyUnlocked(key, rank, { resistance = false } = {}) {
+  const d = PENTRA.difficulties[key];
+  if (!d) return false;
+  if (resistance) return PENTRA.resistanceDifficulties.includes(key);
+  return true;
+}
+
+/** The difficulty whose target number is `tn`, if any. */
+export function difficultyForTN(tn) {
+  return Object.keys(PENTRA.difficulties).find(k => PENTRA.difficulties[k].tn === Number(tn)) ?? null;
+}
+
+/** Combined assistance bonus from helpers' skill ranks, capped at +6. */
+export function assistanceBonus(total) {
+  return clamp(Math.floor(Number(total) || 0), 0, PENTRA.maxAssistance);
+}
+
+/** The advantage die adds its value; the disadvantage die subtracts its value (core v0.7). */
+export const ADVANTAGE_TERM = "1d6";
+export const DISADVANTAGE_TERM = "1d6";
 
 /**
  * Resolve the advantage state of a roll. Advantage and disadvantage never stack; one of each cancels.
@@ -328,6 +364,18 @@ const BAND_LIMITS = { melee: 1.5, veryClose: 3, close: 6, far: 12, veryFar: 24 }
 export function bandForDistance(yards) {
   for (const band of RANGE_BANDS) if (band in BAND_LIMITS && yards <= BAND_LIMITS[band]) return band;
   return "outOfRange";
+}
+
+/**
+ * Can a melee weapon strike a target in this band? Melee weapons reach Melee; one whose range is set farther
+ * (a halberd or pike that "strikes Very Close") reaches out to that band too.
+ * @param {string} band   The measured band to the target
+ * @param {string} range  The weapon's range ("melee", "veryClose" …)
+ */
+export function meleeReaches(band, range = "melee") {
+  const reach = Math.max(RANGE_BANDS.indexOf(range), 0);
+  const i = RANGE_BANDS.indexOf(band);
+  return i >= 0 && i <= reach;
 }
 
 /** A weapon can fire at most this many bands farther / closer than its preferred band. */

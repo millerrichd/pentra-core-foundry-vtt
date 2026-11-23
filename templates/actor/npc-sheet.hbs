@@ -87,7 +87,7 @@
       <ol class="item-list">
         <li class="item-row unarmed">
           <a class="item-name rollable" data-action="attack" data-unarmed="true"><i class="fa-solid fa-hand-fist"></i> {{localize "PENTRA.Unarmed"}}</a>
-          <span class="col">{{martialArts.wounds}} ({{localize (lookup config.increments martialArts.increment)}})</span>
+          <span class="col">{{martialArts.label}}</span>
           <span class="controls"></span>
         </li>
         {{#each items.weapon}}

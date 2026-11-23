@@ -5,7 +5,7 @@ import {
   weaponSlotProblem, autoWeaponSlot, vehicleModProblem, moveLimits
 } from "./rules.js";
 import { CREATION, creationBudget, creationViolations, raisesStats } from "./creation.js";
-import { purchase, lingeringDamage, diseaseCheck, syncDiseased, shiftTraitPool } from "./rolls.js";
+import { purchase, lingeringDamage, diseaseCheck, syncDiseased, shiftTraitPool, rollCheck, defaultTN } from "./rolls.js";
 import { actorUnderwater, breathCheck } from "./underwater.js";
 
 /** Item types a character must buy with the Resource Die (or be gifted by the GM). */
@@ -254,9 +254,47 @@ export class PentraActor extends Actor {
     const value = this.system.skills[key];
     const cost = karmaCostSkill(value);
     if (cost === null) return ui.notifications.warn(loc("PENTRA.Karma.AtMax"));
-    let label = `${loc(PENTRA.skills[key].label)} ${value} → ${value + 1}`;
-    if (value === 0) label += ` (${loc("PENTRA.Karma.LearnNote")})`;
+    const label = `${loc(PENTRA.skills[key].label)} ${value} → ${value + 1}`;
+    if (value === 0) return this.#learnSkill(key, cost, label);
     return this.#spendKarma(cost, label, { [`system.skills.${key}`]: value + 1 });
+  }
+
+  /**
+   * Learn a brand new skill (0 → 1): from a teacher with the skill at 3+ (the Karma buys the rank), or with a
+   * Research check, where the Karma is spent whether or not the check succeeds.
+   */
+  async #learnSkill(key, cost, label) {
+    const karma = this.system.karma.value;
+    if (cost > karma) return ui.notifications.warn(fmt("PENTRA.Karma.NotEnough", { cost, karma }));
+    const skill = foundry.utils.escapeHTML(loc(PENTRA.skills[key].label));
+    const how = await foundry.applications.api.DialogV2.wait({
+      window: { title: fmt("PENTRA.Karma.LearnTitle", { skill }) },
+      content: `<p>${fmt("PENTRA.Karma.LearnPrompt", { skill, cost, karma })}</p>`,
+      buttons: [
+        { action: "teacher", label: loc("PENTRA.Karma.LearnTeacher"), icon: "fa-solid fa-chalkboard-user", default: true },
+        { action: "research", label: loc("PENTRA.Karma.LearnResearch"), icon: "fa-solid fa-book-open" },
+        { action: "cancel", label: loc("Cancel"), icon: "fa-solid fa-xmark" }
+      ],
+      rejectClose: false
+    });
+    if (how === "teacher") {
+      return this.#spendKarma(cost, `${label} (${loc("PENTRA.Karma.LearnTaught")})`, { [`system.skills.${key}`]: 1 });
+    }
+    if (how !== "research") return false;
+
+    const msg = await rollCheck(this, {
+      type: "skill", key: "research", tn: defaultTN(), label: fmt("PENTRA.Karma.LearnCheck", { skill })
+    });
+    if (!msg) return false; // roll dialog cancelled: nothing spent
+    const learned = !!msg.getFlag(SYSTEM, "success");
+    const updates = { "system.karma.value": this.system.karma.value - cost };
+    if (learned) updates[`system.skills.${key}`] = 1;
+    await this.update(updates, { pentraKarma: true, pentraMechanic: true });
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      content: `<p>${fmt(learned ? "PENTRA.Karma.Learned" : "PENTRA.Karma.LearnFailed", { name: foundry.utils.escapeHTML(this.name), cost, skill })}</p>`
+    });
+    return learned;
   }
 
   async improveLanguage(index) {
@@ -295,6 +333,7 @@ export class PentraActor extends Actor {
     const updates = this.items.filter(i => i.type === "fieldkit").map(i => ({ _id: i.id, "system.usage": die }));
     await this.updateEmbeddedDocuments("Item", updates);
     ui.notifications.info(fmt("PENTRA.Kit.Refreshed", { die: formatDie(die) }));
+    return true;
   }
 
   /** Award Karma: adds to both current and lifetime-earned Karma, and announces it. */

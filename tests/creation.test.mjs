@@ -98,3 +98,14 @@ test("native language falls back to the first entry", () => {
   assert.equal(nativeIndex([{ value: 4 }, { value: 2 }]), 0);
   assert.equal(nativeIndex([{ value: 1 }, { value: 4, native: true }]), 1);
 });
+
+test("languages a setting grants for free cost no creation points", () => {
+  const granted = face();
+  granted.languages.push({ name: "Eltarus", value: 3, free: true });
+  assert.equal(creationBudget(granted, ctx).skills.used, creationBudget(face(), ctx).skills.used);
+  assert.equal(creationViolations(face(), granted, ctx).length, 0);
+  // Still capped like any non-native language.
+  const over = clone(granted);
+  over.languages[1].value = 4;
+  assert.ok(creationViolations(granted, over, ctx).some(e => e.key.endsWith("SkillCap")));
+});

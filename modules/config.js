@@ -4,8 +4,25 @@
  */
 export const PENTRA = {};
 
-/** Default target number for non-combat checks (rulebook v0.2 changed this from 12 to 9). */
+/** Default target number for non-combat checks: Routine. */
 PENTRA.defaultTN = 9;
+
+/** Target numbers (core v0.7): spaced by 3 from Routine (9) to Near Impossible (30). Any character can attempt any. */
+PENTRA.difficulties = {
+  routine: { label: "PENTRA.Difficulty.routine", tn: 9 },
+  stressed: { label: "PENTRA.Difficulty.stressed", tn: 12 },
+  challenging: { label: "PENTRA.Difficulty.challenging", tn: 15 },
+  advanced: { label: "PENTRA.Difficulty.advanced", tn: 18 },
+  hardcore: { label: "PENTRA.Difficulty.hardcore", tn: 21 },
+  exceptional: { label: "PENTRA.Difficulty.exceptional", tn: 24 },
+  extraordinary: { label: "PENTRA.Difficulty.extraordinary", tn: 27 },
+  nearImpossible: { label: "PENTRA.Difficulty.nearImpossible", tn: 30 }
+};
+/** Resistances can only be Routine or Stressed: nothing but advantage can be added to a resistance check. */
+PENTRA.resistanceDifficulties = ["routine", "stressed"];
+
+/** Assistance: each helper (1 Edge) adds their skill rank, to a combined maximum of +6. */
+PENTRA.maxAssistance = 6;
 
 /** Maximum Edge a character can hold in a session. */
 PENTRA.maxEdge = 6;
@@ -95,6 +112,18 @@ PENTRA.nativeLanguageRank = 4;
 /** Skills that can be used to make attacks. */
 PENTRA.attackSkills = ["melee_weapons", "martial_arts", "shooting", "thrown", "heavy_weapons"];
 
+/** Work a Gig (city downtime): the Resource Die reward paid for a successful check at each difficulty. */
+PENTRA.gigRewards = {
+  routine: { die: 4, multiplier: 1 },
+  stressed: { die: 4, multiplier: 2 },
+  challenging: { die: 6, multiplier: 1 },
+  advanced: { die: 6, multiplier: 2 },
+  hardcore: { die: 8, multiplier: 1 },
+  exceptional: { die: 8, multiplier: 2 },
+  extraordinary: { die: 10, multiplier: 1 },
+  nearImpossible: { die: 10, multiplier: 2 }
+};
+
 /** Skills used for the Socialize downtime action. */
 PENTRA.socialSkills = ["deception", "intimidation", "leadership", "persuasion"];
 
@@ -106,7 +135,7 @@ PENTRA.traits = {
   deathDie: { label: "PENTRA.Trait.deathDie", type: "die", base: 12 },
   durabilityDie: { label: "PENTRA.Trait.durabilityDie", type: "die", base: 8 },
   edge: { label: "PENTRA.Trait.edge", type: "number", base: 2 },
-  evasion: { label: "PENTRA.Trait.evasion", type: "number", base: 9 },
+  evasion: { label: "PENTRA.Trait.evasion", type: "number", base: 12 },
   health: { label: "PENTRA.Trait.health", type: "number", base: 12 },
   initiativeDie: { label: "PENTRA.Trait.initiativeDie", type: "die", base: 6 },
   resourceDie: { label: "PENTRA.Trait.resourceDie", type: "die", base: 6 },
@@ -196,6 +225,9 @@ PENTRA.martialArts = [
 
 /** Wounds healed by a successful Medicine check, by Medicine rank (index = rank). */
 PENTRA.medicineHealing = [1, 1, 1, 1, 2, 2, 3];
+
+/** Whether city downtime uses lifestyles (a setting can turn them off: Z-World has none). */
+PENTRA.useLifestyles = true;
 
 /** Downtime lifestyles and their Resource Die cost. */
 PENTRA.lifestyles = {

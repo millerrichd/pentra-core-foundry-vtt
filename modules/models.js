@@ -38,8 +38,8 @@ const physicalFields = (size = "normal") => ({
 /*  Actors                                                                    */
 /* -------------------------------------------------------------------------- */
 
-/** A restrained character's Evasion is halved, rounded down. */
-const restrained = (actor, evasion) => (actor?.statuses?.has("restrained") ? Math.floor(evasion / 2) : evasion);
+/** A restrained character's Evasion is halved, rounded up. */
+const restrained = (actor, evasion) => (actor?.statuses?.has("restrained") ? Math.ceil(evasion / 2) : evasion);
 
 /** Shared schema and derivations for anything with attributes and skills. */
 class PentraActorBase extends foundry.abstract.TypeDataModel {
@@ -51,7 +51,9 @@ class PentraActorBase extends foundry.abstract.TypeDataModel {
       languages: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({ required: true, blank: true, initial: "" }),
         value: int(0, { min: 0, max: PENTRA.maxSkill }),
-        native: new fields.BooleanField({ initial: false })
+        native: new fields.BooleanField({ initial: false }),
+        /** Granted by the setting (e.g. a trade tongue everyone learns): costs no creation points. */
+        free: new fields.BooleanField({ initial: false })
       })),
       size: new fields.StringField({ required: true, initial: "medium", choices: Object.keys(PENTRA.creatureSizes) })
     };
@@ -164,10 +166,14 @@ export class PentraCharacterModel extends PentraActorBase {
     this.evasion = { base: trait("evasion") };
     this.evasion.value = restrained(this.parent, Math.max(this.evasion.base + this.armorEvasion, 0));
 
-    // Carry slots: field kits count toward the 6 normal-sized item limit.
+    // Carry slots: field kits, armor that isn't being worn and stowed weapons count toward the 6 normal-sized
+    // item limit (worn armor and weapons in the primary/backup slots don't).
     let slots = 0;
     for (const item of this.parent.items) {
-      if (item.type !== "fieldkit") continue;
+      const packed = item.type === "fieldkit"
+        || (item.type === "armor" && !item.system.equipped)
+        || (item.type === "weapon" && item.system.slot === "stowed");
+      if (!packed) continue;
       const qty = item.system.quantity ?? 1;
       slots += (PENTRA.sizes[item.system.size]?.slots ?? 1) * qty;
     }
@@ -195,7 +201,7 @@ export class PentraNPCModel extends PentraActorBase {
         value: int(6, { min: 0 }),
         max: int(6, { min: 0 })
       }),
-      evasion: new fields.SchemaField({ base: int(9) }),
+      evasion: new fields.SchemaField({ base: int(PENTRA.traits.evasion.base) }),
       initiativeDie: new fields.SchemaField({ value: dieField(6, { choices: [4, 6, 8, 10, 12] }) })
     };
   }
@@ -300,7 +306,7 @@ export class PentraWeaponModel extends PentraItemBase {
       reloadActions: int(0, { min: 0 }),
       /** Underwater: range drops a band (reduced), also -2 for swinging weapons (swing), torpedoes (full), or fire-based (none). */
       underwater: new fields.StringField({ required: true, initial: "reduced", choices: UNDERWATER_MODES }),
-      /** Carry slot: primary (2 hands' worth), backup (one weapon), or stowed (owned but not carried). */
+      /** Carry slot: primary (2 hands' worth), backup (one weapon), or stowed (packed; uses gear slots by size). */
       slot: new fields.StringField({ required: true, initial: "stowed", choices: WEAPON_SLOTS })
     };
   }

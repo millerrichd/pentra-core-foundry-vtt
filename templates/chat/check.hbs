@@ -14,7 +14,7 @@
       <span class="vs">{{localize "PENTRA.Roll.VsEvasion"}} {{tn}}{{#if targetName}} ({{targetName}}){{/if}}</span>
     {{else}}
       {{#if success}}{{localize "PENTRA.Roll.Success"}}{{else}}{{localize "PENTRA.Roll.Failure"}}{{/if}}
-      <span class="vs">{{localize "PENTRA.Roll.VsTN"}} {{tn}}</span>
+      <span class="vs">{{localize "PENTRA.Roll.VsTN"}} {{tn}}{{#if difficultyLabel}} ({{difficultyLabel}}){{/if}}</span>
     {{/if}}
   </div>
   {{#if edgeGained}}<div class="tag edge"><i class="fa-solid fa-bolt"></i> {{localize "PENTRA.Roll.EdgeGained"}} +{{edgeGained}}</div>{{/if}}

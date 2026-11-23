@@ -5,7 +5,7 @@
   "type": "hindrance",
   "img": "systems/pentra-core-foundry-vtt/assets/noun_hindrance_orange@512.webp",
   "system": {
-    "description": "<p>Your default Evasion is reduced from 9 to 7.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
+    "description": "<p>Your default Evasion is reduced from 12 to 10.</p><p>You cannot take talents that undo this hindrance; it is permanent unless bought off with 25 Karma.</p>",
     "trait": "evasion",
     "delta": -2,
     "requires": ""

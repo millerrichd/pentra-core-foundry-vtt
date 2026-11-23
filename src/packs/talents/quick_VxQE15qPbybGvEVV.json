@@ -5,7 +5,7 @@
   "type": "talent",
   "img": "systems/pentra-core-foundry-vtt/assets/noun_talent_orange@512.webp",
   "system": {
-    "description": "<p>Your default Evasion is increased from 9 to 11.</p>",
+    "description": "<p>Your default Evasion is increased from 12 to 14.</p>",
     "trait": "evasion",
     "delta": 2,
     "requires": ""
